@@ -37,5 +37,16 @@ checkpoints/
 /artifacts/M0/tutorials/*
 !/artifacts/M0/tutorials/*.py
 
+# Keep M1's small reviewable evidence; video, raw frames/logs and caches stay local.
+!/artifacts/M1/
+/artifacts/M1/*
+!/artifacts/M1/report.md
+!/artifacts/M1/result.json
+!/artifacts/M1/gui_validation.json
+!/artifacts/M1/reset_checks.json
+!/artifacts/M1/environment_preservation.json
+!/artifacts/M1/camera_preview.png
+!/artifacts/M1/hover_plots.png
+
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/

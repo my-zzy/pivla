@@ -1,0 +1,45 @@
+# M1 engineering settings. Units: m, s, kg, N, N m, radians.
+seed: 7
+physics_hz: 200
+controller_hz: 100
+camera_hz: 5
+settle_s: 5.0
+hover_s: 20.0
+position_tolerance_m: 0.10
+yaw_tolerance_rad: 0.05
+gravity: 9.81
+room_size: [6.0, 6.0, 3.0]
+drone:
+  mass_kg: 1.0
+  inertia_kg_m2: [0.012, 0.015, 0.025]
+  body_size_m: [0.32, 0.24, 0.10]
+  initial_position: [-0.30, 0.20, 0.85]
+  initial_yaw: 0.20
+  reset_position_jitter_m: 0.02
+controller:
+  position_kp: [4.0, 4.0, 6.0]
+  velocity_kd: [3.5, 3.5, 4.5]
+  attitude_kp: [0.60, 0.60, 0.40]
+  angular_velocity_kd: [0.16, 0.18, 0.16]
+  max_tilt_rad: 0.52
+  max_thrust_n: 22.0
+  max_torque_nm: [1.0, 1.0, 0.5]
+target:
+  position: [0.0, 0.0, 1.20]
+  yaw: 0.0
+cameras:
+  width: 256
+  height: 256
+  focal_length_mm: 18.0
+  horizontal_aperture_mm: 24.0
+  clipping_range_m: [0.03, 30.0]
+  # Camera world convention: +X forward, +Z up; rotations below are wxyz.
+  front:
+    position: [0.43, 0.0, -0.02]
+    quaternion: [1.0, 0.0, 0.0, 0.0]
+  down:
+    position: [0.0, 0.0, -0.09]
+    quaternion: [0.7071067811865476, 0.0, 0.7071067811865476, 0.0]
+  external:
+    position: [2.6, 2.6, 2.5]
+    look_at: [0.0, 0.0, 0.9]

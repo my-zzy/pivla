@@ -46,4 +46,8 @@ project:
   task: Template-Airvla-Isaac-Direct-v0
   installed_into_shared_environment: false
   m0_status: passed
-  launch: bash scripts/run_isaac.sh scripts/m0_project_smoke.py
+  m1_status: passed
+  m1_verified_date: 2026-10-10
+  m1_environment: airvla_isaac.sim.env.HoverEnv
+  launch: bash scripts/run_isaac.sh scripts/m1_hover.py --enable_cameras
+  m0_launch: bash scripts/run_isaac.sh scripts/m0_project_smoke.py

@@ -2,8 +2,10 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0 complete — simulator, cameras, external project, and CUDA checked. See the [M0 report](artifacts/M0/report.md). Dataset and training work have not started.  
-**Next task:** M1 — build force-driven hover and three cameras in the external project.  
+**Current status:** M0 and M1 complete — simulator setup, force-driven hover, repeatable resets, and three cameras verified. See the [M0 report](artifacts/M0/report.md) and [M1 report](artifacts/M1/report.md). Dataset and training work have not started.
+
+**Next task:** M2 — add a physical gripper, grasp and lift a block, then implement scripted pick-and-place.
+
 **First useful result:** A drone physically grasps and lifts a block while all three cameras and flight data are recorded.
 
 **Environment choice and constraint:** Use the existing `isaaclab` environment for simulation and the existing `lerobot` environment for dataset/policy work, as requested. Both serve other projects; preserve their packages, editable links, source files, and shell configuration during simulator work. Use `scripts/run_isaac.sh` for project-local simulation imports and runtime files. Record and resolve any missing π0 dependencies before M4; no environment clone is planned.
@@ -15,14 +17,14 @@
 3. Save the command, configuration, and evidence under `artifacts/M<number>/`.
 4. Mark a milestone complete only when its checks pass. Update the progress log before moving on.
 
-The external project now exists at `airvla_isaac/`; its generated direct task is a cartpole smoke test, ready to be replaced by the drone task in M1. Later milestone code paths remain planned responsibilities within that package. Shared configs and evidence are under this workspace's `configs/` and `artifacts/`.
+The external project lives at `airvla_isaac/`. M1 is implemented in `source/airvla_isaac/airvla_isaac/sim/` inside that project, and runs through `scripts/m1_hover.py`. The generated direct cartpole task is retained as the M0 installation check. Later milestone code paths remain planned responsibilities within the package. Shared configs and evidence are under this workspace's `configs/` and `artifacts/`.
 
 ## Milestone map
 
 | Done | Milestone | Depends on | Result |
 |:--:|:--|:--|:--|
 | [x] | [M0 — Setup](#m0--setup) | — | Verified versions and working simulator |
-| [ ] | [M1 — Hover and cameras](#m1--hover-and-cameras) | M0 | Force-driven hover and three RGB views |
+| [x] | [M1 — Hover and cameras](#m1--hover-and-cameras) | M0 | Force-driven hover and three RGB views |
 | [ ] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
 | [ ] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
 | [ ] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
@@ -47,7 +49,7 @@ The external project now exists at `airvla_isaac/`; its generated direct task is
 
 **Evidence:** [M0 report and commands](artifacts/M0/report.md), [camera preview](artifacts/M0/camera_preview.png), and [external-project result](artifacts/M0/project_result.json). Package metadata and shared source status were unchanged after the checks.
 
-**Next:** M1. Training will use the existing `lerobot` environment. Its missing `transformers` dependency remains an M4 readiness item; no packages were changed by this environment selection.
+**Follow-up:** M1 is now complete. Training will use the existing `lerobot` environment. Its missing `transformers` dependency remains an M4 readiness item; no packages were changed by this environment selection.
 
 Reference: [Software and startup](AirVLA_IsaacLab_Reproduction_Guide.md#2-software-and-startup).
 
@@ -55,15 +57,19 @@ Reference: [Software and startup](AirVLA_IsaacLab_Reproduction_Guide.md#2-softwa
 
 **Build:** `sim/scene_cfg.py`, `sim/drone_cfg.py`, `sim/flight_controller.py`, `sim/cameras.py`, `sim/env.py`, and `configs/sim.yaml`.
 
-- [ ] Create one simple room, a dynamic drone, and a deterministic reset. Use simple collision geometry.
-- [ ] Apply thrust and body torque; implement position/yaw tracking with a geometric PD controller.
-- [ ] Record world/body frames, quaternion ordering, masses, controller gains, and actuator limits.
-- [ ] Add front, downward, and fixed external cameras. Save a frame from each and verify what each sees.
-- [ ] Log pose, target pose, velocity, thrust, torque, simulation time, and camera timestamps.
+- [x] Create one simple room, a dynamic drone, and a deterministic reset. Use simple collision geometry.
+- [x] Apply thrust and body torque; implement position/yaw tracking with a geometric PD controller.
+- [x] Record world/body frames, quaternion ordering, masses, controller gains, and actuator limits.
+- [x] Add front, downward, and fixed external cameras. Save a frame from each and verify what each sees.
+- [x] Log pose, target pose, velocity, thrust, torque, simulation time, and camera timestamps.
 
 **Done when:** An unloaded drone holds a fixed target for 20 simulated seconds after settling; all camera streams are usable; three same-seed resets reproduce the configured initial state. Save a video and altitude/position-error plots in `artifacts/M1/`.
 
 **Suggested local threshold:** Maximum position error ≤0.10 m during the hover window. Record any revised threshold before measuring; this is an engineering check, not a paper result.
+
+**Evidence:** [M1 report and reproduction commands](artifacts/M1/report.md), [results](artifacts/M1/result.json), [camera preview](artifacts/M1/camera_preview.png), [hover plots](artifacts/M1/hover_plots.png), and local [video](artifacts/M1/hover.mp4). Maximum hover error was 0.003684 m over the 20 s window after 5 s settling. Three same-seed resets and one-second trajectories matched; all cameras produced 125 frames at 5 Hz. Shared environment metadata and source status were unchanged.
+
+**Next:** M2. Keep the existing controller gains as the unloaded baseline when introducing gripper mass and payload contact.
 
 Reference: [Scene and physics](AirVLA_IsaacLab_Reproduction_Guide.md#3-scene-and-physics) and [Cameras and timing](AirVLA_IsaacLab_Reproduction_Guide.md#4-cameras-and-timing).
 
@@ -187,6 +193,8 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | Date | Milestone | Status | Evidence / blocker | Next action |
 |:--|:--|:--|:--|:--|
 | 2026-10-09 | M0 | Done | [Report](artifacts/M0/report.md): 120 empty-scene steps, 20 RGB frames, 120 direct-task steps, CUDA in both environments; shared package metadata/source status unchanged | M1: drone physics, hover controller, and three cameras |
+| 2026-10-10 | M1 | Done | [Report](artifacts/M1/report.md): 20 s hover, maximum error 3.684 mm, three repeatable resets, 125 frames per camera, free-fall and controller checks passed; shared environment/source fingerprints unchanged | M2: physical gripper and scripted grasp-and-lift |
+| 2026-10-10 | M1 GUI fix | Done | [GUI validation](artifacts/M1/gui_validation.json): corrected render-driven extra physics steps; full desktop run passed with exactly 5,000 engine ticks and 3.684 mm maximum hover error | M2; use `--gui --keep-open` to inspect the simulator |
 
 To start a future session:
 

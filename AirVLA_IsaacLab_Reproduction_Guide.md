@@ -2,7 +2,7 @@
 
 **Working checklist:** [implement_guide.md](implement_guide.md) — start there for the next task, completion checks, and progress log.  
 **Scope:** An AirVLA-inspired implementation in Isaac Lab, using scripted demonstrations and π0 fine-tuning.  
-**Updated:** 2026-10-09. M0 setup is verified; the drone/data/policy implementation is still planned. See the [M0 report](artifacts/M0/report.md).
+**Updated:** 2026-10-10. M0 setup and M1 force-driven hover/three-camera checks are verified. Physical manipulation, datasets and policy work are next. See the [M0 report](artifacts/M0/report.md) and [M1 report](artifacts/M1/report.md).
 
 ## Read only what you need
 
@@ -43,7 +43,7 @@ This project replaces the paper's real teleoperation and 3DGS rendering with scr
 
 ## 2. Software and startup
 
-**This machine is ready for M1.** M0 verified the existing Isaac Sim 5.1.0, Isaac Lab 2.3.2 checkout, RTX 5090, and separate simulator/LeRobot environments. Exact paths and commits are in [configs/versions.yaml](configs/versions.yaml). Preserve these shared environments; use [the project launcher](scripts/run_isaac.sh), which sets imports for its child process and mounts shared installations read-only. The commands in the [M0 report](artifacts/M0/report.md) reproduce the checks without installing packages.
+**M1 has passed on this machine; M2 is next.** M0 verified the existing Isaac Sim 5.1.0, Isaac Lab 2.3.2 checkout, RTX 5090, and separate simulator/LeRobot environments. Exact paths and commits are in [configs/versions.yaml](configs/versions.yaml). Preserve these shared environments; use [the project launcher](scripts/run_isaac.sh), which sets imports for its child process and mounts shared installations read-only. The commands in the [M0 report](artifacts/M0/report.md) reproduce the checks without installing packages.
 
 ### Proposed stack
 
@@ -81,7 +81,7 @@ The [external project](airvla_isaac/README.md) is already generated with the dir
 | Area | Planned responsibilities |
 |:--|:--|
 | `assets/` | Room, drone, gripper, objects |
-| `sim/` | Scene/robot configuration, cameras, controllers, environment |
+| `sim/` | Implemented in M1: procedural scene/drone, fixed camera extrinsics, geometric PD, stepping/reset environment |
 | `data/` | Expert, collection, conversion, validation |
 | `policy/` | Action codec, π0 adapter, rollout, RTC, guidance |
 | `eval/` | Evaluation driver and metrics |

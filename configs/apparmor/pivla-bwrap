@@ -1,0 +1,9 @@
+# Ubuntu 24.04: allow the system bubblewrap executable to create user namespaces.
+# This applies to /usr/bin/bwrap for all users, not just this repository.
+# Bubblewrap's own read-only mount configuration still protects shared installs.
+abi <abi/4.0>,
+include <tunables/global>
+
+profile pivla-bwrap /usr/bin/bwrap flags=(unconfined) {
+    userns,
+}

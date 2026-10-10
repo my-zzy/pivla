@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "simulation_duration_s": 25.0,
+  "physics_steps": 5000,
+  "camera_frames_per_stream": 125,
+  "physics_engine_steps": 5000,
+  "gui": true,
+  "checks": {
+    "mass_inertia": true,
+    "unpowered_gravity": true,
+    "same_seed_initial_state": true,
+    "same_seed_trajectory": true,
+    "different_seed_jitter": true,
+    "exact_physics_step_count": true,
+    "finite_state_and_wrench": true,
+    "camera_rgb_nonuniform": true,
+    "camera_mount_positions": true,
+    "camera_mount_rotations": true,
+    "camera_timing": true,
+    "hover_20_seconds": true,
+    "hover_position": true,
+    "hover_yaw": true
+  },
+  "metrics": {
+    "initial_position_error_m": 0.49251644176171966,
+    "max_camera_mount_position_error_m": 1.348699153604683e-07,
+    "max_camera_rotation_matrix_error": 4.1721614252310246e-07,
+    "minimum_rgb_std": {
+      "front": 26.498108486031473,
+      "down": 36.38859560138115,
+      "external": 30.62627701193807
+    },
+    "hover_max_position_error_m": 0.003683991472226843,
+    "hover_rms_position_error_m": 0.0007112516281738588,
+    "hover_max_yaw_error_rad": 5.7006311991962096e-06,
+    "hover_mean_thrust_n": 9.810002927780152,
+    "hover_sample_count": 4000
+  },
+  "timestamp_convention": "Episode-relative simulation time. Rendering is synchronous with physics paused; capture and availability simulation times coincide.",
+  "command": "bash scripts/run_isaac.sh scripts/m1_hover.py --enable_cameras --config /home/user/pivla/configs/sim.yaml --output /home/user/pivla/artifacts/M1/gui_validation --gui",
+  "headless_comparison_max_abs_state_wrench_difference": 0.0
+}
