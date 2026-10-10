@@ -2,11 +2,11 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0 and M1 complete — simulator setup, force-driven hover, repeatable resets, and three cameras verified. See the [M0 report](artifacts/M0/report.md) and [M1 report](artifacts/M1/report.md). Dataset and training work have not started.
+**Current status:** M0–M2 complete — setup, hover/cameras, and physical scripted pick-and-place verified. M2 passed 10/10 fixed-scene trials; see the [report](artifacts/M2/report.md) and local [video](artifacts/M2/pick_place.mp4). LeRobot dataset conversion and training have not started.
 
-**Next task:** M2 — add a physical gripper, grasp and lift a block, then implement scripted pick-and-place.
+**Next task:** M3 — freeze the observation/action contract, validate relative-action conversion, and collect/export 20–30 varied demonstrations to LeRobot.
 
-**First useful result:** A drone physically grasps and lifts a block while all three cameras and flight data are recorded.
+**First useful result achieved:** The drone physically grasps, lifts, transports, and releases a 100 g block into a bin, with three recorded camera streams and flight/contact measurements.
 
 **Environment choice and constraint:** Use the existing `isaaclab` environment for simulation and the existing `lerobot` environment for dataset/policy work, as requested. Both serve other projects; preserve their packages, editable links, source files, and shell configuration during simulator work. Use `scripts/run_isaac.sh` for project-local simulation imports and runtime files. Record and resolve any missing π0 dependencies before M4; no environment clone is planned.
 
@@ -25,7 +25,7 @@ The external project lives at `airvla_isaac/`. M1 is implemented in `source/airv
 |:--:|:--|:--|:--|
 | [x] | [M0 — Setup](#m0--setup) | — | Verified versions and working simulator |
 | [x] | [M1 — Hover and cameras](#m1--hover-and-cameras) | M0 | Force-driven hover and three RGB views |
-| [ ] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
+| [x] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
 | [ ] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
 | [ ] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
 | [ ] | [M5 — Policy baseline](#m5--policy-baseline) | M4 | Measured closed-loop π0 performance |
@@ -69,7 +69,7 @@ Reference: [Software and startup](AirVLA_IsaacLab_Reproduction_Guide.md#2-softwa
 
 **Evidence:** [M1 report and reproduction commands](artifacts/M1/report.md), [results](artifacts/M1/result.json), [camera preview](artifacts/M1/camera_preview.png), [hover plots](artifacts/M1/hover_plots.png), and local [video](artifacts/M1/hover.mp4). Maximum hover error was 0.003684 m over the 20 s window after 5 s settling. Three same-seed resets and one-second trajectories matched; all cameras produced 125 frames at 5 Hz. Shared environment metadata and source status were unchanged.
 
-**Next:** M2. Keep the existing controller gains as the unloaded baseline when introducing gripper mass and payload contact.
+**Follow-up:** M2 verified payload contact with the same flight gains. Empty-mass feedforward includes the installed fingers; the grasped payload is not added to the controller's mass model.
 
 Reference: [Scene and physics](AirVLA_IsaacLab_Reproduction_Guide.md#3-scene-and-physics) and [Cameras and timing](AirVLA_IsaacLab_Reproduction_Guide.md#4-cameras-and-timing).
 
@@ -77,14 +77,16 @@ Reference: [Scene and physics](AirVLA_IsaacLab_Reproduction_Guide.md#3-scene-and
 
 **Build:** `sim/gripper_controller.py`, `data/expert_policy.py`, and `data/collect_demos.py`.
 
-- [ ] Attach a physical two-finger gripper. Add a table, one rigid block, and an open bin.
-- [ ] Implement `approach → descend → grasp → lift → transport → release → retreat`.
-- [ ] Advance stages using pose, aperture, and contact conditions; add timeouts and log failed stages.
-- [ ] First grasp and lift; then add transport and release.
-- [ ] Compare empty and loaded flight using the same controller settings. Include a 0.10 kg block if within the drone's thrust capacity; document a different mass if necessary.
-- [ ] Save one complete raw episode with images, timestamps, actual state, desired setpoints, gripper commands, and outcome.
+- [x] Attach a physical two-finger gripper. Add a table, one rigid block, and an open bin.
+- [x] Implement `approach → descend → grasp → lift → transport → release → retreat`.
+- [x] Advance stages using pose, aperture, and contact conditions; add timeouts and log failed stages.
+- [x] First grasp and lift; then add transport and release.
+- [x] Compare empty and loaded flight using the same controller settings. Include a 0.10 kg block if within the drone's thrust capacity; document a different mass if necessary.
+- [x] Save one complete raw episode with images, timestamps, actual state, desired setpoints, gripper commands, and outcome.
 
 **Done when:** The object remains held after leaving the table, physically loads the drone, and is released into the bin. Target 10/10 successful scripted runs in the fixed scene from repeatable resets. Save videos and loaded-versus-empty thrust/altitude plots in `artifacts/M2/`.
+
+**Evidence:** [M2 report](artifacts/M2/report.md), [10/10 results](artifacts/M2/result.json), [load/contact plots](artifacts/M2/load_contact_plots.png), [camera preview](artifacts/M2/camera_preview.png), and local [video](artifacts/M2/pick_place.mp4). Each run took 51.4 simulated seconds; the recorded episode has 257 frames per camera. Mean hover thrust rose from 10.3005 N to 11.2815 N. Loaded altitude settled 0.1561 m below target with unchanged gains and sustained two-finger contact. No attachment or pose-tracking shortcut holds the block. The full M1 regression passed, and [shared environments/sources remained unchanged](artifacts/M2/environment_preservation.json).
 
 **Stop here for the first demo.** If the expert cannot complete the task reliably, fix control/contact behavior before collecting training data.
 
@@ -195,6 +197,7 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-09 | M0 | Done | [Report](artifacts/M0/report.md): 120 empty-scene steps, 20 RGB frames, 120 direct-task steps, CUDA in both environments; shared package metadata/source status unchanged | M1: drone physics, hover controller, and three cameras |
 | 2026-10-10 | M1 | Done | [Report](artifacts/M1/report.md): 20 s hover, maximum error 3.684 mm, three repeatable resets, 125 frames per camera, free-fall and controller checks passed; shared environment/source fingerprints unchanged | M2: physical gripper and scripted grasp-and-lift |
 | 2026-10-10 | M1 GUI fix | Done | [GUI validation](artifacts/M1/gui_validation.json): corrected render-driven extra physics steps; full desktop run passed with exactly 5,000 engine ticks and 3.684 mm maximum hover error | M2; use `--gui --keep-open` to inspect the simulator |
+| 2026-10-10 | M2 | Done | [Report](artifacts/M2/report.md): physical 100 g grasp/transport/release, 10/10 fixed-scene runs, 0.981 N extra hover thrust, three-camera video and raw episodes | M3: action conversion and varied LeRobot demonstrations |
 
 To start a future session:
 

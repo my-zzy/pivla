@@ -1,0 +1,55 @@
+{
+  "unchanged": true,
+  "environments": {
+    "isaaclab": {
+      "unchanged": true,
+      "sha256": "3012384fe3182d625bd67b9e89d3b10bb9a74eca3e282a722c5d6996fcbaf167",
+      "files": 3497
+    },
+    "lerobot": {
+      "unchanged": true,
+      "sha256": "00d8dd32c49a98a30d982dcd5a49e36539c6d12c70c00235da462b524d50a95b",
+      "files": 1276
+    }
+  },
+  "shared_sources_unchanged": true,
+  "sources": {
+    "isaaclab": {
+      "commit": {
+        "exit_code": 0,
+        "stdout": "37ddf626871758333d6ed89cf64ad702aef127d0",
+        "stderr": ""
+      },
+      "status": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "lerobot": {
+      "commit": {
+        "exit_code": 0,
+        "stdout": "e595b7902714ba51f91e47523f66f89c5181b649",
+        "stderr": ""
+      },
+      "status": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "isaaclab_shared_editable": {
+      "commit": {
+        "exit_code": 0,
+        "stdout": "b0542fe2d45bf91c4e1d9ef6952b9c709c80b4e8",
+        "stderr": ""
+      },
+      "status": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  },
+  "protection": "Read-only host mounts in scripts/run_isaac.sh; project-local imports and runtime caches. No package installation or source-checkout edits."
+}

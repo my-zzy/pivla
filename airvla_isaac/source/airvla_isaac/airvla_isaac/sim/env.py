@@ -35,8 +35,8 @@ class HoverEnv:
             gravity=(0., 0., -config['gravity']), use_fabric=True,
         ))
         self.device = self.sim.device
-        create_room(config)
-        self.drone = create_drone(config)
+        self.create_scene(config)
+        self.drone = self.create_drone(config)
         self.cameras = create_cameras(config) if enable_cameras else {}
         self.controller = FlightController(config, self.device)
         self.target_position = torch.tensor([config['target']['position']], device=self.device)
@@ -48,6 +48,12 @@ class HoverEnv:
         if self.cameras:
             aim_external(self.cameras, config, self.device)
         self.reset(config['seed'])
+
+    def create_scene(self, config):
+        create_room(config)
+
+    def create_drone(self, config):
+        return create_drone(config)
 
     def reset(self, seed):
         # Local CPU generator: repeatable jitter, no modification of global random state.

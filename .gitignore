@@ -48,5 +48,14 @@ checkpoints/
 !/artifacts/M1/camera_preview.png
 !/artifacts/M1/hover_plots.png
 
+# M2 summaries only; raw episodes, videos, caches and debugging runs stay local.
+!/artifacts/M2/
+/artifacts/M2/*
+!/artifacts/M2/report.md
+!/artifacts/M2/result.json
+!/artifacts/M2/environment_preservation.json
+!/artifacts/M2/camera_preview.png
+!/artifacts/M2/load_contact_plots.png
+
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/

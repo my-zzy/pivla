@@ -1,0 +1,43 @@
+# M2 overrides configs/sim.yaml. SI units; controller gains remain the M1 baseline.
+action_hz: 10
+drone:
+  initial_position: [-0.65, 0.0, 1.40]
+  initial_yaw: 0.0
+  reset_position_jitter_m: 0.005
+target:
+  position: [-0.65, 0.0, 1.40]
+  yaw: 0.0
+cameras:
+  down:
+    # Oblique downward view past the gripper rail, aimed at the grasp region.
+    position: [0.18, 0.0, -0.09]
+    quaternion: [0.406838584931143, 0.0, 0.913500063388736, 0.0]
+  external:
+    position: [1.4, 1.8, 1.6]
+    look_at: [0.0, 0.0, 0.85]
+gripper:
+  finger_mass_kg: 0.025
+  finger_size_m: [0.10, 0.02, 0.10]
+  center_z_m: -0.27
+  closed_center_y_m: 0.025
+  travel_m: 0.055
+  stiffness_n_m: 600.0
+  damping_ns_m: 8.0
+  max_force_n: 8.0
+  friction: 1.0
+  contact_threshold_n: 0.25
+task:
+  block_mass_kg: 0.10
+  block_size_m: [0.08, 0.08, 0.08]
+  block_position: [-0.65, 0.0, 0.54]
+  table_top_m: 0.50
+  bin_position: [0.65, 0.0, 0.50]
+  bin_inner_size_m: [0.44, 0.44]
+  bin_wall_height_m: 0.22
+  flight_height_m: 1.40
+  grasp_height_m: 0.83
+  setpoint_speed_m_s: 0.12
+  stage_timeout_s: 30.0
+  hover_measure_s: 4.0
+  expected_load_thrust_tolerance_n: 0.20
+  loaded_position_tolerance_m: 0.20

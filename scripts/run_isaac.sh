@@ -38,7 +38,7 @@ if [[ ! "$milestone" =~ ^M[0-8]$ ]]; then
     echo 'AIRVLA_MILESTONE must be M0 through M8.' >&2
     exit 2
 fi
-if [[ "$runtime_tag" == m1_* ]]; then milestone=M1; fi
+if [[ "$runtime_tag" =~ ^(m[0-8])_ ]]; then milestone="${BASH_REMATCH[1]^^}"; fi
 runtime_root="$project_root/artifacts/$milestone/runtime/$runtime_tag"
 isaac_python=/home/user/miniconda3/envs/isaaclab/bin/python
 lab_root=/home/user/IsaacLab

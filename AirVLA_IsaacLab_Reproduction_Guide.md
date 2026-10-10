@@ -43,7 +43,7 @@ This project replaces the paper's real teleoperation and 3DGS rendering with scr
 
 ## 2. Software and startup
 
-**M1 has passed on this machine; M2 is next.** M0 verified the existing Isaac Sim 5.1.0, Isaac Lab 2.3.2 checkout, RTX 5090, and separate simulator/LeRobot environments. Exact paths and commits are in [configs/versions.yaml](configs/versions.yaml). Preserve these shared environments; use [the project launcher](scripts/run_isaac.sh), which sets imports for its child process and mounts shared installations read-only. The commands in the [M0 report](artifacts/M0/report.md) reproduce the checks without installing packages.
+**M0–M2 have passed on this machine; M3 dataset/action conversion is next.** M2 verified physical pick-and-place with a 100 g payload in 10/10 fixed-scene runs; see the [M2 report and video](artifacts/M2/report.md). M0 verified the existing Isaac Sim 5.1.0, Isaac Lab 2.3.2 checkout, RTX 5090, and separate simulator/LeRobot environments. Exact paths and commits are in [configs/versions.yaml](configs/versions.yaml). Preserve these shared environments; use [the project launcher](scripts/run_isaac.sh), which sets imports for its child process and mounts shared installations read-only. The commands in the [M0 report](artifacts/M0/report.md) reproduce the checks without installing packages.
 
 ### Proposed stack
 
