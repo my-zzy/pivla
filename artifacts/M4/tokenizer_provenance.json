@@ -1,0 +1,18 @@
+{
+  "repo": "google/paligemma-3b-pt-224",
+  "revision": "35e4f46485b4d07967e7e9935bc3786aad50687c",
+  "files": {
+    "tokenizer.json": {
+      "sha256": "ef6773c135b77b834de1d13c75a4c98ab7a3684ffd602d1831e1f1bf5467c563",
+      "bytes": 17549604
+    },
+    "tokenizer_config.json": {
+      "sha256": "3259402b1d1802e02417d7bff75a889ec61d359d15be6050a957b307c48edbbe",
+      "bytes": 39968
+    },
+    "special_tokens_map.json": {
+      "sha256": "5ef37093ae4236587b6e8266acb815b46e2db8ce656c66552bfa574d32880405",
+      "bytes": 607
+    }
+  }
+}

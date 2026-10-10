@@ -38,9 +38,11 @@ training:
   transformers: 5.5.4  # added with user authorization on 2026-10-10
   tokenizers: 0.22.2
   pi0_dependencies_status: passed
-  pi0_ready: false  # model/tokenizer access and actual training still unverified
+  pi0_ready: true  # M4 offline overfit and checkpoint reload passed; closed-loop flight untested
+  pi0_base_revision: 6e245399ad403ccf02b8112b73cfdc2633068f38
+  pi0_tokenizer_revision: 35e4f46485b4d07967e7e9935bc3786aad50687c
   cuda_smoke_test: passed
-  next_dependency_step: Verify pretrained model/tokenizer access and integrate M3 preprocessing for the M4 training smoke test. Dependency imports, training CLI, CUDA BF16, and dataset loading passed; existing package versions were preserved.
+  next_dependency_step: No missing dependency is currently identified. M4 passed; establish baseline training settings and perform M5 closed-loop evaluation.
 
 project:
   path: /home/user/pivla/airvla_isaac
@@ -61,6 +63,12 @@ project:
   m3_rows: 10256
   m3_dataset: datasets/airvla_m3
   m3_train_validation_episodes: [16, 4]
+  m4_status: passed
+  m4_verified_date: 2026-10-10
+  m4_checkpoint: artifacts/M4/debug_refine/checkpoint
+  m4_train_episode_ids: [0, 4]
+  m4_total_optimizer_steps: 1600
+  m4_scope: Offline two-episode overfit with frozen vision-language backbone
   m3_launch: bash scripts/run_isaac.sh scripts/m3_collect.py --enable_cameras
   launch: bash scripts/run_isaac.sh scripts/m2_pick_place.py --enable_cameras --trials 10
   m1_launch: bash scripts/run_isaac.sh scripts/m1_hover.py --enable_cameras

@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "strict_pretrained_load": true,
+  "weight_file_bytes": 14005618584,
+  "parameters": 4028019472,
+  "trainable_parameters": 578036768,
+  "model_load_peak_cuda_gib": 8.287044525146484,
+  "three_real_images_resized_to_224": true,
+  "state_padding": [
+    1,
+    32
+  ],
+  "action_padding": [
+    1,
+    50,
+    32
+  ],
+  "limits": "No real tokenization, full forward/backward, optimizer step, or predictions tested."
+}

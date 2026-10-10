@@ -1,0 +1,23 @@
+# Verified M4 first phase: 600 steps passed numerics/memory but missed position fit.
+# Passing run adds 1000 steps at LR 5e-5; commands: artifacts/M4/report.md.
+base_checkpoint: checkpoints/pi0_base
+tokenizer: checkpoints/paligemma_tokenizer
+dataset: datasets/airvla_m3
+output: artifacts/M4/debug_run
+seed: 7400
+train_episode_ids: [0, 4]
+batch_size: 2
+steps: 600
+learning_rate: 0.0001
+weight_decay: 0.01
+grad_clip_norm: 1.0
+expert_only: true
+gradient_checkpointing: true
+dtype: bfloat16
+evaluation_stride: 20
+inference_steps: 10
+acceptance:
+  position_rmse_m: 0.10
+  yaw_rmse_rad: 0.10
+  gripper_accuracy: 0.95
+  reload_max_abs_error: 0.000001

@@ -41,6 +41,6 @@ bash scripts/run_lerobot.sh -m lerobot.scripts.lerobot_train --help
 
 The constraints describe this machine at installation time. Regenerate them from the current environment before applying this procedure to a different installation.
 
-## Remaining M4 work
+## Follow-up verification
 
-Pretrained weights and tokenizer files have not been downloaded. Checkpoint access, full model forward/backward computation, GPU memory requirements, the custom M3 preprocessing integration, training, and checkpoint reload remain unverified. The runtime launcher currently uses Hugging Face offline mode; model acquisition needs a separate controlled download step when M4 continues.
+At the end of dependency preparation, model acquisition and training were still pending. They have since passed: pretrained weights and the approved tokenizer were downloaded, the M3 preprocessing adapter was verified, and a two-episode overfit and checkpoint reload completed successfully. See the [M4 training report](report.md) for measurements and reproduction commands. The runtime launcher remains offline; downloads were performed separately.

@@ -2,9 +2,9 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0–M3 complete. M3 passed 20/20 varied demonstrations, exported 10,256 rows to LeRobot, and validated timing, action conversion, normalization, and episode boundaries. Training has not started. See the [M3 report](artifacts/M3/report.md).
+**Current status:** M0–M4 complete. M4's two-episode π0 overfit passed: 8.04 cm position-command RMSE, 98.12% gripper accuracy, and identical predictions after checkpoint reload. These are offline training-set results; learned closed-loop flight is untested. See the [M4 report](artifacts/M4/report.md) and [M3 results](artifacts/M3/report.md).
 
-**Next task:** M4 — verify π0 checkpoint/tokenizer access, integrate the validated M3 preprocessing exactly once, and overfit a few demonstrations in a training smoke test. Dependency installation and import/CUDA checks have passed; see the [environment report](artifacts/M4/environment_setup.md).
+**Next task:** Prepare the baseline beyond the two-episode debug fit, then M5 — verify expert-chunk replay through the deployment adapter and measure learned π0 performance in closed-loop simulation. The proposed full-finetuning configuration has not been run.
 
 **First useful result achieved:** The drone physically grasps, lifts, transports, and releases a 100 g block into a bin, with three recorded camera streams and flight/contact measurements.
 
@@ -27,7 +27,7 @@ The external project lives at `airvla_isaac/`. M1 is implemented in `source/airv
 | [x] | [M1 — Hover and cameras](#m1--hover-and-cameras) | M0 | Force-driven hover and three RGB views |
 | [x] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
 | [x] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
-| [ ] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
+| [x] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
 | [ ] | [M5 — Policy baseline](#m5--policy-baseline) | M4 | Measured closed-loop π0 performance |
 | [ ] | [M6 — RTC](#m6--rtc) | M5 | Overlapping inference with consistent actions |
 | [ ] | [M7 — Payload guidance](#m7--payload-guidance) | M6 | Tested guidance and a controlled comparison |
@@ -116,14 +116,16 @@ Reference: [Data and action contract](AirVLA_IsaacLab_Reproduction_Guide.md#5-da
 
 **Build:** The training preprocessing integration, `configs/train_debug.yaml`, and `configs/train.yaml`.
 
-**Environment preparation passed:** Transformers 5.5.4 and its missing dependencies are installed. π0 model/processor imports, training CLI help, CUDA BF16 computation, and an M3 dataset sample all pass. Checkpoint access, full model execution/memory use, preprocessing integration, and training are still pending; M4 is not complete.
+**Environment preparation passed:** Transformers 5.5.4 and its missing dependencies are installed. π0 imports, CUDA BF16 computation, dataset loading, approved tokenizer access, and strict pretrained checkpoint loading all pass. The real forward/backward/optimizer probe passed at batch size 2.
 
-- [ ] Verify the separate LeRobot environment, checkpoint access, GPU memory use, and installed CLI/API.
-- [ ] Load `lerobot/pi0_base`; verify three-camera mapping and the 8-state / 7-action adapter.
-- [ ] Confirm the relative-action conversion runs before normalization and uses statistics from the training split.
-- [ ] Deliberately overfit a few demonstrations. Start with a small batch and short run, then adjust from measured memory and convergence.
-- [ ] Save/reload the checkpoint together with preprocessing, normalization statistics, feature names, and action convention.
-- [ ] Plot predicted versus expert unnormalized trajectories and gripper transitions on those training episodes.
+**Evidence:** Four adapter tests passed. After 600 initial steps and 1,000 refinement steps, offline prediction errors passed the predeclared limits: position 0.080446 m, yaw 0.009563 rad, and gripper accuracy 98.12%. Peak allocated CUDA memory was 10.708 GiB. The checkpoint reload produced identical predictions on two fixed-noise inputs; loss and prediction plots were inspected. See the [M4 report](artifacts/M4/report.md). The vision-language backbone was frozen for this debugging run.
+
+- [x] Verify the separate LeRobot environment, checkpoint access, GPU memory use, and installed CLI/API.
+- [x] Load `lerobot/pi0_base`; verify three-camera mapping and the 8-state / 7-action adapter.
+- [x] Confirm the relative-action conversion runs before normalization and uses statistics from the training split.
+- [x] Deliberately overfit a few demonstrations. Start with a small batch and short run, then adjust from measured memory and convergence.
+- [x] Save/reload the checkpoint together with preprocessing, normalization statistics, feature names, and action convention.
+- [x] Plot predicted versus expert unnormalized trajectories and gripper transitions on those training episodes.
 
 **Done when:** Training runs without invalid values, the saved checkpoint reloads, and offline predictions reproduce the small training set's motion and gripper sequence within documented tolerances. Loss decreasing alone is insufficient. Save the config, loss curve, prediction plots, and checkpoint location in `artifacts/M4/`.
 
@@ -204,6 +206,7 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-10 | M2 | Done | [Report](artifacts/M2/report.md): physical 100 g grasp/transport/release, 10/10 fixed-scene runs, 0.981 N extra hover thrust, three-camera video and raw episodes | M3: action conversion and varied LeRobot demonstrations |
 | 2026-10-10 | M3 | Done | [Report and commands](artifacts/M3/report.md): 20/20 successful varied episodes, 16/4 scenario split, 10,256 rows, all 13 dataset checks passed, five reviewed previews; shared environments unchanged | M4: verify π0 readiness, integrate preprocessing, overfit a few demonstrations |
 | 2026-10-10 | M4 environment preparation | Done | [Environment report](artifacts/M4/environment_setup.md): authorized installation of ten missing packages; 111 existing versions preserved; π0 imports, CLI, CUDA BF16, dataset loading and pip checks passed | Continue M4 with model/tokenizer access, preprocessing integration, and training |
+| 2026-10-10 | M4 | Done | [Report](artifacts/M4/report.md): two-episode overfit passed after 1,600 steps; 8.04 cm command RMSE, 98.12% gripper accuracy, 10.708 GiB peak memory, exact reload predictions | Establish baseline training settings, then M5 expert replay and learned-policy closed-loop evaluation |
 
 To start a future session:
 

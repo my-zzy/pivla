@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "checks": {
+    "finite_training": true,
+    "checkpoint_reload": true,
+    "position_fit": true,
+    "yaw_fit": true,
+    "gripper_fit": true
+  },
+  "initial": {
+    "position_rmse_m": 0.11081281304359436,
+    "yaw_rmse_rad": 0.012044309638440609,
+    "gripper_accuracy": 0.9680333564975677,
+    "evaluated_chunks": 62,
+    "valid_future_actions": 2878
+  },
+  "final": {
+    "position_rmse_m": 0.08044622093439102,
+    "yaw_rmse_rad": 0.009563234634697437,
+    "gripper_accuracy": 0.9812369701181376,
+    "evaluated_chunks": 62,
+    "valid_future_actions": 2878
+  },
+  "reload_max_abs_error": 0.0,
+  "checkpoint": "artifacts/M4/debug_refine/checkpoint",
+  "peak_allocated_gib": 10.707585334777832,
+  "training_elapsed_s": 248.76285942201503,
+  "pretrained_metrics": {
+    "position_rmse_m": 0.3142227530479431,
+    "yaw_rmse_rad": 0.015207028947770596,
+    "gripper_accuracy": 0.40201528839471856,
+    "evaluated_chunks": 62,
+    "valid_future_actions": 2878
+  },
+  "total_optimizer_steps": 1600,
+  "training_rows": 1024,
+  "training_episode_ids": [
+    0,
+    4
+  ],
+  "total_training_elapsed_s": 398.27642851602286,
+  "scope": "Offline overfit on two training episodes; no held-out or closed-loop simulator performance measured.",
+  "adapter_tests_passed": 4,
+  "visual_review": "Both episodes show descent, lift, transport, release, and retreat setpoints; positions and gripper transitions track the expert with residual errors. Plots show first predicted actions; metrics cover all valid steps of sampled future chunks."
+}

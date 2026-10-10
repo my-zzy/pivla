@@ -75,8 +75,17 @@ checkpoints/
 !/artifacts/M4/
 /artifacts/M4/*
 !/artifacts/M4/environment_setup.md
+!/artifacts/M4/report.md
 !/artifacts/M4/environment_changes.json
 !/artifacts/M4/environment_smoke.json
+!/artifacts/M4/model_load.json
+!/artifacts/M4/model_provenance.json
+!/artifacts/M4/tokenizer_provenance.json
+!/artifacts/M4/initial_run_result.json
+!/artifacts/M4/training_environment_preservation.json
+!/artifacts/M4/result.json
+!/artifacts/M4/loss.png
+!/artifacts/M4/predictions.png
 !/artifacts/M4/added_requirements.txt
 
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.

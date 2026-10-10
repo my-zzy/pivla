@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "lerobot_packages_unchanged_since_authorized_dependency_install": true,
+  "isaaclab_metadata_unchanged": true,
+  "shared_sources": {
+    "isaaclab": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "lerobot": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "isaaclab_shared_editable": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  }
+}

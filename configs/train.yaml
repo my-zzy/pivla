@@ -1,0 +1,17 @@
+# Planned baseline, not yet run. Revisit memory/steps after M4 measurements.
+base_checkpoint: checkpoints/pi0_base
+tokenizer: checkpoints/paligemma_tokenizer
+dataset: datasets/airvla_m3
+output: artifacts/M4/baseline_run
+seed: 7401
+train_episode_ids: null
+batch_size: 1
+steps: 10000
+learning_rate: 0.000025
+weight_decay: 0.01
+grad_clip_norm: 1.0
+expert_only: false
+gradient_checkpointing: true
+dtype: bfloat16
+evaluation_stride: 20
+inference_steps: 10
