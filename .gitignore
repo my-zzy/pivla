@@ -1,0 +1,41 @@
+# Python environments, caches, and build output
+__pycache__/
+*.py[cod]
+.venv*/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Local editor and OS files
+/.vscode/
+.idea/
+.DS_Store
+
+# Generated experiment outputs and downloaded model weights
+outputs/
+logs/
+runs/
+wandb/
+datasets/
+checkpoints/
+*.log
+*.ckpt
+*.safetensors
+
+# Keep only the M0 summary, preview, asset provenance, and runnable tutorial copies.
+# Raw inventories, debug logs, sensor dumps, and simulator caches stay local.
+/artifacts/*
+!/artifacts/M0/
+/artifacts/M0/*
+!/artifacts/M0/report.md
+!/artifacts/M0/camera_preview.png
+!/artifacts/M0/asset_manifest.json
+!/artifacts/M0/tutorials/
+/artifacts/M0/tutorials/*
+!/artifacts/M0/tutorials/*.py
+
+# Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
+/airvla_isaac/assets/m0/

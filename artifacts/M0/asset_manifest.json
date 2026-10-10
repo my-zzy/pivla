@@ -1,0 +1,16 @@
+[
+  {
+    "path": "airvla_isaac/assets/m0/Props/instanceable_meshes.usd",
+    "sha256": "8a48ddf5d2f1afc31152fe212c7c3656afd1a5d50c5a69b9d2d27fd8459110c0",
+    "dependencies": [],
+    "source": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Robots/Classic/Cartpole/Props/instanceable_meshes.usd"
+  },
+  {
+    "path": "airvla_isaac/assets/m0/cartpole.usd",
+    "sha256": "c98ce5dbb174876998052d486036fb79e07f52320851526a4ff61c60ed2db043",
+    "dependencies": [
+      "./Props/instanceable_meshes.usd"
+    ],
+    "source": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/IsaacLab/Robots/Classic/Cartpole/cartpole.usd"
+  }
+]
