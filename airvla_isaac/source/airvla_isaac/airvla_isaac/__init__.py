@@ -7,8 +7,11 @@
 Python module serving as a project/extension template.
 """
 
-# Register Gym environments.
-from .tasks import *
+def register_simulation_extensions():
+    """Register simulator tasks explicitly after AppLauncher starts Isaac Sim.
 
-# Register UI extensions.
-from .ui_extension_example import *
+    Dataset and policy utilities can then be imported in the separate LeRobot
+    environment without loading simulator-only dependencies.
+    """
+    from . import tasks, ui_extension_example
+    return tasks, ui_extension_example

@@ -61,7 +61,16 @@ class ScriptedExpert:
                          and error < self.task['loaded_position_tolerance_m'] and slow)
             condition &= age >= (8. if self.stage == 'lift' else self.task['hover_measure_s'] + 2.)
         elif self.stage == 'transport':
-            condition = contacts and np.linalg.norm(drone[:2] - goal[:2]) < .025 and slow and block[2] > .80
+            if self.task.get('release_footprint_margin_m') is not None:
+                # A payload can shift the PD equilibrium laterally. Gate release
+                # on the actual block footprint plus clearance inside the bin.
+                radius = np.linalg.norm(self.task['block_size_m'])/2
+                clearance = (np.array(self.task['bin_inner_size_m'])/2
+                             - np.abs(block[:2]-goal[:2]) - radius)
+                aligned = bool(np.all(clearance > self.task['release_footprint_margin_m']))
+            else:
+                aligned = np.linalg.norm(drone[:2] - goal[:2]) < .025
+            condition = contacts and aligned and slow and block[2] > .80
         elif self.stage == 'release':
             condition = self.in_bin(obs) and not any(obs['contacts']) and obs['aperture_m'] > .12 and age >= 2.
         else:

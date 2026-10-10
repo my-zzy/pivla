@@ -69,6 +69,7 @@ class EpisodeRecorder:
         mosaic.save(self.output / 'camera_preview.png')
         self.cameras.write(json.dumps(record, allow_nan=False)+'\n')
         self.frame_count += 1
+        return record
 
     def close(self):
         self.flight.close()

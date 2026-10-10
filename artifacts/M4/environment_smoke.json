@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "checks": {
+    "pi0_model_import": true,
+    "pi0_processor_import": true,
+    "gemma_paligemma_import": true,
+    "pi0_config": true,
+    "cuda_bfloat16_matmul": true,
+    "m3_chunk_dataset_load": true,
+    "training_cli_help": true,
+    "pip_check": true
+  },
+  "versions": {
+    "lerobot": "0.6.2",
+    "transformers": "5.5.4",
+    "tokenizers": "0.22.2",
+    "accelerate": "1.15.0",
+    "torch": "2.11.0",
+    "torchvision": "0.26.0"
+  },
+  "torch_runtime": "2.11.0+cu130",
+  "cuda_runtime": "13.0",
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "limits": "No pretrained weights or tokenizer downloaded; no model forward/backward, training, or checkpoint reload tested."
+}

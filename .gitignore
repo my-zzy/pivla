@@ -57,5 +57,27 @@ checkpoints/
 !/artifacts/M2/camera_preview.png
 !/artifacts/M2/load_contact_plots.png
 
+# M3 keeps schemas and checks; datasets, episodes, previews and caches stay local.
+!/artifacts/M3/
+/artifacts/M3/*
+!/artifacts/M3/report.md
+!/artifacts/M3/schema.json
+!/artifacts/M3/split_manifest.json
+!/artifacts/M3/normalization.json
+!/artifacts/M3/validation_report.json
+!/artifacts/M3/collection_result.json
+!/artifacts/M3/export_result.json
+!/artifacts/M3/environment_preservation.json
+!/artifacts/M3/preview_manifest.json
+!/artifacts/M3/action_reconstruction.png
+
+# M4 environment evidence; resolver logs and complete inventories stay local.
+!/artifacts/M4/
+/artifacts/M4/*
+!/artifacts/M4/environment_setup.md
+!/artifacts/M4/environment_changes.json
+!/artifacts/M4/environment_smoke.json
+!/artifacts/M4/added_requirements.txt
+
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/

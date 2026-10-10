@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "checks": {
+    "scenario_disjoint_splits": true,
+    "training_only_relative_statistics": true,
+    "absolute_disk_actions_match_raw": true,
+    "observations_precede_commands": true,
+    "no_future_images": true,
+    "state_order_and_yaw": true,
+    "gripper_absolute": true,
+    "single_anchor_roundtrip": true,
+    "no_episode_crossing": true,
+    "zero_masked_padding": true,
+    "loader_batch_shapes": true,
+    "lossless_image_roundtrip": true,
+    "privileged_state_excluded": true
+  },
+  "splits": {
+    "train": {
+      "episodes": 16,
+      "frames": 8188,
+      "batch_action_shape": [
+        4,
+        50,
+        7
+      ],
+      "batch_image_shape": [
+        4,
+        3,
+        256,
+        256
+      ]
+    },
+    "validation": {
+      "episodes": 4,
+      "frames": 2068,
+      "batch_action_shape": [
+        4,
+        50,
+        7
+      ],
+      "batch_image_shape": [
+        4,
+        3,
+        256,
+        256
+      ]
+    }
+  },
+  "max_roundtrip_error": 5.960464477539063e-08,
+  "max_image_age_s": 0.10000000000000142,
+  "image_pixel_comparisons": 165,
+  "native_loader_chunks_checked": 220,
+  "raw_chunks_checked": 10256,
+  "normalization_sha256": "7fdc69fc16910445ad03c3b5ad2ce33c77a3bf10bbe268b502a142122f664e3c"
+}

@@ -35,10 +35,12 @@ training:
   torch: 2.11.0+cu130  # runtime version; distribution metadata reports 2.11.0
   torchvision: 0.26.0
   numpy: 2.2.6
-  transformers: null  # not installed; pi extra requires it
-  pi0_ready: false
+  transformers: 5.5.4  # added with user authorization on 2026-10-10
+  tokenizers: 0.22.2
+  pi0_dependencies_status: passed
+  pi0_ready: false  # model/tokenizer access and actual training still unverified
   cuda_smoke_test: passed
-  next_dependency_step: Recheck pi0 dependencies in the existing lerobot environment before M4; transformers is currently missing. Preserve shared packages during simulator work.
+  next_dependency_step: Verify pretrained model/tokenizer access and integrate M3 preprocessing for the M4 training smoke test. Dependency imports, training CLI, CUDA BF16, and dataset loading passed; existing package versions were preserved.
 
 project:
   path: /home/user/pivla/airvla_isaac
@@ -53,6 +55,13 @@ project:
   m2_verified_date: 2026-10-10
   m2_environment: airvla_isaac.sim.manipulation_env.ManipulationEnv
   m2_fixed_scene_successes: 10/10
+  m3_status: passed
+  m3_verified_date: 2026-10-10
+  m3_episodes: 20
+  m3_rows: 10256
+  m3_dataset: datasets/airvla_m3
+  m3_train_validation_episodes: [16, 4]
+  m3_launch: bash scripts/run_isaac.sh scripts/m3_collect.py --enable_cameras
   launch: bash scripts/run_isaac.sh scripts/m2_pick_place.py --enable_cameras --trials 10
   m1_launch: bash scripts/run_isaac.sh scripts/m1_hover.py --enable_cameras
   m0_launch: bash scripts/run_isaac.sh scripts/m0_project_smoke.py

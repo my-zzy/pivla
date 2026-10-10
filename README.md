@@ -1,15 +1,16 @@
 # AirVLA simulation project
 
-M0–M2 are complete: setup, hover/cameras, and physical pick-and-place passed on 2026-10-10. M2 succeeded in 10/10 fixed-scene trials. Start with [implement_guide.md](implement_guide.md); next is **M3: dataset and action conversion**.
+M0–M3 are complete: setup, hover/cameras, physical pick-and-place, and validated LeRobot datasets passed on 2026-10-10. M3 contains 20 successful episodes and 10,256 rows, split into 16 training and four validation episodes. Next is M4, the π0 training smoke test; start with [implement_guide.md](implement_guide.md).
 
 - [M0 results, environment details, and commands](artifacts/M0/report.md)
 - [M1 results, video, camera preview, and plots](artifacts/M1/report.md)
 - [M2 physical pick-and-place, load measurements, and commands](artifacts/M2/report.md)
+- [M3 dataset contract, collection, export, and validation](artifacts/M3/report.md)
 - [Recorded versions and source commits](configs/versions.yaml)
 - [Technical reference](AirVLA_IsaacLab_Reproduction_Guide.md)
 - [Generated external project](airvla_isaac/README.md)
 
-The existing `isaaclab` and `lerobot` environments are shared with other projects. Do not upgrade them, install this project into them, change their editable links, or edit their source checkouts. The launcher supplies project-local imports without an installation:
+The existing `isaaclab` and `lerobot` environments are shared with other projects. The user authorized adding the dependencies needed for M4 to `lerobot`; ten missing packages were installed while preserving all 111 existing package versions. Keep `isaaclab`, editable links, and shared source checkouts unchanged. The launcher supplies project-local imports without installing this project:
 
 ```bash
 cd /home/user/pivla
@@ -26,6 +27,19 @@ MPLCONFIGDIR=/home/user/pivla/artifacts/M2/plot_cache \
 
 Open `artifacts/M2/demo/pick_place.mp4` afterward; video playback does not run the simulator. The ten-trial validation uses `--trials 10` with the default output `artifacts/M2/`, and records cameras for the first trial. Add `--record-all` to record every trial.
 
+M3 uses the existing environments through separate launchers:
+
+```bash
+# Simulation: twenty varied episodes, with cameras for every episode.
+bash scripts/run_isaac.sh scripts/m3_collect.py --enable_cameras
+# Dataset work: local/offline LeRobot export, checks, and five preview videos.
+bash scripts/run_lerobot.sh -m airvla_isaac.data.convert_to_lerobot
+bash scripts/run_lerobot.sh -m airvla_isaac.data.validate_dataset
+bash scripts/run_lerobot.sh scripts/m3_previews.py
+```
+
+The dataset contract is in [configs/dataset.yaml](configs/dataset.yaml). Export creates `datasets/airvla_m3/{train,validation}` and refuses to overwrite existing datasets. `airvla_isaac.data.chunk_dataset.ChunkDataset` supplies 50-step relative actions with episode-end masks and training-only normalization. Keep absolute actions on disk, and use this adapter's statistics rather than the native absolute-action statistics for future training.
+
 To watch live in an Isaac Sim desktop window, add `--gui --keep-open`:
 
 ```bash
@@ -36,4 +50,4 @@ The viewport starts inside the room looking at the drone. After the test, the fi
 
 The launcher uses the existing `bwrap` executable to mount host files read-only, except this workspace and the GPU's device/kernel interfaces. Caches and logs go under each milestone's `artifacts/M<number>/runtime/`. `/tmp` and `/var/tmp` are temporary private mounts. No shell profile or global environment variable is changed. In a restricted agent sandbox, this command needs host GPU access. Ordinary Ubuntu terminals may also need the one-time [AppArmor permission for bwrap](docs/launcher-troubleshooting.md); the launcher checks this before starting Sim.
 
-The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert and raw recorder live in the package's `data/` directory. The original cartpole task remains as an M0 setup check. M2 raw episodes are not yet a LeRobot dataset; policy training and model downloads have not started. Use the existing environment named `lerobot` for dataset/policy work, as requested. It currently lacks the `transformers` dependency required by its π0 extra; resolve training readiness before M4. No environment clone is planned, and selecting this environment does not change its packages.
+The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert, recorders, exporter, and loader live in `data/`; the action codec is in `policy/`. The original cartpole task remains as an M0 setup check. Policy training and model downloads have not started. Use the existing environment named `lerobot` for dataset/policy work, as requested. Its π0 dependency imports, training CLI, CUDA BF16 computation, and M3 dataset loading now pass; see the [M4 environment report](artifacts/M4/environment_setup.md). Model/checkpoint and training verification remain pending. No environment clone is planned.

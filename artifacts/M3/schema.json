@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "repo_id": "local/airvla_m3_debug",
+  "task": "Pick up the block from the table and place it in the bin.",
+  "fps": 10,
+  "camera_hz": 5,
+  "chunk_size": 50,
+  "state_names": [
+    "x",
+    "y",
+    "z",
+    "yaw",
+    "vx",
+    "vy",
+    "vz",
+    "aperture"
+  ],
+  "action_names": [
+    "x_des",
+    "y_des",
+    "z_des",
+    "roll_unused",
+    "pitch_unused",
+    "yaw_des",
+    "gripper_closed"
+  ],
+  "image_names": [
+    "front",
+    "down",
+    "external"
+  ],
+  "image_shape_hwc": [
+    256,
+    256,
+    3
+  ],
+  "image_storage": "image",
+  "position_frame": "world",
+  "pose_reference": "drone_body_origin",
+  "quaternion_order": "wxyz",
+  "yaw_range": "[-pi, pi)",
+  "gripper": {
+    "open": 0,
+    "closed": 1
+  },
+  "action_storage": "absolute_desired_setpoints",
+  "chunk_anchor": "observed_body_position_and_yaw_at_first_row",
+  "padding": "zero_after_relative_conversion_and_normalization_with_boolean_mask",
+  "normalization": "training_only_relative_chunk_mean_std_valid_steps",
+  "normalization_std_floor": 1e-06,
+  "timing": "observation_and_available_camera_then_expert_command_then_physics",
+  "collection": {
+    "seed": 7300,
+    "scenario_count": 5,
+    "episodes_per_scenario": 4,
+    "block_xy_jitter_m": [
+      0.07,
+      0.07
+    ],
+    "bin_xy_jitter_m": [
+      0.08,
+      0.1
+    ],
+    "drone_xy_jitter_m": [
+      0.08,
+      0.08
+    ],
+    "drone_z_jitter_m": 0.03,
+    "drone_initial_yaw_range_rad": [
+      -0.15,
+      0.15
+    ],
+    "payload_mass_kg": 0.1,
+    "release_footprint_margin_m": 0.05
+  },
+  "split": {
+    "train_scenarios": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "validation_scenarios": [
+      4
+    ]
+  },
+  "preview_episodes": [
+    0,
+    4,
+    8,
+    12,
+    16
+  ]
+}

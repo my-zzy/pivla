@@ -2,13 +2,13 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0–M2 complete — setup, hover/cameras, and physical scripted pick-and-place verified. M2 passed 10/10 fixed-scene trials; see the [report](artifacts/M2/report.md) and local [video](artifacts/M2/pick_place.mp4). LeRobot dataset conversion and training have not started.
+**Current status:** M0–M3 complete. M3 passed 20/20 varied demonstrations, exported 10,256 rows to LeRobot, and validated timing, action conversion, normalization, and episode boundaries. Training has not started. See the [M3 report](artifacts/M3/report.md).
 
-**Next task:** M3 — freeze the observation/action contract, validate relative-action conversion, and collect/export 20–30 varied demonstrations to LeRobot.
+**Next task:** M4 — verify π0 checkpoint/tokenizer access, integrate the validated M3 preprocessing exactly once, and overfit a few demonstrations in a training smoke test. Dependency installation and import/CUDA checks have passed; see the [environment report](artifacts/M4/environment_setup.md).
 
 **First useful result achieved:** The drone physically grasps, lifts, transports, and releases a 100 g block into a bin, with three recorded camera streams and flight/contact measurements.
 
-**Environment choice and constraint:** Use the existing `isaaclab` environment for simulation and the existing `lerobot` environment for dataset/policy work, as requested. Both serve other projects; preserve their packages, editable links, source files, and shell configuration during simulator work. Use `scripts/run_isaac.sh` for project-local simulation imports and runtime files. Record and resolve any missing π0 dependencies before M4; no environment clone is planned.
+**Environment choice and constraint:** Use the existing `isaaclab` environment for simulation and the existing `lerobot` environment for dataset/policy work, as requested. On 2026-10-10 the user authorized modifying `lerobot` to meet project needs. Ten missing π0 dependency packages were added, preserving all 111 existing package versions. Keep `isaaclab`, shared source files, editable links, and shell configuration unchanged. Use the project launchers for local imports/runtime files; no environment clone is planned.
 
 ## How we work through this
 
@@ -26,7 +26,7 @@ The external project lives at `airvla_isaac/`. M1 is implemented in `source/airv
 | [x] | [M0 — Setup](#m0--setup) | — | Verified versions and working simulator |
 | [x] | [M1 — Hover and cameras](#m1--hover-and-cameras) | M0 | Force-driven hover and three RGB views |
 | [x] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
-| [ ] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
+| [x] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
 | [ ] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
 | [ ] | [M5 — Policy baseline](#m5--policy-baseline) | M4 | Measured closed-loop π0 performance |
 | [ ] | [M6 — RTC](#m6--rtc) | M5 | Overlapping inference with consistent actions |
@@ -49,7 +49,7 @@ The external project lives at `airvla_isaac/`. M1 is implemented in `source/airv
 
 **Evidence:** [M0 report and commands](artifacts/M0/report.md), [camera preview](artifacts/M0/camera_preview.png), and [external-project result](artifacts/M0/project_result.json). Package metadata and shared source status were unchanged after the checks.
 
-**Follow-up:** M1 is now complete. Training will use the existing `lerobot` environment. Its missing `transformers` dependency remains an M4 readiness item; no packages were changed by this environment selection.
+**Follow-up:** M1 is complete. Training uses the existing `lerobot` environment. The originally missing `transformers` dependency was resolved during authorized M4 environment preparation; see the [environment report](artifacts/M4/environment_setup.md).
 
 Reference: [Software and startup](AirVLA_IsaacLab_Reproduction_Guide.md#2-software-and-startup).
 
@@ -96,15 +96,17 @@ Reference: [Scene and physics](AirVLA_IsaacLab_Reproduction_Guide.md#3-scene-and
 
 **Build:** `data/convert_to_lerobot.py`, `data/validate_dataset.py`, `policy/action_codec.py`, and `configs/dataset.yaml`.
 
-- [ ] Freeze the observation/action convention from reference section 5 in configuration.
-- [ ] Keep absolute expert setpoints in raw recordings and dataset rows; construct relative actions using one anchor pose per sampled chunk.
-- [ ] Verify action conversion, yaw wrapping, gripper meaning, normalization, and episode-end masking before training.
-- [ ] Collect 20–30 varied episodes for debugging. Randomize initial drone/object/bin poses within reachable limits and log seeds.
-- [ ] Export three image streams, state, actions, and task text to LeRobotDataset; keep the timestamped raw recordings.
-- [ ] Split by episode/scenario before computing training statistics. Prevent any chunk from crossing an episode boundary.
-- [ ] Watch five full episodes and compare reconstructed action targets against logged absolute setpoints.
+- [x] Freeze the observation/action convention from reference section 5 in configuration.
+- [x] Keep absolute expert setpoints in raw recordings and dataset rows; construct relative actions using one anchor pose per sampled chunk.
+- [x] Verify action conversion, yaw wrapping, gripper meaning, normalization, and episode-end masking before training.
+- [x] Collect 20–30 varied episodes for debugging. Randomize initial drone/object/bin poses within reachable limits and log seeds.
+- [x] Export three image streams, state, actions, and task text to LeRobotDataset; keep the timestamped raw recordings.
+- [x] Split by episode/scenario before computing training statistics. Prevent any chunk from crossing an episode boundary.
+- [x] Review five full episodes and compare reconstructed action targets against logged absolute setpoints. Every down/external frame was inspected in chronological contact sheets; full three-camera videos are saved for playback.
 
 **Done when:** The loader yields correctly shaped observation/chunk batches; images never come from the future; decoded targets match the raw targets within float precision; padding and split checks pass. Save the schema, validation report, split manifest, and five preview videos in `artifacts/M3/`.
+
+**Evidence:** [M3 report](artifacts/M3/report.md), [validation checks](artifacts/M3/validation_report.json), and [reconstruction plot](artifacts/M3/action_reconstruction.png). Twenty successful episodes yielded 8,188 training rows and 2,068 validation rows. All 13 validation checks passed; maximum action round-trip error was 5.96e-8. Existing environments and shared sources were preserved.
 
 **Then:** Expand toward 100–200 useful episodes for a baseline as needed. These counts are development estimates, not guaranteed learning requirements.
 
@@ -113,6 +115,8 @@ Reference: [Data and action contract](AirVLA_IsaacLab_Reproduction_Guide.md#5-da
 ## M4 — Training smoke test
 
 **Build:** The training preprocessing integration, `configs/train_debug.yaml`, and `configs/train.yaml`.
+
+**Environment preparation passed:** Transformers 5.5.4 and its missing dependencies are installed. π0 model/processor imports, training CLI help, CUDA BF16 computation, and an M3 dataset sample all pass. Checkpoint access, full model execution/memory use, preprocessing integration, and training are still pending; M4 is not complete.
 
 - [ ] Verify the separate LeRobot environment, checkpoint access, GPU memory use, and installed CLI/API.
 - [ ] Load `lerobot/pi0_base`; verify three-camera mapping and the 8-state / 7-action adapter.
@@ -198,6 +202,8 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-10 | M1 | Done | [Report](artifacts/M1/report.md): 20 s hover, maximum error 3.684 mm, three repeatable resets, 125 frames per camera, free-fall and controller checks passed; shared environment/source fingerprints unchanged | M2: physical gripper and scripted grasp-and-lift |
 | 2026-10-10 | M1 GUI fix | Done | [GUI validation](artifacts/M1/gui_validation.json): corrected render-driven extra physics steps; full desktop run passed with exactly 5,000 engine ticks and 3.684 mm maximum hover error | M2; use `--gui --keep-open` to inspect the simulator |
 | 2026-10-10 | M2 | Done | [Report](artifacts/M2/report.md): physical 100 g grasp/transport/release, 10/10 fixed-scene runs, 0.981 N extra hover thrust, three-camera video and raw episodes | M3: action conversion and varied LeRobot demonstrations |
+| 2026-10-10 | M3 | Done | [Report and commands](artifacts/M3/report.md): 20/20 successful varied episodes, 16/4 scenario split, 10,256 rows, all 13 dataset checks passed, five reviewed previews; shared environments unchanged | M4: verify π0 readiness, integrate preprocessing, overfit a few demonstrations |
+| 2026-10-10 | M4 environment preparation | Done | [Environment report](artifacts/M4/environment_setup.md): authorized installation of ten missing packages; 111 existing versions preserved; π0 imports, CLI, CUDA BF16, dataset loading and pip checks passed | Continue M4 with model/tokenizer access, preprocessing integration, and training |
 
 To start a future session:
 

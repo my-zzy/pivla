@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "added": {
+    "annotated-doc": "0.0.5",
+    "mdurl": "0.1.2",
+    "typer": "0.27.3",
+    "tokenizers": "0.22.2",
+    "regex": "2026.9.29",
+    "transformers": "5.5.4",
+    "Pygments": "2.21.0",
+    "rich": "15.0.0",
+    "shellingham": "1.5.4",
+    "markdown-it-py": "4.2.0"
+  },
+  "changed_or_removed": {},
+  "existing_packages_preserved": 111,
+  "isaaclab_metadata_unchanged": true,
+  "isaaclab_metadata": {
+    "sha256": "3012384fe3182d625bd67b9e89d3b10bb9a74eca3e282a722c5d6996fcbaf167",
+    "files": 3497
+  }
+}

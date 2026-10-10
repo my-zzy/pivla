@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "splits": {
+    "train": {
+      "root": "/home/user/pivla/datasets/airvla_m3/train",
+      "repo_id": "local/airvla_m3_debug_train",
+      "episodes": 16,
+      "frames": 8188
+    },
+    "validation": {
+      "root": "/home/user/pivla/datasets/airvla_m3/validation",
+      "repo_id": "local/airvla_m3_debug_validation",
+      "episodes": 4,
+      "frames": 2068
+    }
+  },
+  "source_hashes": {
+    "episode_000/samples.jsonl": "f339be0a50dcb28455542551062ce0f0d6030369f41052d1dc8a719f6872a69c",
+    "episode_001/samples.jsonl": "8d38a9dd490db69e5e155b6fe1219d9d40a8c54f98312115740d3b57bfec155e",
+    "episode_002/samples.jsonl": "5b1b1abb9ea22745504066d23448da1babf460fb16b7bd1103b61e5e82871aaa",
+    "episode_003/samples.jsonl": "6550284c6b2162e9508f0af8539f1413e49c286e614c91b46024ba1762529af3",
+    "episode_004/samples.jsonl": "9c97dfb8bbe4bfbfa74e588acc1b2a73f8bcbfbdf145bd2342335df93c0fed6b",
+    "episode_005/samples.jsonl": "52c8b20c8159c7b95ce2b9f45da64bf9959faf5fb06167d97afe5f9e2523e63b",
+    "episode_006/samples.jsonl": "f78d34fba026800a95ac7e4b6ee6ddbe0217ae16c907885ecc00f86bcffb7713",
+    "episode_007/samples.jsonl": "bda0d6ab84566cb0ace142bb9e0b08315c07bcd7ce68436491741967a11b179f",
+    "episode_008/samples.jsonl": "dc9c7fec0c6658e0fc45b58c9303293b8b55bea7eb3108b08811d23a66fcfff9",
+    "episode_009/samples.jsonl": "e8b6b3e4e4b880e03ab6140d098879f4c7bdca35f043aab3f6ae609cb4c9a257",
+    "episode_010/samples.jsonl": "55b91e5252d85310e77dda42d3698e15d8a47d650e2ae30c5bc99c0cf71f4476",
+    "episode_011/samples.jsonl": "8bb183c8bd06cea411d1be165040f211ba604979e97b4b5265a370bc11b1e170",
+    "episode_012/samples.jsonl": "b6c73fb495220b8784cdc6dee670619018e8647ae8e9f25a6276329ac7c026e4",
+    "episode_013/samples.jsonl": "1215fe85655fc91663c7c38324d8c0604af1f75469b879382603eda693162cf6",
+    "episode_014/samples.jsonl": "9bc6d144754ec332d6594520d9ef4dce07f88342fcc67f01956561653f64c754",
+    "episode_015/samples.jsonl": "85b3ae33c8ac050f703830f9c8bea36179ef712739013692f0a327fa89a7de8c",
+    "episode_016/samples.jsonl": "f2db425303aae2d8a7be8ac21a5661c6b4bc893eb3ed6e8a588e3f0ab9b6730a",
+    "episode_017/samples.jsonl": "425d4e6c980b584856fe95f99037908821c118a1568a3f1fc828f27fa35c314f",
+    "episode_018/samples.jsonl": "c0610ba7c84670ed124fdc284748852ac1891d51b2cf1314216ff6fca34a0f7a",
+    "episode_019/samples.jsonl": "d5a89ee880e61111a1ddabefdfc112966b2200e7e8b1556abfbcc74f16a50227"
+  },
+  "normalization": "Use normalization.json through ChunkDataset. Native meta/stats.json describes absolute stored actions and is not the chunk normalizer."
+}

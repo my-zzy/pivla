@@ -51,6 +51,20 @@ class ExpertChecks(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'approach timed out'):
             self.expert.update(self.cfg['task']['stage_timeout_s']+1, self.obs)
 
+    def test_m3_release_gate_checks_payload_clearance(self):
+        self.expert.task['release_footprint_margin_m'] = .05
+        self.expert.stage = 'transport'
+        self.obs['contacts'] = [True, True]
+        self.obs['drone_state'][:3] = [.65, .04, 1.24]
+        self.obs['block_state'][:3] = [.65, .17, .95]
+        for step in range(1,11):
+            self.expert.update(step*.1,self.obs)
+        self.assertEqual(self.expert.stage,'transport')
+        self.obs['block_state'][1] = .04
+        for step in range(11,18):
+            self.expert.update(step*.1,self.obs)
+        self.assertEqual(self.expert.stage,'release')
+
     def test_setpoint_speed_is_bounded(self):
         self.expert.stage = 'transport'
         previous = self.expert.target.copy()

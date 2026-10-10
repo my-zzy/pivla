@@ -1,0 +1,119 @@
+{
+  "status": "complete",
+  "episodes": [
+    {
+      "episode_id": 0,
+      "video": "artifacts/M3/previews/episode_000.mp4",
+      "frames": 259,
+      "contact_sheets_all_frames": [
+        "artifacts/M3/previews/episode_000_all_frames_0.jpg",
+        "artifacts/M3/previews/episode_000_all_frames_1.jpg"
+      ],
+      "max_action_error": 2.9802322387695312e-08,
+      "video_integrity": {
+        "status": "passed",
+        "codec_name": "h264",
+        "width": 768,
+        "height": 296,
+        "r_frame_rate": "5/1",
+        "duration": "51.800000",
+        "nb_frames": "259"
+      }
+    },
+    {
+      "episode_id": 4,
+      "video": "artifacts/M3/previews/episode_004.mp4",
+      "frames": 254,
+      "contact_sheets_all_frames": [
+        "artifacts/M3/previews/episode_004_all_frames_0.jpg",
+        "artifacts/M3/previews/episode_004_all_frames_1.jpg"
+      ],
+      "max_action_error": 2.9802322387695312e-08,
+      "video_integrity": {
+        "status": "passed",
+        "codec_name": "h264",
+        "width": 768,
+        "height": 296,
+        "r_frame_rate": "5/1",
+        "duration": "50.800000",
+        "nb_frames": "254"
+      }
+    },
+    {
+      "episode_id": 8,
+      "video": "artifacts/M3/previews/episode_008.mp4",
+      "frames": 255,
+      "contact_sheets_all_frames": [
+        "artifacts/M3/previews/episode_008_all_frames_0.jpg",
+        "artifacts/M3/previews/episode_008_all_frames_1.jpg"
+      ],
+      "max_action_error": 2.9802322387695312e-08,
+      "video_integrity": {
+        "status": "passed",
+        "codec_name": "h264",
+        "width": 768,
+        "height": 296,
+        "r_frame_rate": "5/1",
+        "duration": "51.000000",
+        "nb_frames": "255"
+      }
+    },
+    {
+      "episode_id": 12,
+      "video": "artifacts/M3/previews/episode_012.mp4",
+      "frames": 258,
+      "contact_sheets_all_frames": [
+        "artifacts/M3/previews/episode_012_all_frames_0.jpg",
+        "artifacts/M3/previews/episode_012_all_frames_1.jpg"
+      ],
+      "max_action_error": 2.9802322387695312e-08,
+      "video_integrity": {
+        "status": "passed",
+        "codec_name": "h264",
+        "width": 768,
+        "height": 296,
+        "r_frame_rate": "5/1",
+        "duration": "51.600000",
+        "nb_frames": "258"
+      }
+    },
+    {
+      "episode_id": 16,
+      "video": "artifacts/M3/previews/episode_016.mp4",
+      "frames": 259,
+      "contact_sheets_all_frames": [
+        "artifacts/M3/previews/episode_016_all_frames_0.jpg",
+        "artifacts/M3/previews/episode_016_all_frames_1.jpg"
+      ],
+      "max_action_error": 2.9802322387695312e-08,
+      "video_integrity": {
+        "status": "passed",
+        "codec_name": "h264",
+        "width": 768,
+        "height": 296,
+        "r_frame_rate": "5/1",
+        "duration": "51.800000",
+        "nb_frames": "259"
+      }
+    }
+  ],
+  "review_method": "All frames in chronological down/external contact sheets, plus full trajectory reconstruction; videos retain all three streams.",
+  "visual_review": {
+    "reviewed_episode_ids": [
+      0,
+      4,
+      8,
+      12,
+      16
+    ],
+    "method": "Inspected every chronological down/external frame in two contact sheets per episode, alongside full recorded command trajectories.",
+    "findings": {
+      "0": "Continuous approach, close, lift, carry, release into bin and retreat; block visible between fingers until release.",
+      "4": "Same complete sequence in shifted block/bin layout; release and settled block visible, no dropped payload during transport.",
+      "8": "Reviewed every down/external frame: aligned descent, closed grasp, sustained lift/transport, release into shifted bin, and empty-gripper retreat. No missing frames or lost payload observed.",
+      "12": "Reviewed every down/external frame: block stays between fingers through lift and transport, releases above the bin at 43.4 s, settles inside, and remains there during retreat.",
+      "16": "Reviewed every down/external frame in the held-out layout: successful aligned descent, sustained physical grasp/lift/transport, visible release at 43.6-43.8 s into the bin, and retreat with the block remaining in the bin."
+    },
+    "action_plot": "All five complete position and gripper trajectories inspected: decoded markers overlap raw setpoints; closing/opening transitions align with measured aperture changes."
+  }
+}
