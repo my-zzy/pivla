@@ -88,5 +88,13 @@ checkpoints/
 !/artifacts/M4/predictions.png
 !/artifacts/M4/added_requirements.txt
 
+# M5 keeps compact evaluation evidence; recordings, IPC arrays and caches stay local.
+!/artifacts/M5/
+/artifacts/M5/*
+!/artifacts/M5/report.md
+!/artifacts/M5/result.json
+!/artifacts/M5/rollout_metrics.png
+!/artifacts/M5/verification.json
+
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/

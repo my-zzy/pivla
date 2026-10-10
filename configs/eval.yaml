@@ -1,0 +1,25 @@
+# Frozen before M5 measurements; do not tune on these held-out trials.
+checkpoint: artifacts/M4/debug_refine/checkpoint
+dataset: datasets/airvla_m3
+manifest: artifacts/M3/collection_manifest.json
+seed: 7500
+offline_stride: 20
+replay_episode_ids: [16]
+familiar_episode_ids: [0, 4]
+heldout_episode_ids: [16, 17, 18, 19]
+action_horizon: 50
+execute_actions: 10
+action_hz: 10
+inference_steps: 10
+timeout_s: 80.0
+success_dwell_s: 2.0
+lift_above_table_m: 0.30
+bin_z_tolerance_m: 0.025
+settled_speed_m_s: 0.04
+safe_z_m: [0.45, 2.5]
+safe_xy_radius_m: 2.5
+worker_timeout_wall_s: 60.0
+simulation_time_mode: realtime_paced_best_effort
+queue_empty: hold_last_absolute_target_and_gripper_while_physics_continues
+chunk_schedule: request_when_queue_empty_then_execute_first_10_on_arrival
+scope: M4 two-episode debug checkpoint; held-out nearby layouts, no deliberate OOD

@@ -2,9 +2,9 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0–M4 complete. M4's two-episode π0 overfit passed: 8.04 cm position-command RMSE, 98.12% gripper accuracy, and identical predictions after checkpoint reload. These are offline training-set results; learned closed-loop flight is untested. See the [M4 report](artifacts/M4/report.md) and [M3 results](artifacts/M3/report.md).
+**Current status:** M0–M4 complete; M5 evaluation is complete for the M4 debug checkpoint. Expert replay succeeded, but learned control achieved **0/2 familiar and 0/4 held-out successes** despite 8.74 cm held-out offline command RMSE. The deployment/timing audit passed. See the [M5 report and videos](artifacts/M5/report.md).
 
-**Next task:** Prepare the baseline beyond the two-episode debug fit, then M5 — verify expert-chunk replay through the deployment adapter and measure learned π0 performance in closed-loop simulation. The proposed full-finetuning configuration has not been run.
+**Next task:** Improve the learned baseline before M6: train beyond the two-episode debug fit, expand varied/recovery demonstrations, and repeat M5 evaluation with the fixed validation split. The proposed full-finetuning configuration has not been run and needs a memory probe. Do not interpret a completed evaluation milestone as a successful policy.
 
 **First useful result achieved:** The drone physically grasps, lifts, transports, and releases a 100 g block into a bin, with three recorded camera streams and flight/contact measurements.
 
@@ -12,7 +12,7 @@
 
 ## How we work through this
 
-1. Work on the first incomplete milestone. Read its linked reference section when needed.
+1. Follow the **Next task** above; otherwise work on the first incomplete milestone. Read its linked reference section when needed.
 2. Implement the smallest working version and run its completion checks.
 3. Save the command, configuration, and evidence under `artifacts/M<number>/`.
 4. Mark a milestone complete only when its checks pass. Update the progress log before moving on.
@@ -28,7 +28,7 @@ The external project lives at `airvla_isaac/`. M1 is implemented in `source/airv
 | [x] | [M2 — Scripted manipulation](#m2--scripted-manipulation) | M1 | Physical grasp, lift, transport, and release |
 | [x] | [M3 — Dataset](#m3--dataset) | M2 | Validated demonstrations and action conversion |
 | [x] | [M4 — Training smoke test](#m4--training-smoke-test) | M3 | Reloadable π0 checkpoint and offline predictions |
-| [ ] | [M5 — Policy baseline](#m5--policy-baseline) | M4 | Measured closed-loop π0 performance |
+| [x] | [M5 — Policy baseline](#m5--policy-baseline) | M4 | Debug checkpoint measured: 0/6 successes; interface audit passed |
 | [ ] | [M6 — RTC](#m6--rtc) | M5 | Overlapping inference with consistent actions |
 | [ ] | [M7 — Payload guidance](#m7--payload-guidance) | M6 | Tested guidance and a controlled comparison |
 | [ ] | [M8 — Navigation and composition](#m8--navigation-and-composition) | M7 | Recovery-data and composed-task evaluations |
@@ -137,12 +137,14 @@ Reference: [Training and deployment](AirVLA_IsaacLab_Reproduction_Guide.md#7-tra
 
 **Build:** `policy/pi0_adapter.py`, `policy/rollout.py`, `eval/evaluate.py`, `eval/metrics.py`, and `configs/eval.yaml`.
 
-- [ ] Replay expert action chunks through the deployment adapter first; they must reconstruct the intended flight targets.
-- [ ] Run naïve π0 with the same cameras, state ordering, and action decoder used in training.
-- [ ] Keep physics and the flight controller running while inference executes. Define the queue-empty behavior explicitly.
-- [ ] Record action horizon, executed actions per inference, wall-clock inference delay, simulation-time mode, and any fallback use.
-- [ ] Freeze evaluation seeds, payload masses, success thresholds, and timeouts before comparing methods.
-- [ ] Run held-out trials and save success counts, failures, trajectories, and videos.
+- [x] Replay expert action chunks through the deployment adapter first; they must reconstruct the intended flight targets.
+- [x] Run naïve π0 with the same cameras, state ordering, and action decoder used in training.
+- [x] Keep physics and the flight controller running while inference executes. Define the queue-empty behavior explicitly.
+- [x] Record action horizon, executed actions per inference, wall-clock inference delay, simulation-time mode, and any fallback use.
+- [x] Freeze evaluation seeds, payload masses, success thresholds, and timeouts before comparing methods.
+- [x] Run held-out trials and save success counts, failures, trajectories, and videos.
+
+**Evidence:** [M5 report](artifacts/M5/report.md), [results](artifacts/M5/result.json), and [execution audit](artifacts/M5/verification.json). Expert replay placed the block successfully; the learned policy achieved no grasps in six trials. All 3,118 executed commands matched the decoded model outputs, and physics continued during inference. The 50-action horizon executes ten commands per request, holding the last target while waiting; median inference was 92.83 ms. This is a measured debug baseline, not full-dataset training or a useful learned manipulation policy. Improve it before RTC comparisons.
 
 **Done when:** There is a reproducible baseline report and rollout video, with conversion/timing faults ruled out. Report low task success honestly; do not use RTC to hide a broken interface. Save results in `artifacts/M5/`.
 
@@ -207,7 +209,8 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-10 | M3 | Done | [Report and commands](artifacts/M3/report.md): 20/20 successful varied episodes, 16/4 scenario split, 10,256 rows, all 13 dataset checks passed, five reviewed previews; shared environments unchanged | M4: verify π0 readiness, integrate preprocessing, overfit a few demonstrations |
 | 2026-10-10 | M4 environment preparation | Done | [Environment report](artifacts/M4/environment_setup.md): authorized installation of ten missing packages; 111 existing versions preserved; π0 imports, CLI, CUDA BF16, dataset loading and pip checks passed | Continue M4 with model/tokenizer access, preprocessing integration, and training |
 | 2026-10-10 | M4 | Done | [Report](artifacts/M4/report.md): two-episode overfit passed after 1,600 steps; 8.04 cm command RMSE, 98.12% gripper accuracy, 10.708 GiB peak memory, exact reload predictions | Establish baseline training settings, then M5 expert replay and learned-policy closed-loop evaluation |
+| 2026-10-10 | M5 debug baseline evaluation | Done; policy unsuccessful | [Report and videos](artifacts/M5/report.md): expert replay passed; 0/2 familiar and 0/4 held-out learned successes; eight adapter/deployment tests and execution audit passed | Improve training/data coverage and repeat M5 before M6; full-finetuning remains unrun |
 
 To start a future session:
 
-> Read `implement_guide.md` and its linked technical reference. Work on the first incomplete milestone. Implement it, run its completion checks, and update the progress log with commands, evidence, and blockers. Keep proposed work distinct from verified results.
+> Read `implement_guide.md` and its linked technical reference. Follow its **Next task**, then the first incomplete milestone. Implement it, run its completion checks, and update the progress log with commands, evidence, and blockers. Keep proposed work distinct from verified results.

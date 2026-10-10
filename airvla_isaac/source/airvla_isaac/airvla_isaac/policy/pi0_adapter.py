@@ -15,7 +15,7 @@ from lerobot.utils.constants import OBS_LANGUAGE_ATTENTION_MASK, OBS_LANGUAGE_TO
 from safetensors.torch import load_file
 from transformers import AutoTokenizer
 
-from .action_codec import decode_chunk, unnormalize
+from .action_codec import decode_chunk, normalize, unnormalize
 
 
 CAMERA_MAP = {
@@ -119,6 +119,20 @@ class Pi0BatchAdapter:
         return np.stack([decode_chunk(unnormalize(p, self.stats['action'],
             None if masks is None else masks[i]), anchors[i], None if masks is None else masks[i])
             for i,p in enumerate(pred)])
+
+    def from_observation(self, state, images):
+        """Live counterpart of ChunkDataset: raw state and three HWC uint8 images."""
+        state = np.asarray(state, dtype=np.float32)
+        if state.shape != (8,) or not np.isfinite(state).all():
+            raise ValueError('Live state must contain eight finite values')
+        rows = {'observation.state': torch.from_numpy(normalize(state, self.stats['observation.state']))[None],
+                'task': [self.schema['task']]}
+        for name in CAMERA_MAP:
+            rgb = np.asarray(images[name])
+            if rgb.shape != (256, 256, 3) or rgb.dtype != np.uint8:
+                raise ValueError(f'Expected HWC uint8 RGB image for {name}')
+            rows['observation.images.'+name] = torch.from_numpy(rgb.copy()).permute(2, 0, 1)[None].float()/255.
+        return self(rows)
 
     def save_contract(self, destination):
         dest = Path(destination)

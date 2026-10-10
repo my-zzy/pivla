@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Offline boundary checks; tokenizer stub is never used for model training."""
 import unittest
+import json
+from pathlib import Path
+from PIL import Image
 
 import numpy as np
 import torch
@@ -20,6 +23,20 @@ class TokenizerStub:
 
 
 class AdapterChecks(unittest.TestCase):
+    def test_live_matches_recorded_preprocessing(self):
+        dataset = ChunkDataset('datasets/airvla_m3')
+        raw_dir = Path('artifacts/M3/episode_000')
+        raw = json.loads((raw_dir/'samples.jsonl').read_text().splitlines()[0])
+        images = {}
+        for name in CAMERA_MAP:
+            with Image.open(raw_dir/raw['camera']['cameras'][name]['path']) as im:
+                images[name] = np.asarray(im.convert('RGB'))
+        adapter = Pi0BatchAdapter('datasets/airvla_m3', 'unused', device='cpu', tokenizer=TokenizerStub())
+        live = adapter.from_observation(raw['state'], images)
+        recorded = adapter(default_collate([dataset[0]]))
+        for key in live:
+            torch.testing.assert_close(live[key], recorded[key], atol=0, rtol=0)
+
     def test_reload_preserves_a_trained_embedding(self):
         # Exercise the actual upstream remapper without constructing its 4B model.
         remapper=type('Remapper',(),{'_fix_pytorch_state_dict_keys':PI0Policy._fix_pytorch_state_dict_keys})()

@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "checks": {
+    "all_predeclared_trials_recorded": true,
+    "action_timestamps_10hz": true,
+    "physics_ticks_200hz": true,
+    "physics_advances_during_inference": true,
+    "request_time_anchor_decoding": true,
+    "executed_commands_match_predictions": true,
+    "empty_queue_holds_last_command": true,
+    "no_privileged_policy_inputs": true,
+    "no_future_camera_frames": true,
+    "expert_physical_replay": true,
+    "shared_source_checkouts_clean": true,
+    "entry_points_parse": true
+  },
+  "trials": [
+    {
+      "episode_id": 0,
+      "executed_commands_audited": 100,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000142
+    },
+    {
+      "episode_id": 4,
+      "executed_commands_audited": 727,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000853
+    },
+    {
+      "episode_id": 16,
+      "executed_commands_audited": 110,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000142
+    },
+    {
+      "episode_id": 17,
+      "executed_commands_audited": 727,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000853
+    },
+    {
+      "episode_id": 18,
+      "executed_commands_audited": 727,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000853
+    },
+    {
+      "episode_id": 19,
+      "executed_commands_audited": 727,
+      "max_command_decode_error": 0.0,
+      "max_camera_age_s": 0.10000000000000853
+    }
+  ],
+  "shared_source_status": {
+    "isaaclab": "",
+    "lerobot": "",
+    "isaaclab_shared_editable": ""
+  },
+  "adapter_tests": 5,
+  "deployment_tests": 3,
+  "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+}

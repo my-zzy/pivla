@@ -23,9 +23,7 @@ app = AppLauncher(args).app
 import numpy as np
 import torch
 import yaml
-from pxr import Gf
-import isaaclab.sim as sim_utils
-from airvla_isaac.sim.manipulation_env import ManipulationEnv
+from airvla_isaac.sim.scenario_env import ScenarioEnv
 from airvla_isaac.data.expert_policy import ScriptedExpert
 from airvla_isaac.data.collect_demos import EpisodeRecorder
 from airvla_isaac.policy.action_codec import state_from_raw
@@ -40,29 +38,6 @@ def merge(base, updates):
     for key, value in updates.items():
         base[key] = merge(base[key], value) if isinstance(value, dict) and key in base else value
     return base
-
-
-class ScenarioEnv(ManipulationEnv):
-    def reset(self, seed):
-        state = super().reset(seed)
-        block_state = self.block.data.default_root_state.clone()
-        block_state[:, :3] = block_state.new_tensor(self.cfg['task']['block_position'])
-        self.block.write_root_pose_to_sim(block_state[:, :7])
-        self.block.write_root_velocity_to_sim(block_state[:, 7:])
-        self.block.update(0.)
-        self.sim.forward()
-        return state
-
-    def configure(self, config):
-        # Move static bin shapes only between episodes. PhysX consumes USD changes.
-        delta = np.array(config['task']['bin_position'])-self.cfg['task']['bin_position']
-        stage = sim_utils.get_current_stage()
-        for name in ('Base', 'Stand', 'Left', 'Right', 'Front', 'Back'):
-            attr = stage.GetPrimAtPath('/World/Bin'+name).GetAttribute('xformOp:translate')
-            position = np.array(attr.Get())+delta
-            attr.Set(Gf.Vec3d(*position))
-        self.cfg = copy.deepcopy(config)
-        self.reset(config['seed'])
 
 
 def make_manifest(schema, base):
