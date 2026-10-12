@@ -4,7 +4,21 @@
 
 **Current status:** M0–M4 complete; M5 evaluation is complete for the M4 debug checkpoint. Expert replay succeeded, but learned control achieved **0/2 familiar and 0/4 held-out successes** despite 8.74 cm held-out offline command RMSE. The deployment/timing audit passed. See the [M5 report and videos](artifacts/M5/report.md).
 
-**Next task:** Improve the learned baseline before M6: train beyond the two-episode debug fit, expand varied/recovery demonstrations, and repeat M5 evaluation with the fixed validation split. The proposed full-finetuning configuration has not been run and needs a memory probe. Do not interpret a completed evaluation milestone as a successful policy.
+**Next task:** Run the all-16-episode baseline below, then repeat M5 with its new checkpoint and the fixed evaluation settings. This run keeps the vision-language backbone frozen. Expand varied/recovery demonstrations if broader training still fails. Do not interpret a completed evaluation milestone as a successful policy.
+
+**Training command** (run from `/home/user/pivla`; the launcher selects `lerobot` automatically):
+
+```bash
+bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml
+```
+
+[Training settings](configs/train.yaml): all 8,188 training rows, batch 4, 10,000 steps, 500-step warmup to `5e-5`, then cosine decay to `5e-6`. Start from `pi0_base`; train the action expert/projections with BF16 and gradient checkpointing. Validation and checkpoints run every 2,500 steps, using the unchanged training-only normalization. The full run has not been launched by the agent.
+
+Batch size was reduced from 8 to 4 at the user's request, keeping the 10,000-step budget. This processes approximately 40,000 samples, or 4.9 passes through the training rows. The earlier batch-8 benchmark measured 0.851 s/step, 11.88 GiB allocated and 12.51 GiB reserved CUDA memory; it is historical evidence, not a batch-4 duration estimate. Batch-4 throughput has not been measured.
+
+[Readiness checks](artifacts/M5/training_setup.json) passed: batch-8 benchmark, two schedule/RNG tests, and a separate two-step run exercising validation, intermediate/final saves, and a fresh reload with identical predictions. Shared environments were unchanged.
+
+Output: `artifacts/M5/baseline_train/`. Intermediate checkpoints: `checkpoints/step_002500`, `step_005000`, and `step_007500` inside that directory; final checkpoint: `checkpoint/`. Follow `loss.jsonl` for loss/LR and `evaluation.jsonl` for training/validation prediction metrics. Existing output directories are rejected; use `--output artifacts/M5/baseline_train_v2` for another run. Saved checkpoints contain weights and preprocessing, not optimizer state; `--checkpoint` starts a fresh optimizer and schedule.
 
 **First useful result achieved:** The drone physically grasps, lifts, transports, and releases a 100 g block into a bin, with three recorded camera streams and flight/contact measurements.
 
@@ -129,7 +143,7 @@ Reference: [Data and action contract](AirVLA_IsaacLab_Reproduction_Guide.md#5-da
 
 **Done when:** Training runs without invalid values, the saved checkpoint reloads, and offline predictions reproduce the small training set's motion and gripper sequence within documented tolerances. Loss decreasing alone is insufficient. Save the config, loss curve, prediction plots, and checkpoint location in `artifacts/M4/`.
 
-**Then:** Run the baseline training configuration. Keep debug freezes separate from comparison settings.
+**Then:** Run the baseline training configuration above. Record the freeze settings consistently in later comparisons.
 
 Reference: [Training and deployment](AirVLA_IsaacLab_Reproduction_Guide.md#7-training-and-deployment).
 
@@ -210,6 +224,8 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-10 | M4 environment preparation | Done | [Environment report](artifacts/M4/environment_setup.md): authorized installation of ten missing packages; 111 existing versions preserved; π0 imports, CLI, CUDA BF16, dataset loading and pip checks passed | Continue M4 with model/tokenizer access, preprocessing integration, and training |
 | 2026-10-10 | M4 | Done | [Report](artifacts/M4/report.md): two-episode overfit passed after 1,600 steps; 8.04 cm command RMSE, 98.12% gripper accuracy, 10.708 GiB peak memory, exact reload predictions | Establish baseline training settings, then M5 expert replay and learned-policy closed-loop evaluation |
 | 2026-10-10 | M5 debug baseline evaluation | Done; policy unsuccessful | [Report and videos](artifacts/M5/report.md): expert replay passed; 0/2 familiar and 0/4 held-out learned successes; eight adapter/deployment tests and execution audit passed | Improve training/data coverage and repeat M5 before M6; full-finetuning remains unrun |
+| 2026-10-10 | All-16-episode training setup | Ready; full run not started | [Readiness](artifacts/M5/training_setup.json): batch 8 fits; 0.851 s/step, 11.88 GiB allocated; validation/save/reload smoke test passed | User starts the training command above, then evaluate the new checkpoint with M5 |
+| 2026-10-10 | Local batch preference | Configured | Reduced batch size to 4 at user request; retained 10,000 steps and all other training settings. Earlier benchmark used batch 8. | Use the same training command; batch-4 timing remains unmeasured |
 
 To start a future session:
 

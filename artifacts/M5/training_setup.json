@@ -1,0 +1,73 @@
+{
+  "status": "ready_full_training_not_started",
+  "settings": {
+    "base_checkpoint": "checkpoints/pi0_base",
+    "tokenizer": "checkpoints/paligemma_tokenizer",
+    "dataset": "datasets/airvla_m3",
+    "output": "artifacts/M5/baseline_train",
+    "seed": 7401,
+    "train_episode_ids": null,
+    "batch_size": 8,
+    "steps": 10000,
+    "learning_rate": 5e-05,
+    "lr_schedule": "cosine",
+    "warmup_steps": 500,
+    "min_lr_ratio": 0.1,
+    "weight_decay": 0.01,
+    "grad_clip_norm": 1.0,
+    "expert_only": true,
+    "gradient_checkpointing": true,
+    "dtype": "bfloat16",
+    "evaluation_stride": 100,
+    "validation_split": "validation",
+    "validation_stride": 50,
+    "eval_every": 2500,
+    "checkpoint_every": 2500,
+    "inference_steps": 10
+  },
+  "config_sha256": "fa7cc56d895ac4fb7f55c0a7bf358d95dd8f25f5b7830060769986518c27dbc7",
+  "trainer_sha256": "e202cd405d6542ec15d5d7c6fb8540a45714dcdaf94c73214848fecd3ed2fddd",
+  "batch8_probe": {
+    "status": "passed",
+    "scope": "Real forward/backward/optimizer throughput and memory probe",
+    "step": 25,
+    "loss": 0.37826743721961975,
+    "grad_norm": 8.059419631958008,
+    "learning_rate": 2.5e-06,
+    "step_s": 0.8516672998666763,
+    "batch_rows": 8,
+    "elapsed_s": 21.599334100959823,
+    "training_elapsed_s": 21.59377189888619,
+    "peak_allocated_gib": 11.882002830505371,
+    "peak_reserved_gib": 12.5078125,
+    "probe_steps": 25,
+    "excluded_warmup_steps": 5,
+    "median_step_s": 0.8513649475062266,
+    "estimated_training_only_minutes": 141.89415791770443,
+    "batch_size": 8,
+    "training_rows": 8188
+  },
+  "integration": {
+    "optimizer_steps": 2,
+    "training_episodes": [
+      0
+    ],
+    "validation_episodes": 4,
+    "evaluated_steps": [
+      0,
+      1,
+      2
+    ],
+    "intermediate_checkpoint_saved": true,
+    "final_checkpoint_and_contract_saved": true,
+    "reload_max_abs_error": 0.0,
+    "status": "passed"
+  },
+  "schedule_and_rng_tests_passed": 2,
+  "estimated_total_wall_hours": [
+    2.5,
+    3.0
+  ],
+  "command": "bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml",
+  "environment_changes": "None; all GPU work used the existing read-only LeRobot launcher."
+}

@@ -12,6 +12,14 @@ M0–M4 are complete, and M5 has measured the M4 debug checkpoint in closed-loop
 - [Technical reference](AirVLA_IsaacLab_Reproduction_Guide.md)
 - [Generated external project](airvla_isaac/README.md)
 
+The next training run is prepared (all 16 training episodes, batch 4, 10,000 steps, frozen vision-language backbone):
+
+```bash
+bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml
+```
+
+Batch size was reduced to 4 at the user's request. The earlier timing benchmark used batch 8; batch-4 duration has not been measured. Results and checkpoints go to `artifacts/M5/baseline_train/`, preserving earlier experiments. See the [implementation guide](implement_guide.md) for monitoring and checkpoint details.
+
 The existing `isaaclab` and `lerobot` environments are shared with other projects. The user authorized adding the dependencies needed for M4 to `lerobot`; ten missing packages were installed while preserving all 111 existing package versions. Keep `isaaclab`, editable links, and shared source checkouts unchanged. The launcher supplies project-local imports without installing this project:
 
 ```bash

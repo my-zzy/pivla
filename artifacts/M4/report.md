@@ -53,7 +53,7 @@ env -u ALL_PROXY -u all_proxy /home/user/miniconda3/envs/lerobot/bin/hf download
 
 ## Experiment and reproduction
 
-`configs/train_debug.yaml` selects training episodes 0 and 4, batch size 2, 600 steps, BF16, gradient checkpointing, and training of the action expert/projections with the vision-language backbone frozen. This is a debugging configuration. `configs/train.yaml` keeps a separate proposed full-finetuning baseline; its memory requirements and learning behavior are unverified.
+`configs/train_debug.yaml` selects training episodes 0 and 4, batch size 2, 600 steps, BF16, gradient checkpointing, and training of the action expert/projections with the vision-language backbone frozen. This is a debugging configuration. At M4 completion, `configs/train.yaml` was an unrun full-finetuning proposal. After M5, it was replaced by the agreed all-16-episode, batch-8 baseline with the backbone still frozen; see the current [implementation guide](../../implement_guide.md).
 
 `scripts/m4_train.py` first loads the real local tokenizer and pretrained weights. `--probe` performs one forward/backward/optimizer step and records peak allocated CUDA memory. The full run compares fixed-noise predictions before/after training, saves the model plus tokenizer/schema/normalization/adapter contract, and reloads it for a prediction comparison. It includes gripper-transition boundaries and episode ends in evaluation. Fresh output directories prevent accidental overwrites.
 

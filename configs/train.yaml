@@ -1,17 +1,25 @@
-# Planned baseline, not yet run. Revisit memory/steps after M4 measurements.
+# All-16-episode baseline. Start from pretrained pi0_base, not the M4 overfit.
+# Benchmark with --probe --probe-steps 25 before a full run.
 base_checkpoint: checkpoints/pi0_base
 tokenizer: checkpoints/paligemma_tokenizer
 dataset: datasets/airvla_m3
-output: artifacts/M4/baseline_run
+output: artifacts/M5/baseline_train
 seed: 7401
 train_episode_ids: null
-batch_size: 1
+batch_size: 4
 steps: 10000
-learning_rate: 0.000025
+learning_rate: 0.00005
+lr_schedule: cosine
+warmup_steps: 500
+min_lr_ratio: 0.1
 weight_decay: 0.01
 grad_clip_norm: 1.0
-expert_only: false
+expert_only: true
 gradient_checkpointing: true
 dtype: bfloat16
-evaluation_stride: 20
+evaluation_stride: 100
+validation_split: validation
+validation_stride: 50
+eval_every: 2500
+checkpoint_every: 2500
 inference_steps: 10

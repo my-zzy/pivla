@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Local π0 overfit experiment with the audited M3 adapter and masked loss.
+"""Local π0 training with the audited M3 adapter and masked loss.
 
 Use --probe first. Checkpoint and tokenizer downloads must already be complete.
 No Hub upload or model download occurs here.
@@ -7,6 +7,7 @@ No Hub upload or model download occurs here.
 import argparse
 import gc
 import json
+import math
 from pathlib import Path
 import random
 import time
@@ -27,6 +28,17 @@ def save(path, data):
 
 
 def evaluate(policy, adapter, dataset, indices, seed):
+    # Monitoring must not reset the training noise stream or leave the model in eval mode.
+    was_training = policy.training
+    devices = [torch.cuda.current_device()] if torch.cuda.is_available() else []
+    try:
+        with torch.random.fork_rng(devices=devices):
+            return _evaluate(policy, adapter, dataset, indices, seed)
+    finally:
+        policy.train(was_training)
+
+
+def _evaluate(policy, adapter, dataset, indices, seed):
     policy.eval()
     predictions, targets, masks, anchors, records = [], [], [], [], []
     for index in indices:
@@ -52,6 +64,46 @@ def evaluate(policy, adapter, dataset, indices, seed):
     return metrics, {'predictions':predictions,'targets':targets,'valid':valid,'anchors':np.array(anchors)},records
 
 
+def evaluation_indices(dataset, indices, stride):
+    numeric = dataset.dataset.hf_dataset.select_columns(['episode_index', 'action']).with_format('numpy')[:]
+    membership, actions = np.asarray(numeric['episode_index']), np.asarray(numeric['action'])
+    selected = set(indices[::stride])
+    for i in indices:
+        first = i == 0 or membership[i] != membership[i-1]
+        last = i == len(dataset)-1 or membership[i] != membership[i+1]
+        if first or last or (not first and actions[i, 6] != actions[i-1, 6]) or (not last and actions[i, 6] != actions[i+1, 6]):
+            selected.add(i)
+    return sorted(selected)
+
+
+def learning_rate_at(step, settings):
+    peak = settings['learning_rate']
+    if settings.get('lr_schedule', 'constant') == 'constant':
+        return peak
+    if settings['lr_schedule'] != 'cosine':
+        raise ValueError('lr_schedule must be constant or cosine')
+    warmup = min(settings.get('warmup_steps', 0), settings['steps'])
+    if warmup and step <= warmup:
+        return peak*step/warmup
+    progress = min(1., max(0., (step-warmup)/max(1, settings['steps']-warmup)))
+    floor = settings.get('min_lr_ratio', .1)
+    return peak*(floor+(1-floor)*.5*(1+math.cos(math.pi*progress)))
+
+
+def validate_settings(settings, args):
+    for name in ('steps', 'batch_size', 'evaluation_stride', 'inference_steps'):
+        if settings[name] < 1:
+            raise ValueError(f'{name} must be positive')
+    for name in ('warmup_steps', 'eval_every', 'checkpoint_every'):
+        if settings.get(name, 0) < 0:
+            raise ValueError(f'{name} cannot be negative')
+    if settings.get('validation_stride', 1) < 1 or not 0 <= settings.get('min_lr_ratio', .1) <= 1:
+        raise ValueError('Invalid validation stride or minimum learning rate')
+    if settings['learning_rate'] <= 0 or args.probe_steps < 1:
+        raise ValueError('Learning rate and probe steps must be positive')
+    learning_rate_at(1, settings)
+
+
 def run(args, settings, out):
     seed=settings['seed']
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
@@ -63,13 +115,16 @@ def run(args, settings, out):
     indices=np.flatnonzero(np.isin(membership,episodes)).tolist() if episodes is not None else list(range(len(dataset)))
     if not indices:
         raise ValueError('No rows selected')
-    eval_indices=indices[::settings['evaluation_stride']]
-    # Include both sides of every gripper transition and the last row of each episode.
-    numeric=dataset.dataset.hf_dataset.select_columns(['action']).with_format('numpy')[:]['action']
-    eval_indices=sorted(set(eval_indices+[i for i in indices if i==len(dataset)-1
-        or (i+1<len(dataset) and membership[i]!=membership[i+1])
-        or (i and membership[i]==membership[i-1] and numeric[i,6]!=numeric[i-1,6])
-        or (i+1<len(dataset) and membership[i]==membership[i+1] and numeric[i,6]!=numeric[i+1,6])]))
+    eval_indices=evaluation_indices(dataset, indices, settings['evaluation_stride'])
+    validation = None
+    validation_indices = []
+    if settings.get('validation_split'):
+        if settings['validation_split'] != 'validation':
+            raise ValueError('Monitoring requires the separate validation split')
+        validation = ChunkDataset(settings['dataset'], 'validation')
+        if validation.schema != dataset.schema or validation.stats != dataset.stats:
+            raise ValueError('Train/validation preprocessing contracts differ')
+        validation_indices = evaluation_indices(validation, list(range(len(validation))), settings['validation_stride'])
     adapter=Pi0BatchAdapter(settings['dataset'],settings['tokenizer'])
     cfg=policy_config(settings['base_checkpoint'],device='cpu',expert_only=settings['expert_only'])
     cfg.gradient_checkpointing=settings['gradient_checkpointing']
@@ -80,51 +135,97 @@ def run(args, settings, out):
     policy.config.device='cuda'
     trainable=[p for p in policy.parameters() if p.requires_grad]
     save(out/'run_config.json',{'settings':settings,'training_rows':len(indices),'evaluation_indices':eval_indices,
+        'training_episode_ids':sorted(set(membership[indices].tolist())),
+        'validation_rows':len(validation) if validation is not None else 0,
+        'validation_indices':validation_indices,
         'parameters':sum(p.numel() for p in policy.parameters()),'trainable_parameters':sum(p.numel() for p in trainable),
         'pretrained_weights_loaded_strictly':True})
     loader=DataLoader(Subset(dataset,indices),batch_size=settings['batch_size'],shuffle=True,num_workers=0,
                       generator=torch.Generator().manual_seed(seed))
     optimizer=torch.optim.AdamW(trainable,lr=settings['learning_rate'],betas=(.9,.95),
                                eps=1e-8,weight_decay=settings['weight_decay'])
+    def monitor(step):
+        metrics, arrays, records = evaluate(policy, adapter, dataset, eval_indices, seed)
+        val_metrics = None
+        if validation is not None:
+            val_metrics, val_arrays, val_records = evaluate(policy, adapter, validation, validation_indices, seed+100000)
+            save(out/f'validation_step_{step:06d}.json', val_metrics)
+            np.savez_compressed(out/f'validation_step_{step:06d}.npz', **val_arrays)
+            save(out/'validation_rows.json', val_records)
+        with (out/'evaluation.jsonl').open('a') as handle:
+            handle.write(json.dumps({'step':step,'train':metrics,'validation':val_metrics}, allow_nan=False)+'\n')
+        print(f'Evaluation step {step}: train={metrics}; validation={val_metrics}', flush=True)
+        return metrics, arrays, records, val_metrics
+
+    def checkpoint_at(path, step):
+        policy.save_pretrained(path)
+        adapter.save_contract(path)
+        save(path/'training_metadata.json', {'step':step, 'settings':settings,
+            'optimizer_state_saved':False, 'restart_note':'--checkpoint starts a new optimizer and learning-rate schedule'})
+        save(out/'latest_checkpoint.json', {'step':step,'checkpoint':str(path)})
+        print(f'Saved checkpoint at step {step}: {path}', flush=True)
+
     initial=None
     if not args.probe:
-        initial,arrays,records=evaluate(policy,adapter,dataset,eval_indices,seed)
+        initial,arrays,records,_=monitor(0)
         save(out/'initial_metrics.json',initial)
         np.savez_compressed(out/'initial_predictions.npz',**arrays)
         save(out/'evaluation_rows.json',records)
         print('Initial predictions:',initial,flush=True)
     policy.train()
-    steps=1 if args.probe else settings['steps']
+    steps=args.probe_steps if args.probe else settings['steps']
     stream=iter(loader)
     torch.cuda.reset_peak_memory_stats()
     start=time.monotonic()
+    step_times=[]
     with (out/'loss.jsonl').open('w') as log:
         for step in range(1,steps+1):
+            torch.cuda.synchronize()
+            step_started=time.monotonic()
             try: rows=next(stream)
             except StopIteration:
                 stream=iter(loader); rows=next(stream)
             batch=adapter(rows)
             optimizer.zero_grad(set_to_none=True)
+            lr=learning_rate_at(step, settings)
+            for group in optimizer.param_groups:
+                group['lr']=lr
             loss=training_loss(policy,batch)
             if not torch.isfinite(loss): raise RuntimeError(f'Nonfinite loss at step {step}')
             loss.backward()
             norm=torch.nn.utils.clip_grad_norm_(trainable,settings['grad_clip_norm'],error_if_nonfinite=True)
             optimizer.step()
+            torch.cuda.synchronize()
+            step_times.append(time.monotonic()-step_started)
             record={'step':step,'loss':float(loss.detach()),'grad_norm':float(norm),
-                    'elapsed_s':time.monotonic()-start,'peak_allocated_gib':torch.cuda.max_memory_allocated()/2**30}
+                    'learning_rate':lr,'step_s':step_times[-1], 'batch_rows':len(rows['observation.state']),
+                    'elapsed_s':time.monotonic()-start,'training_elapsed_s':sum(step_times),
+                    'peak_allocated_gib':torch.cuda.max_memory_allocated()/2**30,
+                    'peak_reserved_gib':torch.cuda.max_memory_reserved()/2**30}
             log.write(json.dumps(record)+'\n'); log.flush()
             if step==1 or step%10==0 or step==steps: print(record,flush=True)
+            if not args.probe and step < steps:
+                if settings.get('eval_every', 0) and step % settings['eval_every'] == 0:
+                    monitor(step)
+                if settings.get('checkpoint_every', 0) and step % settings['checkpoint_every'] == 0:
+                    checkpoint_at(out/'checkpoints'/f'step_{step:06d}', step)
     if args.probe:
-        save(out/'result.json',{'status':'passed','scope':'One real pretrained forward/backward/optimizer step',**record})
+        warmup = min(5, max(0, steps-1))
+        measured = float(np.median(step_times[warmup:]))
+        result={'status':'passed','scope':'Real forward/backward/optimizer throughput and memory probe',**record,
+                'probe_steps':steps,'excluded_warmup_steps':warmup,'median_step_s':measured,
+                'estimated_training_only_minutes':measured*settings['steps']/60,
+                'batch_size':settings['batch_size'],'training_rows':len(indices)}
+        save(out/'result.json',result)
+        print(json.dumps(result, indent=2), flush=True)
         return
     del optimizer,trainable,batch,loss
     gc.collect(); torch.cuda.empty_cache()
-    final,arrays,records=evaluate(policy,adapter,dataset,eval_indices,seed)
+    final,arrays,records,final_validation=monitor(steps)
     save(out/'final_metrics.json',final)
     np.savez_compressed(out/'final_predictions.npz',**arrays)
     checkpoint=out/'checkpoint'
-    policy.save_pretrained(checkpoint)
-    adapter.save_contract(checkpoint)
+    checkpoint_at(checkpoint, steps)
     # Verify a freshly reconstructed model and saved preprocessing on a fixed batch.
     reload_indices=eval_indices[:2]
     _,expected,_=evaluate(policy,adapter,dataset,reload_indices,seed)
@@ -143,7 +244,9 @@ def run(args, settings, out):
                       gripper_fit=final['gripper_accuracy']>=limits['gripper_accuracy'])
     result={'status':'passed' if all(checks.values()) else 'failed','checks':checks,
             'initial':initial,'final':final,'reload_max_abs_error':reload_error,'checkpoint':str(checkpoint),
-            'peak_allocated_gib':record['peak_allocated_gib'],'training_elapsed_s':record['elapsed_s']}
+            'validation':final_validation,
+            'scope':'Offline training/validation and reload checks; task success requires M5 closed-loop evaluation',
+            'peak_allocated_gib':record['peak_allocated_gib'],'training_elapsed_s':sum(step_times)}
     save(out/'result.json',result)
     print(json.dumps(result,indent=2),flush=True)
     if not all(checks.values()): raise RuntimeError('Training completed but acceptance checks failed; see result.json')
@@ -153,6 +256,7 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config',type=Path,default=Path('configs/train_debug.yaml'))
     parser.add_argument('--probe',action='store_true')
+    parser.add_argument('--probe-steps',type=int,default=1,help='Optimizer steps for a disposable memory/throughput probe')
     parser.add_argument('--output',type=Path)
     parser.add_argument('--checkpoint',type=Path,help='Continue from saved weights with a fresh optimizer')
     parser.add_argument('--steps',type=int)
@@ -162,6 +266,7 @@ if __name__=='__main__':
     if args.checkpoint is not None: settings['base_checkpoint']=str(args.checkpoint)
     if args.steps is not None: settings['steps']=args.steps
     if args.learning_rate is not None: settings['learning_rate']=args.learning_rate
+    validate_settings(settings, args)
     out=args.output or Path(settings['output']+('_probe' if args.probe else ''))
     out.mkdir(parents=True,exist_ok=False)
     save(out/'status.json',{'status':'running'})

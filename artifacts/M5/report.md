@@ -83,7 +83,7 @@ Shared source and environment installations remain read-only during execution. T
 
 ## Next work
 
-1. Establish training beyond the two-episode smoke test, initially using all 16 existing training episodes. The proposed full-finetuning configuration still needs its own memory probe; it was not run here.
+1. Establish training beyond the two-episode smoke test, initially using all 16 existing training episodes. The prepared `configs/train.yaml` now uses batch 4 at the user's request, with 10,000 steps, a frozen vision-language backbone, warmup/cosine decay, validation, and intermediate checkpoints. The earlier batch-8 benchmark passed at 0.851 s/step and 11.88 GiB allocated CUDA memory; batch-4 timing is unmeasured. The full training run has not been launched by the agent; command and output paths are in the [implementation guide](../../implement_guide.md). Full-model fine-tuning remains untested.
 2. Expand training coverage with varied starts/layouts and corrective approaches/recovery demonstrations. More nearly identical successes alone will not establish robustness. Keep the existing validation split fixed and reserve a separate OOD suite.
 3. Repeat offline and closed-loop evaluation, and add controlled image/state ablations before claiming visual grounding. Neither the current offline scores nor these failures establish which inputs the model relies on.
 

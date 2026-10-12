@@ -95,6 +95,7 @@ checkpoints/
 !/artifacts/M5/result.json
 !/artifacts/M5/rollout_metrics.png
 !/artifacts/M5/verification.json
+!/artifacts/M5/training_setup.json
 
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/
