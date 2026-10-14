@@ -14,6 +14,7 @@ parser.add_argument('--mode', choices=['replay', 'policy'], required=True)
 parser.add_argument('--output', type=Path, required=True)
 parser.add_argument('--ipc', type=Path)
 AppLauncher.add_app_launcher_args(parser)
+parser.add_argument('--config', type=Path, default=Path('configs/eval.yaml'))
 args = parser.parse_args()
 if not args.enable_cameras:
     parser.error('M5 requires --enable_cameras')
@@ -36,7 +37,7 @@ def merge(base, updates):
 
 def main():
     args.output.mkdir(parents=True, exist_ok=False)
-    settings = yaml.safe_load(Path('configs/eval.yaml').read_text())
+    settings = yaml.safe_load(args.config.read_text())
     manifest = json.loads(Path(settings['manifest']).read_text())
     save(args.output/'settings.json', settings)
     selected = settings['replay_episode_ids'] if args.mode == 'replay' else settings['familiar_episode_ids']+settings['heldout_episode_ids']

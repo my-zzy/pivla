@@ -1,0 +1,1458 @@
+{
+  "status": "measured",
+  "date": "2026-10-14",
+  "checkpoint_files_verified": {
+    "checkpoints/step_007500/model.safetensors": {
+      "bytes": 8892502976,
+      "sha256": "3564885744d32e545ddf3e235ccd234f6730977bf2d106678ebb31c3393687a2"
+    },
+    "checkpoints/step_007500/config.json": {
+      "bytes": 2472,
+      "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+    },
+    "checkpoints/step_007500/normalization.json": {
+      "bytes": 2003,
+      "sha256": "7fdc69fc16910445ad03c3b5ad2ce33c77a3bf10bbe268b502a142122f664e3c"
+    },
+    "checkpoints/step_007500/schema.json": {
+      "bytes": 1767,
+      "sha256": "c4a8274ff676b278703cf550b721a1270c7cff6c99366963e4cf05fba9f6ed12"
+    },
+    "checkpoints/step_007500/adapter.json": {
+      "bytes": 464,
+      "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+    },
+    "checkpoints/step_007500/training_metadata.json": {
+      "bytes": 852,
+      "sha256": "6559f31eef1c3224118f46f0c4e08acbc4d64ee06c84e9b2592324484a5e791a"
+    },
+    "checkpoints/step_007500/tokenizer/tokenizer_config.json": {
+      "bytes": 502,
+      "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+    },
+    "checkpoints/step_007500/tokenizer/tokenizer.json": {
+      "bytes": 34387382,
+      "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+    },
+    "checkpoint/model.safetensors": {
+      "bytes": 8892502976,
+      "sha256": "fd71220ef2d657c885d5ce58c968f700b8490aa2ac9cc1cb7bf780144442d31a"
+    },
+    "checkpoint/config.json": {
+      "bytes": 2472,
+      "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+    },
+    "checkpoint/normalization.json": {
+      "bytes": 2003,
+      "sha256": "7fdc69fc16910445ad03c3b5ad2ce33c77a3bf10bbe268b502a142122f664e3c"
+    },
+    "checkpoint/schema.json": {
+      "bytes": 1767,
+      "sha256": "c4a8274ff676b278703cf550b721a1270c7cff6c99366963e4cf05fba9f6ed12"
+    },
+    "checkpoint/adapter.json": {
+      "bytes": 464,
+      "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+    },
+    "checkpoint/training_metadata.json": {
+      "bytes": 853,
+      "sha256": "0cd2ee2adb5ef2093f7841afea3225b298fa1496682614fb888926871dc27bac"
+    },
+    "checkpoint/tokenizer/tokenizer_config.json": {
+      "bytes": 502,
+      "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+    },
+    "checkpoint/tokenizer/tokenizer.json": {
+      "bytes": 34387382,
+      "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+    }
+  },
+  "training": {
+    "status": "passed",
+    "checks": {
+      "finite_training": true,
+      "checkpoint_reload": true
+    },
+    "initial": {
+      "position_rmse_m": 0.2824147939682007,
+      "yaw_rmse_rad": 0.02960863895714283,
+      "gripper_accuracy": 0.38216154140615033,
+      "evaluated_chunks": 176,
+      "valid_future_actions": 7837
+    },
+    "final": {
+      "position_rmse_m": 0.056101005524396896,
+      "yaw_rmse_rad": 0.004119337070733309,
+      "gripper_accuracy": 0.9941304070435115,
+      "evaluated_chunks": 176,
+      "valid_future_actions": 7837
+    },
+    "reload_max_abs_error": 0.0,
+    "checkpoint": "artifacts/M5/baseline_train_server/checkpoint",
+    "validation": {
+      "position_rmse_m": 0.07870651036500931,
+      "yaw_rmse_rad": 0.011953054927289486,
+      "gripper_accuracy": 0.993157714676702,
+      "evaluated_chunks": 64,
+      "valid_future_actions": 2923
+    },
+    "scope": "Offline training/validation and reload checks; task success requires M5 closed-loop evaluation",
+    "peak_allocated_gib": 10.966264247894287,
+    "training_elapsed_s": 5033.341103417799
+  },
+  "expert_replay": {
+    "status": "measured",
+    "settings": {
+      "checkpoint": "artifacts/M5/baseline_train_server/checkpoints/step_007500",
+      "dataset": "datasets/airvla_m3",
+      "manifest": "artifacts/M3/collection_manifest.json",
+      "seed": 7500,
+      "offline_stride": 20,
+      "replay_episode_ids": [
+        16
+      ],
+      "familiar_episode_ids": [
+        0,
+        4
+      ],
+      "heldout_episode_ids": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "action_horizon": 50,
+      "execute_actions": 10,
+      "action_hz": 10,
+      "inference_steps": 10,
+      "timeout_s": 80.0,
+      "success_dwell_s": 2.0,
+      "lift_above_table_m": 0.3,
+      "bin_z_tolerance_m": 0.025,
+      "settled_speed_m_s": 0.04,
+      "safe_z_m": [
+        0.45,
+        2.5
+      ],
+      "safe_xy_radius_m": 2.5,
+      "worker_timeout_wall_s": 60.0,
+      "simulation_time_mode": "realtime_paced_best_effort",
+      "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+      "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+      "scope": "All-16-episode baseline; nearby validation layouts, no deliberate OOD. Step 7500 selected by validation RMSE, so validation is not an untouched test set."
+    },
+    "trials": [
+      {
+        "episode_id": 16,
+        "scenario_id": 4,
+        "split": "validation",
+        "mode": "replay",
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9505171179771423,
+        "success_dwell_s": 7.769999999999857,
+        "termination": "replay_finished",
+        "error": null,
+        "duration_s": 51.7,
+        "wall_elapsed_s": 60.631801426177844,
+        "physics_steps": 10340,
+        "exact_physics_ticks": true,
+        "camera_frames": 259,
+        "executed_actions": 517,
+        "hold_action_ticks": 0,
+        "hold_simulation_s": 0.0,
+        "requests": 0,
+        "completed_requests": 0,
+        "delays": [],
+        "max_replay_command_error": 5.960464477539063e-08,
+        "final_observation": {
+          "drone_state": [
+            0.6412553191184998,
+            -0.4887782037258148,
+            1.3999569416046143,
+            0.9999998211860657,
+            -0.00047113304026424885,
+            6.313069752650335e-05,
+            -2.890939931887715e-08,
+            -0.00030767853604629636,
+            0.0036084798630326986,
+            -7.305865437956527e-05,
+            0.025682881474494934,
+            0.00023373104340862483,
+            -1.8141521422876394e-06
+          ],
+          "block_state": [
+            0.6291849613189697,
+            0.021961169317364693,
+            0.5400000214576721,
+            0.9999216794967651,
+            7.684991487622028e-07,
+            -3.715396417192096e-07,
+            -0.012508776970207691,
+            0.00015779462410137057,
+            0.00014798414485994726,
+            -6.041466258466244e-05,
+            -0.0003829932538792491,
+            0.00127932068426162,
+            -5.0699556595645845e-05
+          ],
+          "aperture_m": 0.13999899804592134,
+          "contact_force_w_n": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "contacts": [
+            false,
+            false
+          ],
+          "command_open": true
+        },
+        "time_mode": "unpaced_fixed_dt_replay",
+        "replay_action_count_matches": true
+      }
+    ]
+  },
+  "adapter_tests_passed": 5,
+  "deployment_tests_passed": 3,
+  "evaluations": {
+    "007500": {
+      "summary": {
+        "status": "measured",
+        "checkpoint": "artifacts/M5/baseline_train_server/checkpoints/step_007500",
+        "scope": "All-16-episode baseline; nearby validation layouts, no deliberate OOD. Step 7500 selected by validation RMSE, so validation is not an untouched test set.",
+        "settings": {
+          "checkpoint": "artifacts/M5/baseline_train_server/checkpoints/step_007500",
+          "dataset": "datasets/airvla_m3",
+          "manifest": "artifacts/M3/collection_manifest.json",
+          "seed": 7500,
+          "offline_stride": 20,
+          "replay_episode_ids": [
+            16
+          ],
+          "familiar_episode_ids": [
+            0,
+            4
+          ],
+          "heldout_episode_ids": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "action_horizon": 50,
+          "execute_actions": 10,
+          "action_hz": 10,
+          "inference_steps": 10,
+          "timeout_s": 80.0,
+          "success_dwell_s": 2.0,
+          "lift_above_table_m": 0.3,
+          "bin_z_tolerance_m": 0.025,
+          "settled_speed_m_s": 0.04,
+          "safe_z_m": [
+            0.45,
+            2.5
+          ],
+          "safe_xy_radius_m": 2.5,
+          "worker_timeout_wall_s": 60.0,
+          "simulation_time_mode": "realtime_paced_best_effort",
+          "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+          "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+          "scope": "All-16-episode baseline; nearby validation layouts, no deliberate OOD. Step 7500 selected by validation RMSE, so validation is not an untouched test set."
+        },
+        "offline": {
+          "familiar": {
+            "episodes": {
+              "0": {
+                "position_rmse_m": 0.06929988414049149,
+                "yaw_rmse_rad": 0.002844409318640828,
+                "gripper_accuracy": 0.9951890034364261,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 0,
+                "gripper_open_accuracy": 0.9921135646687698,
+                "gripper_closed_accuracy": 0.997563946406821,
+                "gripper_balanced_accuracy": 0.9948387555377953
+              },
+              "4": {
+                "position_rmse_m": 0.04864741116762161,
+                "yaw_rmse_rad": 0.006935375276952982,
+                "gripper_accuracy": 0.9951117318435754,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1432,
+                "source_episode_id": 4,
+                "gripper_open_accuracy": 0.9968503937007874,
+                "gripper_closed_accuracy": 0.9937264742785445,
+                "gripper_balanced_accuracy": 0.9952884339896659
+              }
+            },
+            "aggregate": {
+              "position_rmse_m": 0.05995185894500235,
+              "yaw_rmse_rad": 0.005285421216383657,
+              "gripper_accuracy": 0.9951506754416349,
+              "evaluated_chunks": 62,
+              "valid_future_actions": 2887
+            }
+          },
+          "heldout": {
+            "episodes": {
+              "0": {
+                "position_rmse_m": 0.07947677373886108,
+                "yaw_rmse_rad": 0.017501622438430786,
+                "gripper_accuracy": 0.9972508591065292,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 16,
+                "gripper_open_accuracy": 0.9952681388012619,
+                "gripper_closed_accuracy": 0.9987819732034104,
+                "gripper_balanced_accuracy": 0.9970250560023362
+              },
+              "1": {
+                "position_rmse_m": 0.061086155474185944,
+                "yaw_rmse_rad": 0.0007010440458543599,
+                "gripper_accuracy": 0.9917525773195877,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 17,
+                "gripper_open_accuracy": 0.9921135646687698,
+                "gripper_closed_accuracy": 0.9914738124238733,
+                "gripper_balanced_accuracy": 0.9917936885463216
+              },
+              "2": {
+                "position_rmse_m": 0.0581551194190979,
+                "yaw_rmse_rad": 0.0004696633550338447,
+                "gripper_accuracy": 0.9951890034364261,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 18,
+                "gripper_open_accuracy": 0.9952681388012619,
+                "gripper_closed_accuracy": 0.9951278928136419,
+                "gripper_balanced_accuracy": 0.9951980158074518
+              },
+              "3": {
+                "position_rmse_m": 0.07837459444999695,
+                "yaw_rmse_rad": 0.0005239536403678358,
+                "gripper_accuracy": 0.9917525773195877,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 19,
+                "gripper_open_accuracy": 0.9936908517350158,
+                "gripper_closed_accuracy": 0.9902557856272838,
+                "gripper_balanced_accuracy": 0.9919733186811498
+              }
+            },
+            "aggregate": {
+              "position_rmse_m": 0.06995118105580056,
+              "yaw_rmse_rad": 0.008764892495289492,
+              "gripper_accuracy": 0.9939862542955327,
+              "evaluated_chunks": 124,
+              "valid_future_actions": 5820
+            }
+          }
+        },
+        "closed_loop_totals": {
+          "familiar": {
+            "trials": 2,
+            "successes": 0,
+            "lifts": 0,
+            "grasps": 0
+          },
+          "heldout": {
+            "trials": 4,
+            "successes": 0,
+            "lifts": 0,
+            "grasps": 1
+          }
+        },
+        "trials": [
+          {
+            "episode_id": 0,
+            "scenario_id": 0,
+            "split": "train",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5585947632789612,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 95.28221291280352,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_000/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 0.8518183827400208,
+            "max_tracking_error_m": 1.0504381183002798,
+            "closest_pick_pose": {
+              "error_m": 0.09558420285052897,
+              "time_s": 24.355,
+              "position_w": [
+                -0.6405028700828552,
+                -0.09853280335664749,
+                0.8996441960334778
+              ],
+              "gripper_open": true,
+              "contacts": [
+                true,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8396110622788655,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09243803098797798,
+                "p95": 0.09450327679514885,
+                "max": 0.0954084750264883
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13506304286420345,
+                "p95": 0.27265463550575075,
+                "max": 0.279774263035506
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 4,
+            "scenario_id": 1,
+            "split": "train",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5420612692832947,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 96.25866112695076,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_004/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 0.8919768333435059,
+            "max_tracking_error_m": 0.21546683305342576,
+            "closest_pick_pose": {
+              "error_m": 0.08067299905936487,
+              "time_s": 20.585,
+              "position_w": [
+                -0.6046270132064819,
+                -0.032683733850717545,
+                0.899611234664917
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                true
+              ]
+            },
+            "sim_to_wall_ratio": 0.8310940445607485,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.0927120610140264,
+                "p95": 0.09400370274670422,
+                "max": 0.09572168602608144
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13571651093661785,
+                "p95": 0.2697220873553306,
+                "max": 0.2801880750339478
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 16,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5565915703773499,
+            "success_dwell_s": 0.0,
+            "termination": "unsafe_state",
+            "error": null,
+            "duration_s": 35.155,
+            "wall_elapsed_s": 43.623007002985105,
+            "physics_steps": 7031,
+            "exact_physics_ticks": true,
+            "camera_frames": 176,
+            "executed_actions": 320,
+            "hold_action_ticks": 32,
+            "hold_simulation_s": 3.2,
+            "requests": 32,
+            "completed_requests": 32,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_016/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "35.200000",
+              "nb_frames": "176"
+            },
+            "min_drone_z_m": 0.44606009125709534,
+            "max_tracking_error_m": 1.8782971677402513,
+            "closest_pick_pose": {
+              "error_m": 0.09024811198759848,
+              "time_s": 34.505,
+              "position_w": [
+                -0.6415230631828308,
+                0.08934403210878372,
+                0.8927475810050964
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8058820887242908,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09301544958725572,
+                "p95": 0.09587765992619098,
+                "max": 0.09914214606396854
+              },
+              "roundtrip_wall_s": {
+                "median": 0.200335125438869,
+                "p95": 0.27591808035504073,
+                "max": 0.2824949009809643
+              },
+              "simulation_delay_s": {
+                "median": 0.09999999999999976,
+                "p95": 0.10000000000000142,
+                "max": 0.10000000000000142
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 17,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5461627244949341,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 98.55662710685283,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_017/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 0.8965742588043213,
+            "max_tracking_error_m": 0.2340747267876537,
+            "closest_pick_pose": {
+              "error_m": 0.08506095567810223,
+              "time_s": 63.615,
+              "position_w": [
+                -0.6780818104743958,
+                0.09958695620298386,
+                0.899743914604187
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                true
+              ]
+            },
+            "sim_to_wall_ratio": 0.8117160900125553,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09300743602216244,
+                "p95": 0.09502187119796872,
+                "max": 0.09628243301995099
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13650735095143318,
+                "p95": 0.27394035127945243,
+                "max": 0.2798604811541736
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 18,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": true,
+            "lifted": false,
+            "max_block_z_m": 0.5566087365150452,
+            "success_dwell_s": 0.0,
+            "termination": "unsafe_state",
+            "error": null,
+            "duration_s": 41.78,
+            "wall_elapsed_s": 51.609749051043764,
+            "physics_steps": 8356,
+            "exact_physics_ticks": true,
+            "camera_frames": 209,
+            "executed_actions": 379,
+            "hold_action_ticks": 39,
+            "hold_simulation_s": 3.9,
+            "requests": 38,
+            "completed_requests": 38,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_018/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "41.800000",
+              "nb_frames": "209"
+            },
+            "min_drone_z_m": 0.4497932493686676,
+            "max_tracking_error_m": 1.043695643893749,
+            "closest_pick_pose": {
+              "error_m": 0.014021400332519895,
+              "time_s": 39.915,
+              "position_w": [
+                -0.708171010017395,
+                0.05778450146317482,
+                0.8236395716667175
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8095369725335845,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09307324851397425,
+                "p95": 0.09657925559440628,
+                "max": 0.09788410691544414
+              },
+              "roundtrip_wall_s": {
+                "median": 0.16169364389497787,
+                "p95": 0.2752181893447414,
+                "max": 0.2754878120031208
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000031,
+                "p95": 0.10000000000000142,
+                "max": 0.2
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 19,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5405292510986328,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 99.70886408700608,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 723,
+            "hold_action_ticks": 77,
+            "hold_simulation_s": 7.7,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_007500/closed_loop/trials/episode_019/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 0.8876016736030579,
+            "max_tracking_error_m": 0.3538064168945802,
+            "closest_pick_pose": {
+              "error_m": 0.10193878633962881,
+              "time_s": 42.53,
+              "position_w": [
+                -0.6317513585090637,
+                0.09141744673252106,
+                0.8997969627380371
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                true
+              ]
+            },
+            "sim_to_wall_ratio": 0.8023358879125521,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09332222817465663,
+                "p95": 0.09666299168020487,
+                "max": 0.10347539791837335
+              },
+              "roundtrip_wall_s": {
+                "median": 0.2665655550081283,
+                "p95": 0.28111464953981335,
+                "max": 0.323539030039683
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.3000000000000007
+              }
+            },
+            "all_responses_had_physics_progress": true
+          }
+        ]
+      },
+      "audit": {
+        "status": "passed",
+        "checks": {
+          "all_predeclared_trials_recorded": true,
+          "action_timestamps_10hz": true,
+          "physics_ticks_200hz": true,
+          "physics_advances_during_inference": true,
+          "request_time_anchor_decoding": true,
+          "executed_commands_match_predictions": true,
+          "empty_queue_holds_last_command": true,
+          "no_privileged_policy_inputs": true,
+          "no_future_camera_frames": true,
+          "expert_physical_replay": true,
+          "shared_source_checkouts_clean": true,
+          "entry_points_parse": true
+        },
+        "trials": [
+          {
+            "episode_id": 0,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 4,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 16,
+            "executed_commands_audited": 320,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000142
+          },
+          {
+            "episode_id": 17,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 18,
+            "executed_commands_audited": 379,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000142
+          },
+          {
+            "episode_id": 19,
+            "executed_commands_audited": 723,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          }
+        ],
+        "shared_source_status": {
+          "isaaclab": "",
+          "lerobot": "",
+          "isaaclab_shared_editable": ""
+        },
+        "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+      }
+    },
+    "010000": {
+      "summary": {
+        "status": "measured",
+        "checkpoint": "artifacts/M5/baseline_train_server/checkpoint",
+        "scope": "All-16-episode baseline; nearby validation layouts, no deliberate OOD. Step 7500 selected by validation RMSE, so validation is not an untouched test set.",
+        "settings": {
+          "checkpoint": "artifacts/M5/baseline_train_server/checkpoint",
+          "dataset": "datasets/airvla_m3",
+          "manifest": "artifacts/M3/collection_manifest.json",
+          "seed": 7500,
+          "offline_stride": 20,
+          "replay_episode_ids": [
+            16
+          ],
+          "familiar_episode_ids": [
+            0,
+            4
+          ],
+          "heldout_episode_ids": [
+            16,
+            17,
+            18,
+            19
+          ],
+          "action_horizon": 50,
+          "execute_actions": 10,
+          "action_hz": 10,
+          "inference_steps": 10,
+          "timeout_s": 80.0,
+          "success_dwell_s": 2.0,
+          "lift_above_table_m": 0.3,
+          "bin_z_tolerance_m": 0.025,
+          "settled_speed_m_s": 0.04,
+          "safe_z_m": [
+            0.45,
+            2.5
+          ],
+          "safe_xy_radius_m": 2.5,
+          "worker_timeout_wall_s": 60.0,
+          "simulation_time_mode": "realtime_paced_best_effort",
+          "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+          "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+          "scope": "All-16-episode baseline; nearby validation layouts, no deliberate OOD. Step 7500 selected by validation RMSE, so validation is not an untouched test set."
+        },
+        "offline": {
+          "familiar": {
+            "episodes": {
+              "0": {
+                "position_rmse_m": 0.06067943945527077,
+                "yaw_rmse_rad": 0.0018101665191352367,
+                "gripper_accuracy": 0.9979381443298969,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 0,
+                "gripper_open_accuracy": 0.9952681388012619,
+                "gripper_closed_accuracy": 1.0,
+                "gripper_balanced_accuracy": 0.9976340694006309
+              },
+              "4": {
+                "position_rmse_m": 0.02755836769938469,
+                "yaw_rmse_rad": 0.005643195006996393,
+                "gripper_accuracy": 0.9958100558659218,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1432,
+                "source_episode_id": 4,
+                "gripper_open_accuracy": 0.9952755905511811,
+                "gripper_closed_accuracy": 0.9962358845671268,
+                "gripper_balanced_accuracy": 0.9957557375591539
+              }
+            },
+            "aggregate": {
+              "position_rmse_m": 0.04724796856645141,
+              "yaw_rmse_rad": 0.004177005573777763,
+              "gripper_accuracy": 0.9968825770696225,
+              "evaluated_chunks": 62,
+              "valid_future_actions": 2887
+            }
+          },
+          "heldout": {
+            "episodes": {
+              "0": {
+                "position_rmse_m": 0.10818890482187271,
+                "yaw_rmse_rad": 0.016622282564640045,
+                "gripper_accuracy": 0.9951890034364261,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 16,
+                "gripper_open_accuracy": 0.9905362776025236,
+                "gripper_closed_accuracy": 0.9987819732034104,
+                "gripper_balanced_accuracy": 0.9946591254029671
+              },
+              "1": {
+                "position_rmse_m": 0.0779874324798584,
+                "yaw_rmse_rad": 0.00023869072902016342,
+                "gripper_accuracy": 0.9917525773195877,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 17,
+                "gripper_open_accuracy": 0.9905362776025236,
+                "gripper_closed_accuracy": 0.9926918392204629,
+                "gripper_balanced_accuracy": 0.9916140584114932
+              },
+              "2": {
+                "position_rmse_m": 0.0779847577214241,
+                "yaw_rmse_rad": 0.0003834711096715182,
+                "gripper_accuracy": 0.9951890034364261,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 18,
+                "gripper_open_accuracy": 0.9952681388012619,
+                "gripper_closed_accuracy": 0.9951278928136419,
+                "gripper_balanced_accuracy": 0.9951980158074518
+              },
+              "3": {
+                "position_rmse_m": 0.08668269962072372,
+                "yaw_rmse_rad": 0.00039671640843153,
+                "gripper_accuracy": 0.99106529209622,
+                "evaluated_chunks": 31,
+                "valid_future_actions": 1455,
+                "source_episode_id": 19,
+                "gripper_open_accuracy": 0.9889589905362776,
+                "gripper_closed_accuracy": 0.9926918392204629,
+                "gripper_balanced_accuracy": 0.9908254148783702
+              }
+            },
+            "aggregate": {
+              "position_rmse_m": 0.08857537976458602,
+              "yaw_rmse_rad": 0.008316575090196808,
+              "gripper_accuracy": 0.993298969072165,
+              "evaluated_chunks": 124,
+              "valid_future_actions": 5820
+            }
+          }
+        },
+        "closed_loop_totals": {
+          "familiar": {
+            "trials": 2,
+            "successes": 0,
+            "lifts": 0,
+            "grasps": 1
+          },
+          "heldout": {
+            "trials": 4,
+            "successes": 0,
+            "lifts": 0,
+            "grasps": 0
+          }
+        },
+        "trials": [
+          {
+            "episode_id": 0,
+            "scenario_id": 0,
+            "split": "train",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": true,
+            "lifted": false,
+            "max_block_z_m": 0.5540096759796143,
+            "success_dwell_s": 0.0,
+            "termination": "unsafe_state",
+            "error": null,
+            "duration_s": 41.955,
+            "wall_elapsed_s": 51.244373397901654,
+            "physics_steps": 8391,
+            "exact_physics_ticks": true,
+            "camera_frames": 210,
+            "executed_actions": 381,
+            "hold_action_ticks": 39,
+            "hold_simulation_s": 3.9,
+            "requests": 39,
+            "completed_requests": 39,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_000/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "42.000000",
+              "nb_frames": "210"
+            },
+            "min_drone_z_m": 0.44815102219581604,
+            "max_tracking_error_m": 1.4873615047860311,
+            "closest_pick_pose": {
+              "error_m": 0.019672533265308552,
+              "time_s": 40.42,
+              "position_w": [
+                -0.6762028932571411,
+                -0.0618012510240078,
+                0.8347651362419128
+              ],
+              "gripper_open": false,
+              "contacts": [
+                true,
+                true
+              ]
+            },
+            "sim_to_wall_ratio": 0.8187240318898692,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09264134499244392,
+                "p95": 0.09465196987148375,
+                "max": 0.09537657885812223
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13335195183753967,
+                "p95": 0.2718421685975045,
+                "max": 0.27284445287659764
+              },
+              "simulation_delay_s": {
+                "median": 0.1,
+                "p95": 0.10000000000000142,
+                "max": 0.10000000000000142
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 4,
+            "scenario_id": 1,
+            "split": "train",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.556600034236908,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 99.45313083380461,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_004/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 0.834176242351532,
+            "max_tracking_error_m": 1.1363176220790687,
+            "closest_pick_pose": {
+              "error_m": 0.04036296216496296,
+              "time_s": 15.24,
+              "position_w": [
+                -0.6139851212501526,
+                -0.06544778496026993,
+                0.8692626357078552
+              ],
+              "gripper_open": false,
+              "contacts": [
+                false,
+                true
+              ]
+            },
+            "sim_to_wall_ratio": 0.8043990101597446,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09315713681280613,
+                "p95": 0.09668017155490816,
+                "max": 0.10210910392925143
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13797763898037374,
+                "p95": 0.2795359794050455,
+                "max": 0.2963324140291661
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 16,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5400000214576721,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 98.89169382397085,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_016/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 1.3722764253616333,
+            "max_tracking_error_m": 0.060438039443366766,
+            "closest_pick_pose": {
+              "error_m": 0.5424547004743834,
+              "time_s": 0.005,
+              "position_w": [
+                -0.699908971786499,
+                0.06775783747434616,
+                1.3722764253616333
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8089658181242356,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09271841286681592,
+                "p95": 0.09476560233160854,
+                "max": 0.09573097107931972
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13614473398774862,
+                "p95": 0.2736011581029743,
+                "max": 0.2777951580937952
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 17,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5400000214576721,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 98.48056414304301,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 726,
+            "hold_action_ticks": 74,
+            "hold_simulation_s": 7.4,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_017/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 1.3628191947937012,
+            "max_tracking_error_m": 0.03507749923049982,
+            "closest_pick_pose": {
+              "error_m": 0.5360828449714009,
+              "time_s": 1.33,
+              "position_w": [
+                -0.7427502274513245,
+                0.09038075059652328,
+                1.3628381490707397
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8123430312990491,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09286753786727786,
+                "p95": 0.0952904725447297,
+                "max": 0.09635712997987866
+              },
+              "roundtrip_wall_s": {
+                "median": 0.2639267039485276,
+                "p95": 0.2742927337065339,
+                "max": 0.27722392603755
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.1999999999999993
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 18,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5400000214576721,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 99.00934435706586,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_018/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 1.4237515926361084,
+            "max_tracking_error_m": 0.035599492701476526,
+            "closest_pick_pose": {
+              "error_m": 0.5999888948742876,
+              "time_s": 0.855,
+              "position_w": [
+                -0.7687807083129883,
+                0.047984130680561066,
+                1.4255424737930298
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8080045425963954,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.09285945910960436,
+                "p95": 0.09477207153104246,
+                "max": 0.099398422986269
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13648018590174615,
+                "p95": 0.2726138406433165,
+                "max": 0.2747648749500513
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          },
+          {
+            "episode_id": 19,
+            "scenario_id": 4,
+            "split": "validation",
+            "mode": "policy",
+            "success": false,
+            "grasp_contact": false,
+            "lifted": false,
+            "max_block_z_m": 0.5400000214576721,
+            "success_dwell_s": 0.0,
+            "termination": "timeout",
+            "error": null,
+            "duration_s": 80.0,
+            "wall_elapsed_s": 98.76982269296423,
+            "physics_steps": 16000,
+            "exact_physics_ticks": true,
+            "camera_frames": 400,
+            "executed_actions": 727,
+            "hold_action_ticks": 73,
+            "hold_simulation_s": 7.3,
+            "requests": 73,
+            "completed_requests": 73,
+            "max_replay_command_error": null,
+            "time_mode": "realtime_paced_best_effort",
+            "video": "artifacts/M5/baseline_step_010000/closed_loop/trials/episode_019/rollout.mp4",
+            "video_integrity": {
+              "width": 768,
+              "height": 296,
+              "duration": "80.000000",
+              "nb_frames": "400"
+            },
+            "min_drone_z_m": 1.4017791748046875,
+            "max_tracking_error_m": 0.05160370391279375,
+            "closest_pick_pose": {
+              "error_m": 0.5770189543124663,
+              "time_s": 0.005,
+              "position_w": [
+                -0.6547058820724487,
+                0.11995679885149002,
+                1.4017791748046875
+              ],
+              "gripper_open": true,
+              "contacts": [
+                false,
+                false
+              ]
+            },
+            "sim_to_wall_ratio": 0.8099639932399992,
+            "timing": {
+              "inference_wall_s": {
+                "median": 0.092338572954759,
+                "p95": 0.09427249352447688,
+                "max": 0.09689800394698977
+              },
+              "roundtrip_wall_s": {
+                "median": 0.13552044495008886,
+                "p95": 0.2750411381945014,
+                "max": 0.2760311539750546
+              },
+              "simulation_delay_s": {
+                "median": 0.10000000000000142,
+                "p95": 0.10000000000000853,
+                "max": 0.10000000000000853
+              }
+            },
+            "all_responses_had_physics_progress": true
+          }
+        ]
+      },
+      "audit": {
+        "status": "passed",
+        "checks": {
+          "all_predeclared_trials_recorded": true,
+          "action_timestamps_10hz": true,
+          "physics_ticks_200hz": true,
+          "physics_advances_during_inference": true,
+          "request_time_anchor_decoding": true,
+          "executed_commands_match_predictions": true,
+          "empty_queue_holds_last_command": true,
+          "no_privileged_policy_inputs": true,
+          "no_future_camera_frames": true,
+          "expert_physical_replay": true,
+          "shared_source_checkouts_clean": true,
+          "entry_points_parse": true
+        },
+        "trials": [
+          {
+            "episode_id": 0,
+            "executed_commands_audited": 381,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000142
+          },
+          {
+            "episode_id": 4,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 16,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 17,
+            "executed_commands_audited": 726,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 18,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          },
+          {
+            "episode_id": 19,
+            "executed_commands_audited": 727,
+            "max_command_decode_error": 0.0,
+            "max_camera_age_s": 0.10000000000000853
+          }
+        ],
+        "shared_source_status": {
+          "isaaclab": "",
+          "lerobot": "",
+          "isaaclab_shared_editable": ""
+        },
+        "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+      }
+    }
+  }
+}

@@ -14,10 +14,11 @@ import numpy as np
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path('artifacts/M5'))
+    parser.add_argument('--policy-only', action='store_true', help='Summarize new policy trials without re-encoding expert replay')
     args = parser.parse_args()
     root = args.root
     offline = json.loads((root/'offline/result.json').read_text())
-    replay = json.loads((root/'replay/result.json').read_text())
+    replay = {'trials': []} if args.policy_only else json.loads((root/'replay/result.json').read_text())
     policy = json.loads((root/'closed_loop/trials/result.json').read_text())
     selected = [('replay', root/'replay', t) for t in replay['trials']]+[
         ('policy', root/'closed_loop/trials', t) for t in policy['trials']]

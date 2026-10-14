@@ -2,9 +2,9 @@
 
 **Start here.** This is our working checklist. Use the [technical reference](AirVLA_IsaacLab_Reproduction_Guide.md) for design details, data conventions, and paper settings.
 
-**Current status:** M0–M4 complete; M5 evaluation is complete for the M4 debug checkpoint. Expert replay succeeded, but learned control achieved **0/2 familiar and 0/4 held-out successes** despite 8.74 cm held-out offline command RMSE. The deployment/timing audit passed. See the [M5 report and videos](artifacts/M5/report.md).
+**Current status:** M0–M4 complete. The all-16-episode server training and repeated M5 evaluation are complete, but learned control remains unsuccessful. Both step 7,500 and step 10,000 scored **0/2 familiar and 0/4 validation successes**, with one closed-gripper contact event each and no lifts. Fresh expert replay and both execution audits passed. See the [comparison report and videos](artifacts/M5/baseline_comparison.md); the [original debug report](artifacts/M5/report.md) is preserved.
 
-**Next task:** Run the all-16-episode baseline below, then repeat M5 with its new checkpoint and the fixed evaluation settings. This run keeps the vision-language backbone frozen. Expand varied/recovery demonstrations if broader training still fails. Do not interpret a completed evaluation milestone as a successful policy.
+**Next task:** Diagnose the hover-to-approach transition and grasp alignment failures, then prepare corrective/recovery demonstrations from the observed deviations. Use controlled RGB/state ablations to check what the policy relies on before choosing further training changes. Keep the fixed validation protocol and reserve a new untouched/OOD test suite; step 7,500 was selected using validation. Defer RTC until the baseline has useful task success. No new training or data collection has started.
 
 **Training command** (run from `/home/user/pivla`; the launcher selects `lerobot` automatically):
 
@@ -12,9 +12,32 @@
 bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml
 ```
 
-[Training settings](configs/train.yaml): all 8,188 training rows, batch 4, 10,000 steps, 500-step warmup to `5e-5`, then cosine decay to `5e-6`. Start from `pi0_base`; train the action expert/projections with BF16 and gradient checkpointing. Validation and checkpoints run every 2,500 steps, using the unchanged training-only normalization. The full run has not been launched by the agent.
+**Server command** (`zhiyang@47.116.73.163`, SSH port 30): activate the server environment and use the server launcher. It uses the active Python (or `LEROBOT_PYTHON`) and the project's local dataset/model files. Select a free GPU with `nvidia-smi` before starting; the example selects GPU 0.
 
-Batch size was reduced from 8 to 4 at the user's request, keeping the 10,000-step budget. This processes approximately 40,000 samples, or 4.9 passes through the training rows. The earlier batch-8 benchmark measured 0.851 s/step, 11.88 GiB allocated and 12.51 GiB reserved CUDA memory; it is historical evidence, not a batch-4 duration estimate. Batch-4 throughput has not been measured.
+```bash
+conda activate lerobot
+cd ~/workspace/code/pivla
+CUDA_VISIBLE_DEVICES=0 bash scripts/run_lerobot_server.sh scripts/m4_train.py \
+  --config configs/train.yaml --output artifacts/M5/baseline_train_server
+```
+
+For a short check first, add `--probe --probe-steps 10` and use a fresh output directory such as `artifacts/M5/server_probe_manual`. The server launcher sets offline Hugging Face access and resolves project imports without the local machine's absolute paths. Keep `datasets/airvla_m3`, `checkpoints/pi0_base`, and `checkpoints/paligemma_tokenizer` under the project directory.
+
+**Live training display:** New runs show an updating terminal panel with loss, a rolling loss average, learning rate, gradient norm, speed, peak GPU memory, evaluation results, and optimizer ETA. Redirected output uses readable log lines; `--plain` also selects that format. Every step is still recorded in `loss.jsonl`.
+
+To inspect the baseline logs, open a second SSH terminal on **port 31**, activate `lerobot`, and run from `~/workspace/code/pivla`:
+
+```bash
+python scripts/watch_training.py artifacts/M5/baseline_train_server
+```
+
+The monitor reads existing logs and uses no GPU. `Ctrl-C` closes only the monitor; `--once` prints one snapshot. The existing training process keeps its original console format until its next launch. ETA covers remaining optimizer steps, excluding future evaluation and checkpoint saves.
+
+[Training settings](configs/train.yaml): all 8,188 training rows, batch 4, 10,000 steps, 500-step warmup to `5e-5`, then cosine decay to `5e-6`. Start from `pi0_base`; train the action expert/projections with BF16 and gradient checkpointing. Validation and checkpoints run every 2,500 steps, using the unchanged training-only normalization. The user launched the full run on the server; it completed 10,000 steps with a successful checkpoint reload.
+
+Batch size was reduced from 8 to 4 at the user's request, keeping the 10,000-step budget. This processes approximately 40,000 samples, or 4.9 passes through the training rows. The earlier batch-8 benchmark measured 0.851 s/step, 11.88 GiB allocated and 12.51 GiB reserved CUDA memory; it is historical evidence, not a batch-4 duration estimate. Batch-4 throughput has not been measured locally.
+
+**Server readiness (2026-10-14):** The pinned model, tokenizer, and dataset passed checksum checks; train/validation samples and a ten-step batch-4 probe passed on an RTX PRO 5000 72GB GPU. The probe measured 0.476 s/step after warmup and 10.97 GiB peak allocated memory. Its 79-minute projection for 10,000 optimizer steps excludes validation, checkpoint saves, startup, and other server activity. See [setup results](artifacts/server_setup/setup_result.json). The user subsequently completed full training on port 31, using the same shared project files. Optimizer time was 5,033 s (about 84 minutes), with 10.97 GiB peak allocated memory. Validation position-command RMSE was 5.97 cm at step 7,500 and 7.87 cm at step 10,000; these offline scores do not establish task success. See [training result](artifacts/M5/baseline_train_server/result.json).
 
 [Readiness checks](artifacts/M5/training_setup.json) passed: batch-8 benchmark, two schedule/RNG tests, and a separate two-step run exercising validation, intermediate/final saves, and a fresh reload with identical predictions. Shared environments were unchanged.
 
@@ -226,6 +249,10 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-10 | M5 debug baseline evaluation | Done; policy unsuccessful | [Report and videos](artifacts/M5/report.md): expert replay passed; 0/2 familiar and 0/4 held-out learned successes; eight adapter/deployment tests and execution audit passed | Improve training/data coverage and repeat M5 before M6; full-finetuning remains unrun |
 | 2026-10-10 | All-16-episode training setup | Ready; full run not started | [Readiness](artifacts/M5/training_setup.json): batch 8 fits; 0.851 s/step, 11.88 GiB allocated; validation/save/reload smoke test passed | User starts the training command above, then evaluate the new checkpoint with M5 |
 | 2026-10-10 | Local batch preference | Configured | Reduced batch size to 4 at user request; retained 10,000 steps and all other training settings. Earlier benchmark used batch 8. | Use the same training command; batch-4 timing remains unmeasured |
+
+| 2026-10-14 | All-16-episode server training | Done | 10,000 steps, batch 4, 84 minutes optimizer time, exact checkpoint reload; [result](artifacts/M5/baseline_train_server/result.json) | Both evaluated; see the comparison below |
+
+| 2026-10-14 | M5 all-16-episode comparison | Done; policies unsuccessful | [Report and videos](artifacts/M5/baseline_comparison.md): both checkpoints 0/6 successes, no lifts; fresh replay, eight tests, both execution audits and video checks passed | Diagnose approach/grasp failures; prepare corrective data before further training or RTC |
 
 To start a future session:
 

@@ -13,10 +13,14 @@ import random
 import time
 import traceback
 
+if __name__ == '__main__':
+    print('Starting π0 trainer: loading Python libraries…', flush=True)
+
 import numpy as np
 import torch
 from torch.utils.data import DataLoader, Subset, default_collate
 import yaml
+from training_ui import TrainingDisplay
 
 from airvla_isaac.data.chunk_dataset import ChunkDataset
 from airvla_isaac.policy.action_codec import wrap_yaw
@@ -27,21 +31,21 @@ def save(path, data):
     path.write_text(json.dumps(data,indent=2,allow_nan=False)+'\n')
 
 
-def evaluate(policy, adapter, dataset, indices, seed):
+def evaluate(policy, adapter, dataset, indices, seed, progress=None):
     # Monitoring must not reset the training noise stream or leave the model in eval mode.
     was_training = policy.training
     devices = [torch.cuda.current_device()] if torch.cuda.is_available() else []
     try:
         with torch.random.fork_rng(devices=devices):
-            return _evaluate(policy, adapter, dataset, indices, seed)
+            return _evaluate(policy, adapter, dataset, indices, seed, progress)
     finally:
         policy.train(was_training)
 
 
-def _evaluate(policy, adapter, dataset, indices, seed):
+def _evaluate(policy, adapter, dataset, indices, seed, progress=None):
     policy.eval()
     predictions, targets, masks, anchors, records = [], [], [], [], []
-    for index in indices:
+    for done, index in enumerate(indices, 1):
         rows=default_collate([dataset[index]])
         batch=adapter(rows)
         # A fixed seed per row makes pre/post/reload predictions comparable.
@@ -53,6 +57,8 @@ def _evaluate(policy, adapter, dataset, indices, seed):
         masks.append(~rows['action_is_pad'][0].numpy())
         anchors.append(rows['anchor_state'][0].numpy())
         records.append({'index':index,'episode':int(rows['episode_index'][0]),'frame':int(rows['frame_index'][0])})
+        if progress is not None:
+            progress(done, len(indices))
     predictions,targets,valid=np.array(predictions),np.array(targets),np.array(masks)
     error=predictions-targets
     position_rmse=float(np.sqrt(np.mean(np.sum(error[:,:,:3][valid]**2,axis=-1))))
@@ -104,7 +110,8 @@ def validate_settings(settings, args):
     learning_rate_at(1, settings)
 
 
-def run(args, settings, out):
+def run(args, settings, out, ui):
+    ui.phase('Preparing datasets, tokenizer, and CUDA')
     seed=settings['seed']
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
     torch.set_num_threads(8)
@@ -130,7 +137,7 @@ def run(args, settings, out):
     cfg.gradient_checkpointing=settings['gradient_checkpointing']
     cfg.dtype=settings['dtype']
     cfg.num_inference_steps=settings['inference_steps']
-    print('Loading pretrained weights with strict key checks',flush=True)
+    ui.phase('Loading pretrained weights with strict key checks')
     policy=load_policy_strict(settings['base_checkpoint'],cfg).to('cuda')
     policy.config.device='cuda'
     trainable=[p for p in policy.parameters() if p.requires_grad]
@@ -139,31 +146,34 @@ def run(args, settings, out):
         'validation_rows':len(validation) if validation is not None else 0,
         'validation_indices':validation_indices,
         'parameters':sum(p.numel() for p in policy.parameters()),'trainable_parameters':sum(p.numel() for p in trainable),
-        'pretrained_weights_loaded_strictly':True})
+        'pretrained_weights_loaded_strictly':True,
+        'probe_steps':args.probe_steps if args.probe else None})
     loader=DataLoader(Subset(dataset,indices),batch_size=settings['batch_size'],shuffle=True,num_workers=0,
                       generator=torch.Generator().manual_seed(seed))
     optimizer=torch.optim.AdamW(trainable,lr=settings['learning_rate'],betas=(.9,.95),
                                eps=1e-8,weight_decay=settings['weight_decay'])
     def monitor(step):
-        metrics, arrays, records = evaluate(policy, adapter, dataset, eval_indices, seed)
+        ui.phase(f'Evaluating training split · step {step:,}')
+        metrics, arrays, records = evaluate(policy, adapter, dataset, eval_indices, seed, ui.advance)
         val_metrics = None
         if validation is not None:
-            val_metrics, val_arrays, val_records = evaluate(policy, adapter, validation, validation_indices, seed+100000)
+            ui.phase(f'Evaluating validation split · step {step:,}')
+            val_metrics, val_arrays, val_records = evaluate(policy, adapter, validation, validation_indices, seed+100000, ui.advance)
             save(out/f'validation_step_{step:06d}.json', val_metrics)
             np.savez_compressed(out/f'validation_step_{step:06d}.npz', **val_arrays)
             save(out/'validation_rows.json', val_records)
         with (out/'evaluation.jsonl').open('a') as handle:
             handle.write(json.dumps({'step':step,'train':metrics,'validation':val_metrics}, allow_nan=False)+'\n')
-        print(f'Evaluation step {step}: train={metrics}; validation={val_metrics}', flush=True)
+        ui.evaluated(step, metrics, val_metrics)
         return metrics, arrays, records, val_metrics
 
     def checkpoint_at(path, step):
+        ui.phase(f'Saving checkpoint · step {step:,} · {path.name}')
         policy.save_pretrained(path)
         adapter.save_contract(path)
         save(path/'training_metadata.json', {'step':step, 'settings':settings,
             'optimizer_state_saved':False, 'restart_note':'--checkpoint starts a new optimizer and learning-rate schedule'})
         save(out/'latest_checkpoint.json', {'step':step,'checkpoint':str(path)})
-        print(f'Saved checkpoint at step {step}: {path}', flush=True)
 
     initial=None
     if not args.probe:
@@ -171,8 +181,8 @@ def run(args, settings, out):
         save(out/'initial_metrics.json',initial)
         np.savez_compressed(out/'initial_predictions.npz',**arrays)
         save(out/'evaluation_rows.json',records)
-        print('Initial predictions:',initial,flush=True)
     policy.train()
+    ui.phase('Training')
     steps=args.probe_steps if args.probe else settings['steps']
     stream=iter(loader)
     torch.cuda.reset_peak_memory_stats()
@@ -203,12 +213,14 @@ def run(args, settings, out):
                     'peak_allocated_gib':torch.cuda.max_memory_allocated()/2**30,
                     'peak_reserved_gib':torch.cuda.max_memory_reserved()/2**30}
             log.write(json.dumps(record)+'\n'); log.flush()
-            if step==1 or step%10==0 or step==steps: print(record,flush=True)
+            ui.update(record)
             if not args.probe and step < steps:
                 if settings.get('eval_every', 0) and step % settings['eval_every'] == 0:
                     monitor(step)
+                    ui.phase('Training')
                 if settings.get('checkpoint_every', 0) and step % settings['checkpoint_every'] == 0:
                     checkpoint_at(out/'checkpoints'/f'step_{step:06d}', step)
+                    ui.phase('Training')
     if args.probe:
         warmup = min(5, max(0, steps-1))
         measured = float(np.median(step_times[warmup:]))
@@ -217,7 +229,7 @@ def run(args, settings, out):
                 'estimated_training_only_minutes':measured*settings['steps']/60,
                 'batch_size':settings['batch_size'],'training_rows':len(indices)}
         save(out/'result.json',result)
-        print(json.dumps(result, indent=2), flush=True)
+        ui.note = f'Probe passed · median {measured:.3f} s/step · result saved to {out / "result.json"}'
         return
     del optimizer,trainable,batch,loss
     gc.collect(); torch.cuda.empty_cache()
@@ -227,6 +239,7 @@ def run(args, settings, out):
     checkpoint=out/'checkpoint'
     checkpoint_at(checkpoint, steps)
     # Verify a freshly reconstructed model and saved preprocessing on a fixed batch.
+    ui.phase('Verifying checkpoint reload')
     reload_indices=eval_indices[:2]
     _,expected,_=evaluate(policy,adapter,dataset,reload_indices,seed)
     del policy
@@ -248,7 +261,7 @@ def run(args, settings, out):
             'scope':'Offline training/validation and reload checks; task success requires M5 closed-loop evaluation',
             'peak_allocated_gib':record['peak_allocated_gib'],'training_elapsed_s':sum(step_times)}
     save(out/'result.json',result)
-    print(json.dumps(result,indent=2),flush=True)
+    ui.note = f'Checkpoint reload error {reload_error:.2e} · results saved to {out / "result.json"}'
     if not all(checks.values()): raise RuntimeError('Training completed but acceptance checks failed; see result.json')
 
 
@@ -261,6 +274,7 @@ if __name__=='__main__':
     parser.add_argument('--checkpoint',type=Path,help='Continue from saved weights with a fresh optimizer')
     parser.add_argument('--steps',type=int)
     parser.add_argument('--learning-rate',type=float)
+    parser.add_argument('--plain',action='store_true',help='Print readable log lines instead of a live terminal panel')
     args=parser.parse_args()
     settings=yaml.safe_load(args.config.read_text())
     if args.checkpoint is not None: settings['base_checkpoint']=str(args.checkpoint)
@@ -271,7 +285,10 @@ if __name__=='__main__':
     out.mkdir(parents=True,exist_ok=False)
     save(out/'status.json',{'status':'running'})
     try:
-        run(args,settings,out)
+        with TrainingDisplay(args.probe_steps if args.probe else settings['steps'],
+                             settings['batch_size'], out, plain=args.plain) as ui:
+            run(args,settings,out,ui)
+            ui.phase('Finished · passed', keep_note=True)
         save(out/'status.json',{'status':'passed'})
     except BaseException as exc:
         save(out/'status.json',{'status':'failed','error':f'{type(exc).__name__}: {exc}'})

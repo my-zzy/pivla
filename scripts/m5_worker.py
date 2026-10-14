@@ -21,8 +21,9 @@ def atomic_json(path, data):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--ipc', type=Path, required=True)
+    parser.add_argument('--config', type=Path, default=Path('configs/eval.yaml'))
     args = parser.parse_args()
-    settings = yaml.safe_load(Path('configs/eval.yaml').read_text())
+    settings = yaml.safe_load(args.config.read_text())
     checkpoint = Path(settings['checkpoint'])
     torch.set_num_threads(4)
     torch.backends.cuda.matmul.allow_tf32 = True

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Evaluate the unchanged M4 checkpoint on familiar and held-out M3 episodes."""
+"""Evaluate a frozen checkpoint on familiar and held-out M3 episodes."""
 import argparse
 import json
 from pathlib import Path
@@ -16,9 +16,10 @@ from airvla_isaac.policy.pi0_adapter import Pi0BatchAdapter, load_policy_strict,
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('artifacts/M5/offline'))
+    parser.add_argument('--config', type=Path, default=Path('configs/eval.yaml'))
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
-    settings = yaml.safe_load(Path('configs/eval.yaml').read_text())
+    settings = yaml.safe_load(args.config.read_text())
     checkpoint = Path(settings['checkpoint'])
     adapter = Pi0BatchAdapter(checkpoint, checkpoint/'tokenizer')
     cfg = policy_config(checkpoint)
@@ -28,7 +29,7 @@ def main():
     policy = load_policy_strict(checkpoint, cfg).to('cuda').eval()
     policy.config.device = 'cuda'
     report = {'checkpoint': str(checkpoint), 'settings': settings, 'groups': {},
-              'scope': 'Offline command prediction only; checkpoint is not trained or selected on validation.'}
+              'scope': 'Offline command prediction only. ' + settings['scope']}
     split_manifest = json.loads(Path('artifacts/M3/split_manifest.json').read_text())
     for split, name, selected in [('train', 'familiar', [0, 4]), ('validation', 'heldout', None)]:
         dataset = ChunkDataset(settings['dataset'], split)

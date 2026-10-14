@@ -10,8 +10,10 @@ import time
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('artifacts/M5/closed_loop'))
+    parser.add_argument('--config', type=Path, default=Path('configs/eval.yaml'))
+    parser.add_argument('--replay-root', type=Path, default=Path('artifacts/M5/replay'))
     args = parser.parse_args()
-    replay = json.loads(Path('artifacts/M5/replay/result.json').read_text())
+    replay = json.loads((args.replay_root/'result.json').read_text())
     if not all(t['success'] and t['max_replay_command_error'] < 1e-6 and t['replay_action_count_matches']
                for t in replay['trials']):
         raise RuntimeError('Passing expert replay is required first')
@@ -21,7 +23,7 @@ def main():
     worker = None
     with (args.output/'worker.log').open('w') as log:
         try:
-            worker = subprocess.Popen(['bash', 'scripts/run_lerobot.sh', 'scripts/m5_worker.py', '--ipc', str(ipc)],
+            worker = subprocess.Popen(['bash', 'scripts/run_lerobot.sh', 'scripts/m5_worker.py', '--ipc', str(ipc), '--config', str(args.config)],
                                       stdout=log, stderr=subprocess.STDOUT)
             started = time.monotonic()
             while not (ipc/'ready.json').exists():
@@ -30,7 +32,7 @@ def main():
                 time.sleep(.2)
             with (args.output/'sim.log').open('w') as simlog:
                 subprocess.run(['bash', 'scripts/run_isaac.sh', 'scripts/m5_sim.py', '--mode', 'policy',
-                    '--enable_cameras', '--ipc', str(ipc), '--output', str(args.output/'trials')],
+                    '--enable_cameras', '--config', str(args.config), '--ipc', str(ipc), '--output', str(args.output/'trials')],
                     stdout=simlog, stderr=subprocess.STDOUT, check=True)
         finally:
             (ipc/'stop').touch()

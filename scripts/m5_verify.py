@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Audit actual M5 action execution, clocks, anchors, and environment preservation."""
+import argparse
 import ast
 import json
 from pathlib import Path
@@ -11,11 +12,16 @@ from airvla_isaac.policy.rollout import decode_prediction
 
 
 def main():
-    root = Path('artifacts/M5')
-    settings = yaml.safe_load(Path('configs/eval.yaml').read_text())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--root', type=Path, default=Path('artifacts/M5'))
+    parser.add_argument('--config', type=Path, default=Path('configs/eval.yaml'))
+    parser.add_argument('--replay-root', type=Path, default=Path('artifacts/M5/replay'))
+    args = parser.parse_args()
+    root = args.root
+    settings = yaml.safe_load(args.config.read_text())
     stats = json.loads((Path(settings['checkpoint'])/'normalization.json').read_text())
     policy = json.loads((root/'closed_loop/trials/result.json').read_text())
-    replay = json.loads((root/'replay/result.json').read_text())
+    replay = json.loads((args.replay_root/'result.json').read_text())
     expected = settings['familiar_episode_ids']+settings['heldout_episode_ids']
     assert [r['episode_id'] for r in policy['trials']] == expected
     checks = {'all_predeclared_trials_recorded': True}
@@ -25,7 +31,13 @@ def main():
         actions = [json.loads(s) for s in (episode/'actions.jsonl').read_text().splitlines()]
         times = np.array([r['time_s'] for r in actions])
         np.testing.assert_allclose(times, np.arange(len(times))/settings['action_hz'], atol=1e-9)
-        assert trial['physics_steps'] == len(actions)*20
+        # Safety/success can stop inside the last 20-tick action interval.
+        # Check every recorded physics tick, including that partial interval.
+        flight = [json.loads(line) for line in (episode/'flight.jsonl').read_text().splitlines()]
+        assert trial['physics_steps'] == len(flight) == round(trial['duration_s']*200)
+        np.testing.assert_allclose([r['time_s'] for r in flight],
+                                   np.arange(1, len(flight)+1)/200, atol=1e-9)
+        assert len(actions) == (trial['physics_steps']+19)//20
         assert trial['exact_physics_ticks']
         camera_ages = np.array([r['time_s']-r['camera_time_s'] for r in actions])
         assert camera_ages.min() >= -1e-9 and camera_ages.max() <= .1+1e-9
@@ -71,7 +83,6 @@ def main():
     checks['entry_points_parse'] = True
     result = {'status': 'passed' if all(checks.values()) else 'failed', 'checks': checks,
               'trials': records, 'shared_source_status': sources,
-              'adapter_tests': 5, 'deployment_tests': 3,
               'environment_protection': 'Both runtime processes use read-only host mounts; no packages installed.'}
     (root/'verification.json').write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(result, indent=2))
