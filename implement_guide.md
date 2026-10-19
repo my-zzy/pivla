@@ -4,9 +4,18 @@
 
 **Current status:** M0–M4 complete. The all-16-episode server training and repeated M5 evaluation are complete, but learned control remains unsuccessful. Both step 7,500 and step 10,000 scored **0/2 familiar and 0/4 validation successes**, with one closed-gripper contact event each and no lifts. Fresh expert replay and both execution audits passed. See the [comparison report and videos](artifacts/M5/baseline_comparison.md); the [original debug report](artifacts/M5/report.md) is preserved.
 
-**Next task:** Diagnose the hover-to-approach transition and grasp alignment failures, then prepare corrective/recovery demonstrations from the observed deviations. Use controlled RGB/state ablations to check what the policy relies on before choosing further training changes. Keep the fixed validation protocol and reserve a new untouched/OOD test suite; step 7,500 was selected using validation. Defer RTC until the baseline has useful task success. No new training or data collection has started.
+**Diagnosis complete:** [Failure diagnosis](artifacts/M5/diagnosis.md) found hidden expert timing requirements, delayed/missed approaches, and gripper closure without reliable alignment. All 71 sampled requests reproduced their saved predictions exactly; fixed-noise RGB/state interventions show sensitivity, not proof of visual grounding.
 
-**Training command** (run from `/home/user/pivla`; the launcher selects `lerobot` automatically):
+**Corrective data ready (2026-10-19):** The separate state-driven expert passed 5/5 physical pilot cases (including failed closure and loss of grip at lift onset) and 16/16 collection episodes. The new dataset has 18 training episodes / 6,534 rows, including two fault-free recovery suffixes, plus the four unchanged validation episodes / 2,068 rows. All 13 dataset checks passed. See [report, videos and commands](artifacts/M5/recovery_report.md).
+
+**Next task:** Run a disposable batch-4 smoke test using `configs/train_recovery.yaml`, then a small learning pilot and fixed M5 closed-loop evaluation before another full server run. This configuration starts from `pi0_base` with `datasets/airvla_m5_recovery` and its new normalization. No training has started on the new data. Old validation targets retain timed holds, so prioritize physical task success over offline error alone. The server still needs the new dataset/configuration transferred. Broader yaw/layout coverage and an untouched/OOD test suite remain future work; defer RTC until useful baseline success.
+
+```bash
+bash scripts/run_lerobot.sh scripts/m4_train.py \
+  --config configs/train_recovery.yaml --probe --probe-steps 25
+```
+
+**Historical baseline training command** (run from `/home/user/pivla`; the launcher selects `lerobot` automatically):
 
 ```bash
 bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml
@@ -253,6 +262,10 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-14 | All-16-episode server training | Done | 10,000 steps, batch 4, 84 minutes optimizer time, exact checkpoint reload; [result](artifacts/M5/baseline_train_server/result.json) | Both evaluated; see the comparison below |
 
 | 2026-10-14 | M5 all-16-episode comparison | Done; policies unsuccessful | [Report and videos](artifacts/M5/baseline_comparison.md): both checkpoints 0/6 successes, no lifts; fresh replay, eight tests, both execution audits and video checks passed | Diagnose approach/grasp failures; prepare corrective data before further training or RTC |
+
+| 2026-10-14 | M5 failure diagnosis | Done | [Diagnosis](artifacts/M5/diagnosis.md): 71 exact prediction replays and fixed-noise input tests; near-identical hover observations have different upcoming targets due to expert waits | Implement and validate state-driven expert and training-only recovery collection |
+
+| 2026-10-19 | State-driven expert and corrective data | Done | [Report](artifacts/M5/recovery_report.md): 5/5 physical pilot cases, 16/16 collection episodes; 18 training episodes with recovery suffixes, 4 unchanged validation episodes; all 13 dataset checks passed | Smoke test and small learning pilot with `configs/train_recovery.yaml`; new data not yet trained |
 
 To start a future session:
 

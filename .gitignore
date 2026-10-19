@@ -101,3 +101,12 @@ checkpoints/
 
 # Downloaded setup-test assets; URLs and hashes are retained in asset_manifest.json.
 /airvla_isaac/assets/m0/
+
+# Compact M5 diagnosis; raw intervention arrays remain local.
+!/artifacts/M5/diagnosis.md
+!/artifacts/M5/diagnosis.json
+!/artifacts/M5/diagnosis.png
+
+# State-driven expert and corrective dataset summary; raw data/videos stay local.
+!/artifacts/M5/recovery_report.md
+!/artifacts/M5/recovery_result.json

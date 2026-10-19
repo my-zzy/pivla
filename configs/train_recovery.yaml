@@ -1,0 +1,27 @@
+# New normalization belongs to this dataset; do not reuse the old checkpoint adapter.
+# Old validation demonstrations retain their timed holds; use physical M5 success as the deciding metric.
+# State-driven approaches plus fault-free recovery suffixes. Start from pi0_base.
+# Benchmark with --probe --probe-steps 25 before a full run.
+base_checkpoint: checkpoints/pi0_base
+tokenizer: checkpoints/paligemma_tokenizer
+dataset: datasets/airvla_m5_recovery
+output: artifacts/M5/recovery_train
+seed: 7401
+train_episode_ids: null
+batch_size: 4
+steps: 10000
+learning_rate: 0.00005
+lr_schedule: cosine
+warmup_steps: 500
+min_lr_ratio: 0.1
+weight_decay: 0.01
+grad_clip_norm: 1.0
+expert_only: true
+gradient_checkpointing: true
+dtype: bfloat16
+evaluation_stride: 100
+validation_split: validation
+validation_stride: 50
+eval_every: 2500
+checkpoint_every: 2500
+inference_steps: 10
