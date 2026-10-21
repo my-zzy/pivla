@@ -39,14 +39,21 @@ Validation checked 8,602 raw chunks, 226 native loader chunks and 219 exact imag
 
 ## Next learning test
 
-Use the prepared configuration, which retains batch 4, a frozen vision-language backbone and the 10,000-step baseline budget. It starts from `pi0_base` with the new dataset statistics. No training was launched in this session. First run a disposable forward/backward/optimizer smoke test:
+Use the prepared configuration, which retains batch 4, a frozen vision-language backbone and the 10,000-step baseline budget. It starts from `pi0_base` with the new dataset statistics.
+
+The disposable forward/backward/optimizer probe passed on 2026-10-21 on server port 30, GPU 0 (NVIDIA RTX PRO 5000 72GB Blackwell): 25 steps, 0.475 s/step after warmup, 10.97 GiB peak allocated memory. All 17 transferred dataset files matched their local SHA256 checksums, and train/validation samples loaded successfully. The 79-minute estimate for 10,000 steps excludes startup, validation and checkpoint saves. See `server_readiness` in [recovery_result.json](recovery_result.json).
+
+For future server probes, activate the server environment and use the server launcher:
 
 ```bash
-bash scripts/run_lerobot.sh scripts/m4_train.py \
+conda activate lerobot
+LC_ALL=C.UTF-8 CUDA_VISIBLE_DEVICES=0 bash scripts/run_lerobot_server.sh scripts/m4_train.py \
   --config configs/train_recovery.yaml --probe --probe-steps 25
 ```
 
-Then run a small learning pilot and fixed closed-loop evaluation before committing to another full server run. The server still needs the new dataset and configuration copied to it.
+Check GPU availability before launching and use a fresh output directory when repeating a probe. The desktop launcher `run_lerobot.sh` uses local paths and Bubblewrap; it now gives server guidance when the desktop installation is absent. No environment packages were changed for this fix.
+
+Next, run a small learning pilot and fixed closed-loop evaluation before committing to another full server run. The probe did not create a trained policy checkpoint; full recovery training has not started.
 
 ## Reproduction
 

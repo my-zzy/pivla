@@ -1,6 +1,6 @@
 # AirVLA simulation project
 
-M0–M4 are complete, and M5 has measured the M4 debug checkpoint in closed-loop simulation. Expert replay succeeded, but π0 achieved **0/2 familiar and 0/4 held-out successes** despite low offline prediction error. The action conversion and timing audit passed. Next is improving training/data coverage before RTC; start with [implement_guide.md](implement_guide.md).
+M0–M4 are complete. M5 found no successful learned pick-and-place trials for either the debug policy or the later all-16-episode baseline. A separate state-driven expert and corrective dataset now pass physical/data checks. Next is a learning pilot on the corrected data; start with [implement_guide.md](implement_guide.md).
 
 - [M0 results, environment details, and commands](artifacts/M0/report.md)
 - [M1 results, video, camera preview, and plots](artifacts/M1/report.md)
@@ -12,13 +12,23 @@ M0–M4 are complete, and M5 has measured the M4 debug checkpoint in closed-loop
 - [Technical reference](AirVLA_IsaacLab_Reproduction_Guide.md)
 - [Generated external project](airvla_isaac/README.md)
 
-The next training run is prepared (all 16 training episodes, batch 4, 10,000 steps, frozen vision-language backbone):
+The corrective dataset is ready: 18 training episodes (6,534 rows), including two fault-free recovery segments, with the original four validation episodes retained. The new expert passed five physical pilot cases and sixteen collection episodes; the learned policy has not yet been retrained on this data. See [recovery report and videos](artifacts/M5/recovery_report.md).
+
+Run a disposable batch-4 training probe using the launcher for the machine you are on:
 
 ```bash
-bash scripts/run_lerobot.sh scripts/m4_train.py --config configs/train.yaml
+# Local RTX 5090 workstation
+bash scripts/run_lerobot.sh scripts/m4_train.py \
+  --config configs/train_recovery.yaml --probe --probe-steps 25
+
+# Server: activate its environment and choose an available GPU first
+conda activate lerobot
+cd ~/workspace/code/pivla
+LC_ALL=C.UTF-8 CUDA_VISIBLE_DEVICES=0 bash scripts/run_lerobot_server.sh scripts/m4_train.py \
+  --config configs/train_recovery.yaml --probe --probe-steps 25
 ```
 
-Batch size was reduced to 4 at the user's request. The earlier timing benchmark used batch 8; batch-4 duration has not been measured. Results and checkpoints go to `artifacts/M5/baseline_train/`, preserving earlier experiments. See the [implementation guide](implement_guide.md) for monitoring and checkpoint details.
+The local launcher uses desktop-specific paths and Bubblewrap. The server launcher uses the active Python environment. The server also needs the Git-ignored `datasets/airvla_m5_recovery`, `checkpoints/pi0_base`, and `checkpoints/paligemma_tokenizer`; pulling code alone does not transfer them. Probe output defaults to `artifacts/M5/recovery_train_probe`; use a fresh `--output` path for another run.
 
 The existing `isaaclab` and `lerobot` environments are shared with other projects. The user authorized adding the dependencies needed for M4 to `lerobot`; ten missing packages were installed while preserving all 111 existing package versions. Keep `isaaclab`, editable links, and shared source checkouts unchanged. The launcher supplies project-local imports without installing this project:
 
@@ -60,4 +70,4 @@ The viewport starts inside the room looking at the drone. After the test, the fi
 
 The launcher uses the existing `bwrap` executable to mount host files read-only, except this workspace and the GPU's device/kernel interfaces. Caches and logs go under each milestone's `artifacts/M<number>/runtime/`. `/tmp` and `/var/tmp` are temporary private mounts. No shell profile or global environment variable is changed. In a restricted agent sandbox, this command needs host GPU access. Ordinary Ubuntu terminals may also need the one-time [AppArmor permission for bwrap](docs/launcher-troubleshooting.md); the launcher checks this before starting Sim.
 
-The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert, recorders, exporter, and loader live in `data/`; the action codec and π0 adapter are in `policy/`. The original cartpole task remains as an M0 setup check. Dataset and policy work uses the existing `lerobot` environment. M4 trained the π0 action expert on two demonstrations for 1,600 steps, reaching 8.04 cm position-command RMSE and 98.12% gripper accuracy with 10.708 GiB peak CUDA allocation. The checkpoint at `artifacts/M4/debug_refine/checkpoint/` reloads with identical predictions; see the [M4 report](artifacts/M4/report.md). M5 evaluated this checkpoint in closed loop with 0/6 successes; full baseline training remains pending. No environment clone was needed.
+The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert, recorders, exporter, and loader live in `data/`; the action codec and π0 adapter are in `policy/`. The original cartpole task remains as an M0 setup check. Dataset and policy work uses the existing `lerobot` environment. M4 trained the π0 action expert on two demonstrations for 1,600 steps, reaching 8.04 cm position-command RMSE and 98.12% gripper accuracy with 10.708 GiB peak CUDA allocation. The checkpoint at `artifacts/M4/debug_refine/checkpoint/` reloads with identical predictions; see the [M4 report](artifacts/M4/report.md). M5 evaluated this checkpoint in closed loop with 0/6 successes; the later all-16-episode baseline also achieved 0/6 successes, and corrective data is now ready. No environment clone was needed.

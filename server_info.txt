@@ -1,0 +1,9 @@
+47.116.73.163 port 30
+zhiyang
+
+
+> bash scripts/run_lerobot.sh scripts/m4_train.py \
+  --config configs/train_recovery.yaml --probe --probe-steps 25
+
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+bwrap: Can't mkdir parents for /home/zhiyang/workspace/code/pivla: No such file or directory

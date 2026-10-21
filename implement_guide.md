@@ -8,7 +8,7 @@
 
 **Corrective data ready (2026-10-19):** The separate state-driven expert passed 5/5 physical pilot cases (including failed closure and loss of grip at lift onset) and 16/16 collection episodes. The new dataset has 18 training episodes / 6,534 rows, including two fault-free recovery suffixes, plus the four unchanged validation episodes / 2,068 rows. All 13 dataset checks passed. See [report, videos and commands](artifacts/M5/recovery_report.md).
 
-**Next task:** Run a disposable batch-4 smoke test using `configs/train_recovery.yaml`, then a small learning pilot and fixed M5 closed-loop evaluation before another full server run. This configuration starts from `pi0_base` with `datasets/airvla_m5_recovery` and its new normalization. No training has started on the new data. Old validation targets retain timed holds, so prioritize physical task success over offline error alone. The server still needs the new dataset/configuration transferred. Broader yaw/layout coverage and an untouched/OOD test suite remain future work; defer RTC until useful baseline success.
+**Next task:** Run a small learning pilot using `configs/train_recovery.yaml`, then fixed M5 closed-loop evaluation before another full server run. The disposable 25-step batch-4 probe passed on server port 30 on 2026-10-21; the recovery dataset was transferred and all 17 file checksums matched. This configuration starts from `pi0_base` with `datasets/airvla_m5_recovery` and its new normalization. No full recovery training run or trained checkpoint is ready yet. Old validation targets retain timed holds, so prioritize physical task success over offline error alone. Broader yaw/layout coverage and an untouched/OOD test suite remain future work; defer RTC until useful baseline success.
 
 ```bash
 bash scripts/run_lerobot.sh scripts/m4_train.py \
@@ -266,6 +266,7 @@ Update this after each work session. Use `not started`, `in progress`, `blocked`
 | 2026-10-14 | M5 failure diagnosis | Done | [Diagnosis](artifacts/M5/diagnosis.md): 71 exact prediction replays and fixed-noise input tests; near-identical hover observations have different upcoming targets due to expert waits | Implement and validate state-driven expert and training-only recovery collection |
 
 | 2026-10-19 | State-driven expert and corrective data | Done | [Report](artifacts/M5/recovery_report.md): 5/5 physical pilot cases, 16/16 collection episodes; 18 training episodes with recovery suffixes, 4 unchanged validation episodes; all 13 dataset checks passed | Smoke test and small learning pilot with `configs/train_recovery.yaml`; new data not yet trained |
+| 2026-10-21 | Recovery server readiness | Done | [Evidence](artifacts/M5/recovery_result.json): dataset transfer verified; 25-step batch-4 probe passed on port 30 GPU 0, 0.475 s/step and 10.97 GiB peak allocated memory; use `run_lerobot_server.sh` | Small learning pilot and fixed M5 evaluation; full recovery training not started |
 
 To start a future session:
 

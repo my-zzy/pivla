@@ -36,3 +36,16 @@ sudo rm /etc/apparmor.d/pivla-bwrap
 ```
 
 This restores the previous launcher restriction for new processes from an ordinary terminal.
+
+## Running LeRobot training on the server
+
+An error such as `bwrap: Can't mkdir parents for /home/zhiyang/workspace/code/pivla` can occur when the desktop launcher is used on the server. `run_lerobot.sh` depends on the local `/home/user` installation and Bubblewrap mounts. Use the server launcher with the server's existing environment:
+
+```bash
+conda activate lerobot
+cd ~/workspace/code/pivla
+LC_ALL=C.UTF-8 CUDA_VISIBLE_DEVICES=0 bash scripts/run_lerobot_server.sh scripts/m4_train.py \
+  --config configs/train_recovery.yaml --probe --probe-steps 25
+```
+
+Select an available GPU using `nvidia-smi`. `LC_ALL=C.UTF-8` uses the server's available locale for this command. Model files and datasets are Git-ignored and must exist on the server separately from the code. An existing probe output directory is preserved; use a fresh `--output` path when repeating the probe.

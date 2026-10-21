@@ -1595,5 +1595,42 @@
   "unit_tests": {
     "new_expert": 5,
     "original_expert": 5
+  },
+  "server_readiness": {
+    "date": "2026-10-21",
+    "status": "passed",
+    "host": "47.116.73.163",
+    "ssh_port": 30,
+    "gpu_index": 0,
+    "gpu_name": "NVIDIA RTX PRO 5000 72GB Blackwell",
+    "dataset_transfer": {
+      "status": "passed",
+      "files": 17,
+      "bytes": 610779115
+    },
+    "dataset_sample_preflight": "passed: first and last train/validation samples; finite actions and expected state/action shapes",
+    "probe": {
+      "status": "passed",
+      "scope": "Real forward/backward/optimizer throughput and memory probe",
+      "step": 25,
+      "loss": 0.34217074513435364,
+      "grad_norm": 9.001603126525879,
+      "learning_rate": 2.5e-06,
+      "step_s": 0.4763971050269902,
+      "batch_rows": 4,
+      "elapsed_s": 12.836108169984072,
+      "training_elapsed_s": 12.827912958106026,
+      "peak_allocated_gib": 10.965638637542725,
+      "peak_reserved_gib": 11.654296875,
+      "probe_steps": 25,
+      "excluded_warmup_steps": 5,
+      "median_step_s": 0.4753596665104851,
+      "estimated_training_only_minutes": 79.22661108508085,
+      "batch_size": 4,
+      "training_rows": 6534
+    },
+    "server_output": "artifacts/M5/recovery_train_probe_server_20261021",
+    "environment_packages_changed": false,
+    "full_recovery_training_started": false
   }
 }
