@@ -110,3 +110,13 @@ checkpoints/
 # State-driven expert and corrective dataset summary; raw data/videos stay local.
 !/artifacts/M5/recovery_report.md
 !/artifacts/M5/recovery_result.json
+
+# Recovery policy comparison; model files, raw rollouts and videos stay local.
+!/artifacts/M5/recovery_comparison.md
+!/artifacts/M5/recovery_comparison.json
+
+# Recovery v2 keeps compact expert/data/policy evidence.
+!/artifacts/M5/recovery_v2_report.md
+!/artifacts/M5/recovery_v2_result.json
+!/artifacts/M5/recovery_v2_lift_fix.png
+!/artifacts/M5/recovery_v2_yaw_coverage.png

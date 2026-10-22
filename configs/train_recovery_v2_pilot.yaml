@@ -1,0 +1,26 @@
+# Bounded learning pilot after restoring the original training reset distribution.
+# A passing format check alone is insufficient: the coverage report is mandatory.
+base_checkpoint: checkpoints/pi0_base
+tokenizer: checkpoints/paligemma_tokenizer
+dataset: datasets/airvla_m5_recovery_v2
+dataset_coverage_report: artifacts/M5/recovery_v2_export/coverage_report.json
+output: artifacts/M5/recovery_v2_train_pilot
+seed: 7401
+train_episode_ids: null
+batch_size: 4
+steps: 2500
+learning_rate: 0.00005
+lr_schedule: cosine
+warmup_steps: 250
+min_lr_ratio: 0.1
+weight_decay: 0.01
+grad_clip_norm: 1.0
+expert_only: true
+gradient_checkpointing: true
+dtype: bfloat16
+evaluation_stride: 100
+validation_split: validation
+validation_stride: 50
+eval_every: 1250
+checkpoint_every: 1250
+inference_steps: 10

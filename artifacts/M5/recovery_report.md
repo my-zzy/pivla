@@ -37,7 +37,7 @@ Dataset: `datasets/airvla_m5_recovery/`. Export view and provenance: `artifacts/
 
 Validation checked 8,602 raw chunks, 226 native loader chunks and 219 exact image comparisons. All 13 checks passed, including observation-before-action timing, camera availability, scenario isolation, training-only statistics, padding and action reconstruction.
 
-## Next learning test
+## Learning run and follow-up
 
 Use the prepared configuration, which retains batch 4, a frozen vision-language backbone and the 10,000-step baseline budget. It starts from `pi0_base` with the new dataset statistics.
 
@@ -53,16 +53,18 @@ LC_ALL=C.UTF-8 CUDA_VISIBLE_DEVICES=0 bash scripts/run_lerobot_server.sh scripts
 
 Check GPU availability before launching and use a fresh output directory when repeating a probe. The desktop launcher `run_lerobot.sh` uses local paths and Bubblewrap; it now gives server guidance when the desktop installation is absent. No environment packages were changed for this fix.
 
-Next, run a small learning pilot and fixed closed-loop evaluation before committing to another full server run. The probe did not create a trained policy checkpoint; full recovery training has not started.
+**Update, 2026-10-21:** The user completed full recovery training: 10,000 steps, batch 4, 83.7 minutes optimizer time, exact checkpoint reload. Both the best recorded validation checkpoint (step 2,500) and final checkpoint scored 0/6 on fixed M5 trials, with no contacts or lifts. A separate two-trial zero-yaw diagnostic improved approach and produced one contact, but no lifts or successes. See the [comparison and videos](recovery_comparison.md).
+
+The recovery collector resets initial yaw to zero, leaving the fixed evaluation starts far outside the new training yaw distribution. The next collection should preserve the original training start/yaw distribution while using the state-driven expert and retaining recovery examples. Validate grasp/recovery and feature coverage before another small learning pilot; another full run is not yet justified.
 
 ## Reproduction
 
-Run from the repository root with fresh output directories. The collection command requires a passing five-case pilot.
+These commands select the historical v1 reset plan and require a passing five-case pilot. The current expert includes later fixes; the preserved artifacts above record the original run. For the current protocol, use the [v2 report](recovery_v2_report.md). Run from the repository root with fresh output directories.
 
 ```bash
-bash scripts/run_isaac.sh scripts/m5_collect_recovery.py --mode pilot --enable_cameras \
+bash scripts/run_isaac.sh scripts/m5_collect_recovery.py --protocol v1 --mode pilot --enable_cameras \
   --output artifacts/M5/recovery_pilot
-bash scripts/run_isaac.sh scripts/m5_collect_recovery.py --mode collect --enable_cameras \
+bash scripts/run_isaac.sh scripts/m5_collect_recovery.py --protocol v1 --mode collect --enable_cameras \
   --pilot-result artifacts/M5/recovery_pilot/result.json --output artifacts/M5/recovery_collection
 python scripts/m5_prepare_recovery_export.py --collection artifacts/M5/recovery_collection \
   --pilot artifacts/M5/recovery_pilot --output artifacts/M5/recovery_export
@@ -73,3 +75,5 @@ bash scripts/run_lerobot.sh -m airvla_isaac.data.validate_dataset \
 ```
 
 [Machine-readable checks and provenance](recovery_result.json). No environment packages or shared source files were changed.
+
+**Follow-up, 2026-10-22:** [Recovery v2](recovery_v2_report.md) preserves original reset/yaw coverage and fixes expert lift drift. Expert/data checks passed; the 2,500-step learned pilot still scored 0/6. The remaining observed gap is precise grasp alignment and closed-empty gripper recovery.

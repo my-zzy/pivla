@@ -1,0 +1,3735 @@
+{
+  "date": "2026-10-22",
+  "status": "correction_cycle_complete_policy_unsuccessful",
+  "plan_and_pilot": {
+    "date": "2026-10-22",
+    "protocol": "state_driven_recovery_v2",
+    "pilot": {
+      "protocol": "state_driven_recovery_v2",
+      "status": "passed",
+      "trials": [
+        {
+          "episode_id": 0,
+          "case": "original",
+          "source_episode_id": 0,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 35.9,
+          "samples": 359,
+          "camera_frames": 180,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 2.2,
+              "duration_s": 2.2,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 8.5,
+              "duration_s": 6.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 9.0,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 15.200000000000001,
+              "duration_s": 6.200000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 27.900000000000002,
+              "duration_s": 12.700000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 30.2,
+              "duration_s": 2.299999999999997,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9502888321876526,
+          "success_dwell_s": 7.6799999999998585
+        },
+        {
+          "episode_id": 1,
+          "case": "original",
+          "source_episode_id": 4,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 34.6,
+          "samples": 346,
+          "camera_frames": 174,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 1.8,
+              "duration_s": 1.8,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 8.2,
+              "duration_s": 6.3999999999999995,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 8.700000000000001,
+              "duration_s": 0.5000000000000018,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 14.9,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 26.6,
+              "duration_s": 11.700000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 28.900000000000002,
+              "duration_s": 2.3000000000000007,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9516097903251648,
+          "success_dwell_s": 7.684999999999858
+        },
+        {
+          "episode_id": 2,
+          "case": "lateral",
+          "source_episode_id": 0,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 36.7,
+          "samples": 367,
+          "camera_frames": 184,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 3.0,
+              "duration_s": 3.0,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 9.3,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 9.8,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 16.0,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 28.7,
+              "duration_s": 12.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 31.0,
+              "duration_s": 2.3000000000000007,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.950329065322876,
+          "success_dwell_s": 7.669999999999859
+        },
+        {
+          "episode_id": 3,
+          "case": "lateral",
+          "source_episode_id": 4,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 35.800000000000004,
+          "samples": 358,
+          "camera_frames": 180,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 3.1,
+              "duration_s": 3.1,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 9.4,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 9.9,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 16.1,
+              "duration_s": 6.200000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 27.8,
+              "duration_s": 11.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 30.1,
+              "duration_s": 2.3000000000000007,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9503239989280701,
+          "success_dwell_s": 7.6799999999998585
+        },
+        {
+          "episode_id": 4,
+          "case": "near_grasp",
+          "source_episode_id": 0,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 39.4,
+          "samples": 394,
+          "camera_frames": 198,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 5.7,
+              "duration_s": 5.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 12.0,
+              "duration_s": 6.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 12.5,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 18.7,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 31.400000000000002,
+              "duration_s": 12.700000000000003,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 33.7,
+              "duration_s": 2.3000000000000007,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9512870907783508,
+          "success_dwell_s": 7.664999999999859
+        },
+        {
+          "episode_id": 5,
+          "case": "near_grasp",
+          "source_episode_id": 4,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 38.4,
+          "samples": 384,
+          "camera_frames": 193,
+          "retries": 0,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 5.7,
+              "duration_s": 5.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 12.0,
+              "duration_s": 6.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 12.5,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 18.7,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 30.400000000000002,
+              "duration_s": 11.700000000000003,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 32.7,
+              "duration_s": 2.3000000000000007,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9505863189697266,
+          "success_dwell_s": 7.674999999999859
+        },
+        {
+          "episode_id": 6,
+          "case": "missed_closure",
+          "source_episode_id": 0,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 50.2,
+          "samples": 502,
+          "camera_frames": 252,
+          "retries": 1,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 1.3,
+              "duration_s": 1.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 7.6000000000000005,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "recover",
+              "end_time_s": 9.700000000000001,
+              "duration_s": 2.1000000000000005,
+              "reason": "missed closure or alignment"
+            },
+            {
+              "stage": "recover",
+              "next_stage": "approach",
+              "end_time_s": 15.9,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 16.5,
+              "duration_s": 0.5999999999999996,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 22.8,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 23.3,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 29.5,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 42.2,
+              "duration_s": 12.700000000000003,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 44.5,
+              "duration_s": 2.299999999999997,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9504014849662781,
+          "success_dwell_s": 7.664999999999859
+        },
+        {
+          "episode_id": 7,
+          "case": "lost_contact",
+          "source_episode_id": 0,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 48.9,
+          "samples": 489,
+          "camera_frames": 245,
+          "retries": 1,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 1.3,
+              "duration_s": 1.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 7.6000000000000005,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 8.2,
+              "duration_s": 0.5999999999999988,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "recover",
+              "end_time_s": 8.5,
+              "duration_s": 0.3000000000000007,
+              "reason": "lost contact"
+            },
+            {
+              "stage": "recover",
+              "next_stage": "approach",
+              "end_time_s": 14.700000000000001,
+              "duration_s": 6.200000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 15.200000000000001,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 21.5,
+              "duration_s": 6.299999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 22.0,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 28.2,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 40.9,
+              "duration_s": 12.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 43.2,
+              "duration_s": 2.3000000000000043,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9509164094924927,
+          "success_dwell_s": 7.689999999999858
+        },
+        {
+          "episode_id": 8,
+          "case": "missed_closure",
+          "source_episode_id": 4,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 49.2,
+          "samples": 492,
+          "camera_frames": 247,
+          "retries": 1,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 1.3,
+              "duration_s": 1.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 7.6000000000000005,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "recover",
+              "end_time_s": 9.700000000000001,
+              "duration_s": 2.1000000000000005,
+              "reason": "missed closure or alignment"
+            },
+            {
+              "stage": "recover",
+              "next_stage": "approach",
+              "end_time_s": 15.9,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 16.5,
+              "duration_s": 0.5999999999999996,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 22.8,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 23.3,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 29.5,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 41.2,
+              "duration_s": 11.700000000000003,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 43.5,
+              "duration_s": 2.299999999999997,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9503649473190308,
+          "success_dwell_s": 7.669999999999859
+        },
+        {
+          "episode_id": 9,
+          "case": "lost_contact",
+          "source_episode_id": 4,
+          "status": "passed",
+          "checks": {
+            "expert_finished": true,
+            "physical_pick_place": true,
+            "physics_ticks": true,
+            "action_rate": true,
+            "recovery_exercised": true
+          },
+          "duration_s": 47.9,
+          "samples": 479,
+          "camera_frames": 240,
+          "retries": 1,
+          "events": [
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 1.3,
+              "duration_s": 1.3,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 7.6000000000000005,
+              "duration_s": 6.300000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 8.2,
+              "duration_s": 0.5999999999999988,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "recover",
+              "end_time_s": 8.5,
+              "duration_s": 0.3000000000000007,
+              "reason": "lost contact"
+            },
+            {
+              "stage": "recover",
+              "next_stage": "approach",
+              "end_time_s": 14.700000000000001,
+              "duration_s": 6.200000000000001,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "approach",
+              "next_stage": "descend",
+              "end_time_s": 15.200000000000001,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "descend",
+              "next_stage": "grasp",
+              "end_time_s": 21.5,
+              "duration_s": 6.299999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "grasp",
+              "next_stage": "lift",
+              "end_time_s": 22.0,
+              "duration_s": 0.5,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "lift",
+              "next_stage": "transport",
+              "end_time_s": 28.2,
+              "duration_s": 6.199999999999999,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "transport",
+              "next_stage": "release",
+              "end_time_s": 39.9,
+              "duration_s": 11.7,
+              "reason": "physical condition settled"
+            },
+            {
+              "stage": "release",
+              "next_stage": "retreat",
+              "end_time_s": 42.2,
+              "duration_s": 2.3000000000000043,
+              "reason": "physical condition settled"
+            }
+          ],
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9509021639823914,
+          "success_dwell_s": 7.684999999999858
+        }
+      ],
+      "planned_episodes": 10
+    },
+    "source_sha256": {
+      "airvla_isaac/source/airvla_isaac/airvla_isaac/data/recovery_expert.py": "256fa69232518da0d0fe8a85416e8895f181423a8ab2a1ad4a8347660a201d42",
+      "airvla_isaac/source/airvla_isaac/airvla_isaac/data/recovery_plan.py": "6ce96652a8972578deaced3cc46cb027c884c9ce9f57ef85ba6bc93938272881",
+      "scripts/m5_collect_recovery.py": "6369a4b336fb48467421efb60576aef810383222284bcc11e790c39e37439001",
+      "scripts/m5_prepare_recovery_export.py": "39b047cc0e889f1a574a699020c2f9b8984e08a31a8af7837acbf6c5c5f06527",
+      "scripts/m5_check_recovery_coverage.py": "1aa26aee4f754aa49e965431299d3cf8bedf2eeaf5e585c272da9e53c95b5417",
+      "scripts/m4_train.py": "1ed43db296f0b40d1d9faa0714a839a46fbe545d6728ab7103d11215c13787d3",
+      "configs/train_recovery_v2_pilot.yaml": "1b93be1107126ec1275c73b164d9ffbfccf0bf7d31d3d5e2c9d84ab638ccfcf5"
+    },
+    "tests": {
+      "recovery_expert_and_plan": 9,
+      "original_expert": 5,
+      "coverage_regression": 3,
+      "training_schedule_and_gate": 3,
+      "adapter": 6,
+      "rollout": 3
+    },
+    "pilot_budget_steps": 2500,
+    "batch_size": 4,
+    "initial_training_checkpoint": "checkpoints/pi0_base",
+    "evaluation": "Original M5 six starts; final pilot checkpoint; no change to controller, task success, timing or safety limits."
+  },
+  "collection": {
+    "protocol": "state_driven_recovery_v2",
+    "status": "passed",
+    "trials": [
+      {
+        "episode_id": 0,
+        "case": "original",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.9,
+        "samples": 359,
+        "camera_frames": 180,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.2,
+            "duration_s": 2.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.5,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.0,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.200000000000001,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.900000000000002,
+            "duration_s": 12.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.2,
+            "duration_s": 2.299999999999997,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9502888321876526,
+        "success_dwell_s": 7.6799999999998585
+      },
+      {
+        "episode_id": 1,
+        "case": "original",
+        "source_episode_id": 1,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.800000000000004,
+        "samples": 358,
+        "camera_frames": 180,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.1,
+            "duration_s": 2.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.1,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.8,
+            "duration_s": 12.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.1,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503345489501953,
+        "success_dwell_s": 7.669999999999859
+      },
+      {
+        "episode_id": 2,
+        "case": "original",
+        "source_episode_id": 2,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.7,
+        "samples": 357,
+        "camera_frames": 179,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.0,
+            "duration_s": 2.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.3,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.7,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.0,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511513113975525,
+        "success_dwell_s": 7.699999999999858
+      },
+      {
+        "episode_id": 3,
+        "case": "original",
+        "source_episode_id": 3,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 36.2,
+        "samples": 362,
+        "camera_frames": 182,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.5,
+            "duration_s": 2.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.8,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.3,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.5,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 28.2,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.5,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9505487084388733,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 4,
+        "case": "original",
+        "source_episode_id": 4,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.6,
+        "samples": 346,
+        "camera_frames": 174,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.8,
+            "duration_s": 1.8,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.2,
+            "duration_s": 6.3999999999999995,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.700000000000001,
+            "duration_s": 0.5000000000000018,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.9,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.6,
+            "duration_s": 11.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 28.900000000000002,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9516097903251648,
+        "success_dwell_s": 7.684999999999858
+      },
+      {
+        "episode_id": 5,
+        "case": "original",
+        "source_episode_id": 5,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.800000000000004,
+        "samples": 348,
+        "camera_frames": 175,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.1,
+            "duration_s": 2.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.1,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.8,
+            "duration_s": 11.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.1,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9504714012145996,
+        "success_dwell_s": 7.669999999999859
+      },
+      {
+        "episode_id": 6,
+        "case": "original",
+        "source_episode_id": 6,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.6,
+        "samples": 346,
+        "camera_frames": 174,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.0,
+            "duration_s": 2.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.3,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.7,
+            "duration_s": 11.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 28.900000000000002,
+            "duration_s": 2.200000000000003,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511710405349731,
+        "success_dwell_s": 7.60499999999986
+      },
+      {
+        "episode_id": 7,
+        "case": "original",
+        "source_episode_id": 7,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.800000000000004,
+        "samples": 348,
+        "camera_frames": 175,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.1,
+            "duration_s": 2.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.1,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.8,
+            "duration_s": 11.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.1,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9504216909408569,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 8,
+        "case": "original",
+        "source_episode_id": 8,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.0,
+        "samples": 350,
+        "camera_frames": 176,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.2,
+            "duration_s": 2.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.5,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.0,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.200000000000001,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.1,
+            "duration_s": 11.9,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.3,
+            "duration_s": 2.1999999999999993,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.951162576675415,
+        "success_dwell_s": 7.60499999999986
+      },
+      {
+        "episode_id": 9,
+        "case": "original",
+        "source_episode_id": 9,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.9,
+        "samples": 349,
+        "camera_frames": 175,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.9000000000000001,
+            "duration_s": 1.9000000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.3,
+            "duration_s": 6.4,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.900000000000002,
+            "duration_s": 11.900000000000002,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.2,
+            "duration_s": 2.299999999999997,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511982202529907,
+        "success_dwell_s": 7.684999999999858
+      },
+      {
+        "episode_id": 10,
+        "case": "original",
+        "source_episode_id": 10,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.9,
+        "samples": 349,
+        "camera_frames": 175,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.9000000000000001,
+            "duration_s": 1.9000000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.3,
+            "duration_s": 6.4,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.900000000000002,
+            "duration_s": 11.900000000000002,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.2,
+            "duration_s": 2.299999999999997,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.951345682144165,
+        "success_dwell_s": 7.6799999999998585
+      },
+      {
+        "episode_id": 11,
+        "case": "original",
+        "source_episode_id": 11,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 34.9,
+        "samples": 349,
+        "camera_frames": 175,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.0,
+            "duration_s": 2.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.3,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.900000000000002,
+            "duration_s": 11.900000000000002,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.2,
+            "duration_s": 2.299999999999997,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511306881904602,
+        "success_dwell_s": 7.699999999999858
+      },
+      {
+        "episode_id": 12,
+        "case": "original",
+        "source_episode_id": 12,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.1,
+        "samples": 351,
+        "camera_frames": 176,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.7,
+            "duration_s": 1.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.0,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.5,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.700000000000001,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.1,
+            "duration_s": 12.4,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.400000000000002,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.950562596321106,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 13,
+        "case": "original",
+        "source_episode_id": 13,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.7,
+        "samples": 357,
+        "camera_frames": 179,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.3000000000000003,
+            "duration_s": 2.3000000000000003,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.6,
+            "duration_s": 6.299999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.1,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.3,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.7,
+            "duration_s": 12.399999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.0,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503596425056458,
+        "success_dwell_s": 7.664999999999859
+      },
+      {
+        "episode_id": 14,
+        "case": "original",
+        "source_episode_id": 14,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.6,
+        "samples": 356,
+        "camera_frames": 179,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.2,
+            "duration_s": 2.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.5,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.0,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.200000000000001,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.6,
+            "duration_s": 12.4,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.900000000000002,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.951179563999176,
+        "success_dwell_s": 7.659999999999859
+      },
+      {
+        "episode_id": 15,
+        "case": "original",
+        "source_episode_id": 15,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.4,
+        "samples": 354,
+        "camera_frames": 178,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 2.1,
+            "duration_s": 2.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 8.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 15.1,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.5,
+            "duration_s": 12.4,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.7,
+            "duration_s": 2.1999999999999993,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511776566505432,
+        "success_dwell_s": 7.60499999999986
+      },
+      {
+        "episode_id": 16,
+        "case": "lateral",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 36.800000000000004,
+        "samples": 368,
+        "camera_frames": 185,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 3.1,
+            "duration_s": 3.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 9.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 16.1,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 28.8,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 31.1,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503158330917358,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 17,
+        "case": "near_grasp",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 39.7,
+        "samples": 397,
+        "camera_frames": 199,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.6000000000000005,
+            "duration_s": 5.6000000000000005,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 11.9,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.4,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.6,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 31.3,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 34.0,
+            "duration_s": 2.6999999999999993,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9510321617126465,
+        "success_dwell_s": 7.769999999999857
+      },
+      {
+        "episode_id": 18,
+        "case": "lateral",
+        "source_episode_id": 4,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.800000000000004,
+        "samples": 358,
+        "camera_frames": 180,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 3.1,
+            "duration_s": 3.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 9.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 16.1,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.8,
+            "duration_s": 11.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.1,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503241181373596,
+        "success_dwell_s": 7.6799999999998585
+      },
+      {
+        "episode_id": 19,
+        "case": "near_grasp",
+        "source_episode_id": 4,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 38.4,
+        "samples": 384,
+        "camera_frames": 193,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.6000000000000005,
+            "duration_s": 5.6000000000000005,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 11.9,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.4,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.6,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 30.3,
+            "duration_s": 11.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 32.7,
+            "duration_s": 2.400000000000002,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9510078430175781,
+        "success_dwell_s": 7.60499999999986
+      },
+      {
+        "episode_id": 20,
+        "case": "lateral",
+        "source_episode_id": 8,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 35.9,
+        "samples": 359,
+        "camera_frames": 180,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 3.0,
+            "duration_s": 3.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 9.3,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 16.0,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.900000000000002,
+            "duration_s": 11.900000000000002,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.2,
+            "duration_s": 2.299999999999997,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503194093704224,
+        "success_dwell_s": 7.6799999999998585
+      },
+      {
+        "episode_id": 21,
+        "case": "near_grasp",
+        "source_episode_id": 8,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 38.6,
+        "samples": 386,
+        "camera_frames": 194,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.6000000000000005,
+            "duration_s": 5.6000000000000005,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 11.9,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.4,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.6,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 30.5,
+            "duration_s": 11.899999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 32.9,
+            "duration_s": 2.3999999999999986,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.950678825378418,
+        "success_dwell_s": 7.789999999999856
+      },
+      {
+        "episode_id": 22,
+        "case": "lateral",
+        "source_episode_id": 12,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 36.5,
+        "samples": 365,
+        "camera_frames": 183,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 3.1,
+            "duration_s": 3.1,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 9.4,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 9.9,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 16.1,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 28.5,
+            "duration_s": 12.399999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 30.8,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503280520439148,
+        "success_dwell_s": 7.669999999999859
+      },
+      {
+        "episode_id": 23,
+        "case": "near_grasp",
+        "source_episode_id": 12,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 39.300000000000004,
+        "samples": 393,
+        "camera_frames": 197,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.7,
+            "duration_s": 5.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 12.0,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.5,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.7,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 31.1,
+            "duration_s": 12.400000000000002,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 33.6,
+            "duration_s": 2.5,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9509534239768982,
+        "success_dwell_s": 7.62499999999986
+      }
+    ],
+    "planned_episodes": 24
+  },
+  "coverage": {
+    "checks": {
+      "observed_yaw_covers_declared_training_range": true,
+      "yaw_normalization_not_collapsed": true,
+      "all_original_training_resets_preserved": true,
+      "actual_original_initial_states_reproduced": true,
+      "forced_fault_prefixes_excluded": true,
+      "four_successful_recovery_suffixes_present": true,
+      "all_manipulation_and_recovery_stages_present": true,
+      "original_validation_unchanged": true,
+      "training_validation_scenarios_disjoint": true
+    },
+    "declared_range_rad": [
+      -0.15,
+      0.15
+    ],
+    "normalized_range": [
+      -15.07845742123929,
+      15.085751980714367
+    ],
+    "max_abs_normalized_allowed": 26.167852808072524,
+    "yaw_std_rad": 0.009945561509746374,
+    "reference_yaw_std_rad": 0.007178443606234561,
+    "status": "passed",
+    "max_original_initial_state_error": 0.0,
+    "stages": [
+      "approach",
+      "descend",
+      "grasp",
+      "lift",
+      "recover",
+      "release",
+      "retreat",
+      "transport"
+    ],
+    "recovery_suffix_episode_ids": [
+      24,
+      25,
+      26,
+      27
+    ],
+    "normalization_source": "train only",
+    "scope": "Coverage gate against the original training design; not proof of learned task success.",
+    "dataset_root": "/home/user/pivla/datasets/airvla_m5_recovery_v2",
+    "dataset_repo_id": "local/airvla_m5_recovery_v2",
+    "normalization_sha256": "2680a7c11c71846a71af281bee968674bc4c13e0b77da6b773240f2d90fa0051",
+    "training_rows": 10191
+  },
+  "dataset_validation": {
+    "status": "passed",
+    "checks": {
+      "scenario_disjoint_splits": true,
+      "training_only_relative_statistics": true,
+      "absolute_disk_actions_match_raw": true,
+      "observations_precede_commands": true,
+      "no_future_images": true,
+      "state_order_and_yaw": true,
+      "gripper_absolute": true,
+      "single_anchor_roundtrip": true,
+      "no_episode_crossing": true,
+      "zero_masked_padding": true,
+      "loader_batch_shapes": true,
+      "lossless_image_roundtrip": true,
+      "privileged_state_excluded": true
+    },
+    "splits": {
+      "train": {
+        "episodes": 28,
+        "frames": 10191,
+        "batch_action_shape": [
+          4,
+          50,
+          7
+        ],
+        "batch_image_shape": [
+          4,
+          3,
+          256,
+          256
+        ]
+      },
+      "validation": {
+        "episodes": 4,
+        "frames": 2068,
+        "batch_action_shape": [
+          4,
+          50,
+          7
+        ],
+        "batch_image_shape": [
+          4,
+          3,
+          256,
+          256
+        ]
+      }
+    },
+    "max_roundtrip_error": 5.960464477539063e-08,
+    "max_image_age_s": 0.10000000000000853,
+    "image_pixel_comparisons": 186,
+    "native_loader_chunks_checked": 328,
+    "raw_chunks_checked": 12259,
+    "normalization_sha256": "2680a7c11c71846a71af281bee968674bc4c13e0b77da6b773240f2d90fa0051"
+  },
+  "export": {
+    "status": "passed",
+    "splits": {
+      "train": {
+        "root": "/home/user/pivla/datasets/airvla_m5_recovery_v2/train",
+        "repo_id": "local/airvla_m5_recovery_v2_train",
+        "episodes": 28,
+        "frames": 10191
+      },
+      "validation": {
+        "root": "/home/user/pivla/datasets/airvla_m5_recovery_v2/validation",
+        "repo_id": "local/airvla_m5_recovery_v2_validation",
+        "episodes": 4,
+        "frames": 2068
+      }
+    },
+    "source_hashes": {
+      "episode_000/samples.jsonl": "a99f5af8964abb69830ea3a5d6d1d72ddd39b2df94178c04a9a3ad94ec2f3d59",
+      "episode_001/samples.jsonl": "8f3a2f8b0127c0d0cbcf2ae420764025ba5a0378f4de28c2321894bc87f6aaf9",
+      "episode_002/samples.jsonl": "5d63f67b453569a28e8ce19b0f857b03d67af555e52093cdcc8dcdc2391447f0",
+      "episode_003/samples.jsonl": "4c85e4f2d006f256c5a6f8492f8413bfa22bedc2ac5fb6c4c6b65c7902f696a2",
+      "episode_004/samples.jsonl": "7a27e0f1eeb11723e726a895215b6593e5622071fefd9f08936945bab7d04769",
+      "episode_005/samples.jsonl": "c0447aa14481bd522adb782a3501fbfd2b00acba1cb9e3f64d7e94dc8733d7a8",
+      "episode_006/samples.jsonl": "b67e946286d924c281dc483d3c405c9626184153c8223a5764f53e457cf2dc95",
+      "episode_007/samples.jsonl": "c1fbdd64dc8ebfb5d803faed39ad844bc35dd565e29f16da7e628f4d8f3a144c",
+      "episode_008/samples.jsonl": "a848a5b5a71c1cd51d5dd7e4a00c2dbaa0461b3d08e0e4af90138678d6457d0f",
+      "episode_009/samples.jsonl": "8286d8e753b60b0a4ce0652b827b386cee4daccfaa4c1bb59c1390efeca482b3",
+      "episode_010/samples.jsonl": "7059512cc7ea560b200b9a4e1d388d92fc5f4a5849f1976948fbbb845b5e11a3",
+      "episode_011/samples.jsonl": "7e28b9399df6404ca1e7cb03ae9674e21c2d9f8525a82a0d875ac2a03731aab9",
+      "episode_012/samples.jsonl": "1de42405b82c0e04f2b6692667d12f2da1936b9276f2cc8bcb6468696e6d4227",
+      "episode_013/samples.jsonl": "0e5b79252d72b7c370a334fde1e9d1504c7a5b60cfd115a4df93de724e15b4c8",
+      "episode_014/samples.jsonl": "6737b19ff2659ed7e9830fe0db09c8a3c9718e2db848109b9f4049399fe754d1",
+      "episode_015/samples.jsonl": "daf9b33d1c7d6655dddaebf67af6f2ab3b52e2ce9ede12c9652ea0ffadca40ef",
+      "episode_016/samples.jsonl": "4e09c9252fd252ecec568ee65d2691bce8b48672842679d8bce05a0def0bf99f",
+      "episode_017/samples.jsonl": "c172888ba6b78347f52d2addba09c61e5c6b1d257f78dc17d1d5a101a94e8608",
+      "episode_018/samples.jsonl": "fa2c2516840156242cd575d6299e8f6f20a5eb94271a699bfaf6c7244ebf421e",
+      "episode_019/samples.jsonl": "38d437990c3574118ef52730f0d0dec0626bf49f17f9826914c191eee8b03634",
+      "episode_020/samples.jsonl": "b0147b38ebda5ce259c0551d77229c983aa737d94659f7322935a7c165027e9d",
+      "episode_021/samples.jsonl": "ea87d5a41bae58bea54e6292adbfd5713a2a2022b25c4f089168274f17548c23",
+      "episode_022/samples.jsonl": "709cdaaf8fd0460c92b792de2143be89494d3e0bbeeed9d96952d3ad96212994",
+      "episode_023/samples.jsonl": "1a83a6149505d5bb2b45346d0b3fc2be0fda8c1ba2eea5537582eb510b129eee",
+      "episode_024/samples.jsonl": "d991237f013b25007903a5437753bdf82120b86712e6cb86d5e601edfd8c5231",
+      "episode_025/samples.jsonl": "dc1954a69f63cf7cb82474b444d96fbc729566ecc90f2f2211ab5a5a2815367b",
+      "episode_026/samples.jsonl": "145b3c037e3f35c374fd37a5aaeb58aa7a935f41d86334e64d862182263de74c",
+      "episode_027/samples.jsonl": "44bb76ba41e48ecb3a7aa3e20a948b24591f6bfb95f8c3d8bc198b8fd75bc112",
+      "episode_028/samples.jsonl": "f2db425303aae2d8a7be8ac21a5661c6b4bc893eb3ed6e8a588e3f0ab9b6730a",
+      "episode_029/samples.jsonl": "425d4e6c980b584856fe95f99037908821c118a1568a3f1fc828f27fa35c314f",
+      "episode_030/samples.jsonl": "c0610ba7c84670ed124fdc284748852ac1891d51b2cf1314216ff6fca34a0f7a",
+      "episode_031/samples.jsonl": "d5a89ee880e61111a1ddabefdfc112966b2200e7e8b1556abfbcc74f16a50227"
+    },
+    "normalization": "Use normalization.json through ChunkDataset. Native meta/stats.json describes absolute stored actions and is not the chunk normalizer."
+  },
+  "lift_fix": {
+    "before": {
+      "lift_samples": 301,
+      "lift_duration_sampled_s": 30.1,
+      "max_horizontal_displacement_m": 1.8467159503763382,
+      "status": {
+        "error": "Recovery expert stage lift timed out",
+        "time_s": 42.6,
+        "stage": "lift",
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.7,
+            "duration_s": 5.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 12.0,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.5,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          }
+        ]
+      },
+      "video": "artifacts/M5/recovery_v2_work/lift_before.mp4",
+      "video_integrity": {
+        "width": 768,
+        "height": 296,
+        "duration": "42.800000",
+        "nb_frames": "214"
+      },
+      "final_lift_speed_m_s": 0.07414678499814228
+    },
+    "after": {
+      "lift_samples": 62,
+      "lift_duration_sampled_s": 6.2,
+      "max_horizontal_displacement_m": 0.07164413299508596,
+      "status": {
+        "episode_id": 4,
+        "case": "near_grasp",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "recovery_exercised": true
+        },
+        "duration_s": 39.4,
+        "samples": 394,
+        "camera_frames": 198,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.7,
+            "duration_s": 5.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 12.0,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.5,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.7,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 31.400000000000002,
+            "duration_s": 12.700000000000003,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 33.7,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9512870907783508,
+        "success_dwell_s": 7.664999999999859
+      },
+      "video": "artifacts/M5/recovery_v2_work/lift_after.mp4",
+      "video_integrity": {
+        "width": 768,
+        "height": 296,
+        "duration": "39.600000",
+        "nb_frames": "198"
+      },
+      "final_lift_speed_m_s": 0.020515594644613902
+    },
+    "comparison_checks": {
+      "identical_reset_configurations": true,
+      "pre_lift_max_state_difference": 0.0
+    }
+  },
+  "learning_pilot": {
+    "config": "configs/train_recovery_v2_pilot.yaml",
+    "steps": 2500,
+    "batch_size": 4,
+    "device": "local RTX 5090",
+    "result": {
+      "status": "passed",
+      "checks": {
+        "finite_training": true,
+        "checkpoint_reload": true
+      },
+      "initial": {
+        "position_rmse_m": 0.3107964098453522,
+        "yaw_rmse_rad": 0.037432871758937836,
+        "gripper_accuracy": 0.4520547945205479,
+        "evaluated_chunks": 267,
+        "valid_future_actions": 11607
+      },
+      "final": {
+        "position_rmse_m": 0.05993812903761864,
+        "yaw_rmse_rad": 0.012181956321001053,
+        "gripper_accuracy": 0.9786335831825622,
+        "evaluated_chunks": 267,
+        "valid_future_actions": 11607
+      },
+      "reload_max_abs_error": 0.0,
+      "checkpoint": "artifacts/M5/recovery_v2_train_pilot/checkpoint",
+      "validation": {
+        "position_rmse_m": 0.15579970180988312,
+        "yaw_rmse_rad": 0.0081862797960639,
+        "gripper_accuracy": 0.986315429353404,
+        "evaluated_chunks": 64,
+        "valid_future_actions": 2923
+      },
+      "scope": "Offline training/validation and reload checks; task success requires M5 closed-loop evaluation",
+      "peak_allocated_gib": 10.966808795928955,
+      "training_elapsed_s": 1138.3361149365373
+    },
+    "checkpoint_files": {
+      "adapter.json": {
+        "bytes": 464,
+        "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+      },
+      "config.json": {
+        "bytes": 2472,
+        "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+      },
+      "model.safetensors": {
+        "bytes": 8892502976,
+        "sha256": "7870c7533c1923d7089452a6cc94250581ee61614ab1d8b4806be405935bf1fc"
+      },
+      "normalization.json": {
+        "bytes": 2094,
+        "sha256": "2680a7c11c71846a71af281bee968674bc4c13e0b77da6b773240f2d90fa0051"
+      },
+      "schema.json": {
+        "bytes": 1584,
+        "sha256": "5902d969d8a1823cf366c515b888451c5564d18ad143fe0cd5d1ad59e6c7279e"
+      },
+      "tokenizer/tokenizer.json": {
+        "bytes": 34387382,
+        "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+      },
+      "tokenizer/tokenizer_config.json": {
+        "bytes": 502,
+        "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+      },
+      "training_metadata.json": {
+        "bytes": 959,
+        "sha256": "42b88f59642c709c7378adfdb4c126755cc917de5c6eb8168c28a395bfe9836b"
+      }
+    }
+  },
+  "evaluation": {
+    "status": "measured",
+    "root": "artifacts/M5/recovery_v2_eval",
+    "summary": {
+      "status": "measured",
+      "checkpoint": "artifacts/M5/recovery_v2_train_pilot/checkpoint",
+      "scope": "Recovery v2 bounded 2500-step pilot; original six M5 starts and original recordings. Restored training resets/yaw and fixed expert lift anchor. Development evaluation, not an untouched/OOD benchmark.",
+      "settings": {
+        "checkpoint": "artifacts/M5/recovery_v2_train_pilot/checkpoint",
+        "dataset": "datasets/airvla_m3",
+        "manifest": "artifacts/M3/collection_manifest.json",
+        "seed": 7500,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          16
+        ],
+        "familiar_episode_ids": [
+          0,
+          4
+        ],
+        "heldout_episode_ids": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "action_horizon": 50,
+        "execute_actions": 10,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+        "scope": "Recovery v2 bounded 2500-step pilot; original six M5 starts and original recordings. Restored training resets/yaw and fixed expert lift anchor. Development evaluation, not an untouched/OOD benchmark.",
+        "offline_normalization": "checkpoint"
+      },
+      "offline": {
+        "familiar": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.1706993579864502,
+              "yaw_rmse_rad": 0.0008867419674061239,
+              "gripper_accuracy": 0.993127147766323,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 0,
+              "gripper_open_accuracy": 0.9858044164037855,
+              "gripper_closed_accuracy": 0.9987819732034104,
+              "gripper_balanced_accuracy": 0.992293194803598
+            },
+            "4": {
+              "position_rmse_m": 0.169300377368927,
+              "yaw_rmse_rad": 0.011618516407907009,
+              "gripper_accuracy": 0.9881284916201117,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1432,
+              "source_episode_id": 4,
+              "gripper_open_accuracy": 0.9811023622047244,
+              "gripper_closed_accuracy": 0.9937264742785445,
+              "gripper_balanced_accuracy": 0.9874144182416345
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.17000687927537977,
+            "yaw_rmse_rad": 0.008206919901737098,
+            "gripper_accuracy": 0.9906477312088673,
+            "evaluated_chunks": 62,
+            "valid_future_actions": 2887
+          }
+        },
+        "heldout": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.17160694301128387,
+              "yaw_rmse_rad": 0.010279122740030289,
+              "gripper_accuracy": 0.9924398625429554,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 16,
+              "gripper_open_accuracy": 0.9952681388012619,
+              "gripper_closed_accuracy": 0.9902557856272838,
+              "gripper_balanced_accuracy": 0.9927619622142728
+            },
+            "1": {
+              "position_rmse_m": 0.16748014092445374,
+              "yaw_rmse_rad": 0.0018369064200669527,
+              "gripper_accuracy": 0.9862542955326461,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 17,
+              "gripper_open_accuracy": 0.9889589905362776,
+              "gripper_closed_accuracy": 0.9841656516443362,
+              "gripper_balanced_accuracy": 0.986562321090307
+            },
+            "2": {
+              "position_rmse_m": 0.17605271935462952,
+              "yaw_rmse_rad": 0.0027314003091305494,
+              "gripper_accuracy": 0.9917525773195877,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 18,
+              "gripper_open_accuracy": 0.9952681388012619,
+              "gripper_closed_accuracy": 0.9890377588306942,
+              "gripper_balanced_accuracy": 0.992152948815978
+            },
+            "3": {
+              "position_rmse_m": 0.16769157350063324,
+              "yaw_rmse_rad": 0.002259049564599991,
+              "gripper_accuracy": 0.9890034364261169,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 19,
+              "gripper_open_accuracy": 0.9921135646687698,
+              "gripper_closed_accuracy": 0.9866017052375152,
+              "gripper_balanced_accuracy": 0.9893576349531426
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.17074364139626924,
+            "yaw_rmse_rad": 0.005513584181018933,
+            "gripper_accuracy": 0.9898625429553265,
+            "evaluated_chunks": 124,
+            "valid_future_actions": 5820
+          }
+        }
+      },
+      "closed_loop_totals": {
+        "familiar": {
+          "trials": 2,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        },
+        "heldout": {
+          "trials": 4,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        }
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5404282212257385,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.5439363718032837, -0.26372095942497253, 2.5213232040405273, 0.0, 0.0, -0.0011495938524603844, -0.031459540128707886]",
+          "duration_s": 27.6,
+          "wall_elapsed_s": 34.065139515994815,
+          "physics_steps": 5520,
+          "exact_physics_ticks": true,
+          "camera_frames": 139,
+          "executed_actions": 250,
+          "hold_action_ticks": 26,
+          "hold_simulation_s": 2.6,
+          "requests": 26,
+          "completed_requests": 25,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "27.800000",
+            "nb_frames": "139"
+          },
+          "min_drone_z_m": 0.8987648487091064,
+          "max_tracking_error_m": 0.20442596051648732,
+          "closest_pick_pose": {
+            "error_m": 0.08634163290046079,
+            "time_s": 9.855,
+            "position_w": [
+              -0.7087458968162537,
+              -0.11178170144557953,
+              0.8997188806533813
+            ],
+            "gripper_open": true,
+            "contacts": [
+              true,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8102124456892597,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09154446200409438,
+              "p95": 0.09489980200305581,
+              "max": 0.0952002359990729
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13769854200654663,
+              "p95": 0.27143833800218997,
+              "max": 0.27523641400330234
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 4,
+          "scenario_id": 1,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400001406669617,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.022152874618768692, -0.22744496166706085, 2.5157124996185303, 0.0, 0.0, 0.00024827884044498205, -0.007051605731248856]",
+          "duration_s": 36.4,
+          "wall_elapsed_s": 44.343591180993826,
+          "physics_steps": 7280,
+          "exact_physics_ticks": true,
+          "camera_frames": 183,
+          "executed_actions": 330,
+          "hold_action_ticks": 34,
+          "hold_simulation_s": 3.4,
+          "requests": 34,
+          "completed_requests": 33,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_004/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "36.600000",
+            "nb_frames": "183"
+          },
+          "min_drone_z_m": 0.8199246525764465,
+          "max_tracking_error_m": 0.2185336319442509,
+          "closest_pick_pose": {
+            "error_m": 0.14919922196433658,
+            "time_s": 10.785,
+            "position_w": [
+              -0.7407702207565308,
+              0.021628230810165405,
+              0.8297819495201111
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8208627003489393,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.0918969900085358,
+              "p95": 0.09309217019763309,
+              "max": 0.09421404699969571
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13551513900165446,
+              "p95": 0.2727259328094078,
+              "max": 0.276549475005595
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999987,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 16,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5418968200683594,
+          "success_dwell_s": 0.0,
+          "termination": "timeout",
+          "error": null,
+          "duration_s": 80.0,
+          "wall_elapsed_s": 97.06937569200818,
+          "physics_steps": 16000,
+          "exact_physics_ticks": true,
+          "camera_frames": 400,
+          "executed_actions": 727,
+          "hold_action_ticks": 73,
+          "hold_simulation_s": 7.3,
+          "requests": 73,
+          "completed_requests": 73,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_016/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "80.000000",
+            "nb_frames": "400"
+          },
+          "min_drone_z_m": 0.8553569316864014,
+          "max_tracking_error_m": 1.1269225173691328,
+          "closest_pick_pose": {
+            "error_m": 0.10324283691491437,
+            "time_s": 10.39,
+            "position_w": [
+              -0.7475465536117554,
+              0.11032552272081375,
+              0.8999032378196716
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              true
+            ]
+          },
+          "sim_to_wall_ratio": 0.8241528229648074,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09222003399918322,
+              "p95": 0.09416413179715163,
+              "max": 0.10530574800213799
+            },
+            "roundtrip_wall_s": {
+              "median": 0.14918767000199296,
+              "p95": 0.27530055539973547,
+              "max": 0.2775189279927872
+            },
+            "simulation_delay_s": {
+              "median": 0.10000000000000142,
+              "p95": 0.10000000000000853,
+              "max": 0.10000000000000853
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 17,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400001406669617,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.17467591166496277, -0.25672832131385803, 2.5109946727752686, 0.0, 0.0, -0.0014589965576305985, -0.027929676696658134]",
+          "duration_s": 46.300000000000004,
+          "wall_elapsed_s": 56.105055028005154,
+          "physics_steps": 9260,
+          "exact_physics_ticks": true,
+          "camera_frames": 232,
+          "executed_actions": 420,
+          "hold_action_ticks": 43,
+          "hold_simulation_s": 4.3,
+          "requests": 43,
+          "completed_requests": 42,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_017/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "46.400000",
+            "nb_frames": "232"
+          },
+          "min_drone_z_m": 0.8199500441551208,
+          "max_tracking_error_m": 0.2359855268647393,
+          "closest_pick_pose": {
+            "error_m": 0.11644159910173413,
+            "time_s": 7.505,
+            "position_w": [
+              -0.7944545149803162,
+              0.11625918000936508,
+              0.8380430340766907
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8252375829038774,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09172403349657543,
+              "p95": 0.09416540029196767,
+              "max": 0.094271296999068
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19436951850366313,
+              "p95": 0.2737093363983149,
+              "max": 0.2780588320019888
+            },
+            "simulation_delay_s": {
+              "median": 0.10000000000000031,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 18,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.03348328918218613, -0.1909211128950119, 2.513273000717163, 0.0, 0.0, -0.003026592079550028, -0.017404524609446526]",
+          "duration_s": 40.800000000000004,
+          "wall_elapsed_s": 49.97319652499573,
+          "physics_steps": 8160,
+          "exact_physics_ticks": true,
+          "camera_frames": 205,
+          "executed_actions": 370,
+          "hold_action_ticks": 38,
+          "hold_simulation_s": 3.8,
+          "requests": 38,
+          "completed_requests": 37,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_018/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "41.000000",
+            "nb_frames": "205"
+          },
+          "min_drone_z_m": 0.8199492692947388,
+          "max_tracking_error_m": 0.2455099553403933,
+          "closest_pick_pose": {
+            "error_m": 0.16175819274839814,
+            "time_s": 10.855,
+            "position_w": [
+              -0.8577461242675781,
+              0.04759933799505234,
+              0.8326293230056763
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8164376673321777,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.0924157660047058,
+              "p95": 0.09635037160187493,
+              "max": 0.10739695400116034
+            },
+            "roundtrip_wall_s": {
+              "median": 0.15604020899627358,
+              "p95": 0.27520355679735076,
+              "max": 0.2776208389987005
+            },
+            "simulation_delay_s": {
+              "median": 0.1,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 19,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400949716567993,
+          "success_dwell_s": 0.0,
+          "termination": "timeout",
+          "error": null,
+          "duration_s": 80.0,
+          "wall_elapsed_s": 98.27391816199815,
+          "physics_steps": 16000,
+          "exact_physics_ticks": true,
+          "camera_frames": 400,
+          "executed_actions": 727,
+          "hold_action_ticks": 73,
+          "hold_simulation_s": 7.3,
+          "requests": 73,
+          "completed_requests": 73,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_v2_eval/closed_loop/trials/episode_019/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "80.000000",
+            "nb_frames": "400"
+          },
+          "min_drone_z_m": 0.8713818192481995,
+          "max_tracking_error_m": 0.23358510745259986,
+          "closest_pick_pose": {
+            "error_m": 0.07990503942575192,
+            "time_s": 7.555,
+            "position_w": [
+              -0.7125762701034546,
+              0.09299539774656296,
+              0.8979929089546204
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              true
+            ]
+          },
+          "sim_to_wall_ratio": 0.8140511897381074,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09201596499769948,
+              "p95": 0.09592498439305927,
+              "max": 0.09928362999926321
+            },
+            "roundtrip_wall_s": {
+              "median": 0.14680374901217874,
+              "p95": 0.27929094739374705,
+              "max": 0.2910711419972358
+            },
+            "simulation_delay_s": {
+              "median": 0.10000000000000142,
+              "p95": 0.10000000000000853,
+              "max": 0.10000000000000853
+            }
+          },
+          "all_responses_had_physics_progress": true
+        }
+      ]
+    },
+    "verification": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 250,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 4,
+          "executed_commands_audited": 330,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 16,
+          "executed_commands_audited": 727,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000853
+        },
+        {
+          "episode_id": 17,
+          "executed_commands_audited": 420,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 18,
+          "executed_commands_audited": 370,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 19,
+          "executed_commands_audited": 727,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000853
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    },
+    "expert_replay": {
+      "status": "measured",
+      "settings": {
+        "checkpoint": "artifacts/M5/recovery_v2_train_pilot/checkpoint",
+        "dataset": "datasets/airvla_m3",
+        "manifest": "artifacts/M3/collection_manifest.json",
+        "seed": 7500,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          16
+        ],
+        "familiar_episode_ids": [
+          0,
+          4
+        ],
+        "heldout_episode_ids": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "action_horizon": 50,
+        "execute_actions": 10,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+        "scope": "Recovery v2 bounded 2500-step pilot; original six M5 starts and original recordings. Restored training resets/yaw and fixed expert lift anchor. Development evaluation, not an untouched/OOD benchmark.",
+        "offline_normalization": "checkpoint"
+      },
+      "trials": [
+        {
+          "episode_id": 16,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "replay",
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9506506323814392,
+          "success_dwell_s": 7.769999999999857,
+          "termination": "replay_finished",
+          "error": null,
+          "duration_s": 51.7,
+          "wall_elapsed_s": 60.03439269900264,
+          "physics_steps": 10340,
+          "exact_physics_ticks": true,
+          "camera_frames": 259,
+          "executed_actions": 517,
+          "hold_action_ticks": 0,
+          "hold_simulation_s": 0.0,
+          "requests": 0,
+          "completed_requests": 0,
+          "delays": [],
+          "max_replay_command_error": 5.960464477539063e-08,
+          "final_observation": {
+            "drone_state": [
+              0.6412445306777954,
+              -0.4887801706790924,
+              1.3999568223953247,
+              0.9999998211860657,
+              -0.00047251215437427163,
+              6.99744705343619e-05,
+              -4.327298341877395e-08,
+              -0.0003243203682359308,
+              0.003608899423852563,
+              -7.28887680452317e-05,
+              0.025689007714390755,
+              0.00023939272796269506,
+              -1.9615933979366673e-06
+            ],
+            "block_state": [
+              0.6286489963531494,
+              0.022194754332304,
+              0.5400000214576721,
+              0.9999460577964783,
+              9.490609045315068e-07,
+              -3.2002256489249703e-07,
+              -0.010385982692241669,
+              0.00016471804701723158,
+              0.00016370271623600274,
+              -6.506242789328098e-05,
+              -0.0004909015842713416,
+              0.0013230680488049984,
+              -5.675391366821714e-05
+            ],
+            "aperture_m": 0.13999890863895417,
+            "contact_force_w_n": [
+              [
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "contacts": [
+              false,
+              false
+            ],
+            "command_open": true
+          },
+          "time_mode": "unpaced_fixed_dt_replay",
+          "replay_action_count_matches": true
+        }
+      ]
+    }
+  },
+  "grasp_diagnosis": {
+    "scope": "Descriptive coverage and failure analysis, not a causal ablation.",
+    "training": {
+      "rows": 10191,
+      "aperture_range_m": [
+        0.07999274134635925,
+        0.14000001549720764
+      ],
+      "rows_with_aperture_below_005m": 0,
+      "open_to_close_transitions": 28,
+      "max_abs_closure_height_error_m": 0.0033707451820373935
+    },
+    "fault_implementation": "missed_closure forces the gripper open for 2.5 s; it does not produce a closed-empty grasp.",
+    "trials": [
+      {
+        "episode_id": 0,
+        "termination": "unsafe_command",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 10.0,
+          "state": [
+            -0.7098501920700073,
+            -0.11369320005178452,
+            0.8987648487091064,
+            -0.0005271141417324543,
+            -0.006218238268047571,
+            -0.020589029416441917,
+            -0.002726974431425333,
+            0.13989104330539703
+          ],
+          "command": [
+            -0.7061938643455505,
+            -0.11393057554960251,
+            0.8931527733802795,
+            0.0,
+            0.0,
+            -0.0005065494333393872,
+            1.0
+          ],
+          "height_above_grasp_pose_m": 0.06876484870910649,
+          "horizontal_error_from_initial_block_m": 0.05307135090829255
+        },
+        "minimum_aperture_m": 0.030000533908605576,
+        "first_below_training_aperture_s": 10.1,
+        "rows_below_training_aperture": 99
+      },
+      {
+        "episode_id": 4,
+        "termination": "unsafe_command",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 11.1,
+          "state": [
+            -0.7422123551368713,
+            0.01993435062468052,
+            0.821023166179657,
+            -0.001511982292868197,
+            -0.007688427809625864,
+            -0.006707840599119663,
+            -0.0002381319209234789,
+            0.13999800384044647
+          ],
+          "command": [
+            -0.7436193823814392,
+            0.008882632479071617,
+            0.8716855645179749,
+            0.0,
+            0.0,
+            -0.0011406556004658341,
+            1.0
+          ],
+          "height_above_grasp_pose_m": -0.008976833820342978,
+          "horizontal_error_from_initial_block_m": 0.14932609760741491
+        },
+        "minimum_aperture_m": 0.0300004780292511,
+        "first_below_training_aperture_s": 11.200000000000001,
+        "rows_below_training_aperture": 120
+      },
+      {
+        "episode_id": 16,
+        "termination": "timeout",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 12.200000000000001,
+          "state": [
+            -0.8890654444694519,
+            0.8117344379425049,
+            0.9113565683364868,
+            0.014228819869458675,
+            -0.07577960193157196,
+            -0.05821819230914116,
+            0.08808087557554245,
+            0.13996510207653046
+          ],
+          "command": [
+            -0.9021428227424622,
+            0.8546938896179199,
+            0.8787112236022949,
+            0.0,
+            0.0,
+            0.01772160828113556,
+            1.0
+          ],
+          "height_above_grasp_pose_m": 0.08135656833648686,
+          "horizontal_error_from_initial_block_m": 0.7815486134822608
+        },
+        "minimum_aperture_m": 0.029999669641256332,
+        "first_below_training_aperture_s": 12.3,
+        "rows_below_training_aperture": 164
+      },
+      {
+        "episode_id": 17,
+        "termination": "unsafe_command",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 8.700000000000001,
+          "state": [
+            -0.795516312122345,
+            0.12302730232477188,
+            0.8207011222839355,
+            -0.003792170900851488,
+            0.00015113662811927497,
+            -0.00038473776658065617,
+            0.0004196513327769935,
+            0.13984006643295288
+          ],
+          "command": [
+            -0.7869963049888611,
+            0.1111636608839035,
+            0.8097389936447144,
+            0.0,
+            0.0,
+            -0.0033196541480720043,
+            1.0
+          ],
+          "height_above_grasp_pose_m": -0.009298877716064413,
+          "horizontal_error_from_initial_block_m": 0.12077833653471712
+        },
+        "minimum_aperture_m": 0.030000530183315277,
+        "first_below_training_aperture_s": 8.8,
+        "rows_below_training_aperture": 112
+      },
+      {
+        "episode_id": 18,
+        "termination": "unsafe_command",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 11.9,
+          "state": [
+            -0.8579255938529968,
+            0.04896334558725357,
+            0.8199979066848755,
+            -0.0009597691241651773,
+            4.6541761548724025e-05,
+            0.0018716186750680208,
+            0.0005776433972641826,
+            0.13984006643295288
+          ],
+          "command": [
+            -0.8618029356002808,
+            0.049339525401592255,
+            0.7799818515777588,
+            0.0,
+            0.0,
+            -0.0004284618771634996,
+            1.0
+          ],
+          "height_above_grasp_pose_m": -0.010002093315124472,
+          "horizontal_error_from_initial_block_m": 0.16186484214896374
+        },
+        "minimum_aperture_m": 0.030000530183315277,
+        "first_below_training_aperture_s": 12.0,
+        "rows_below_training_aperture": 113
+      },
+      {
+        "episode_id": 19,
+        "termination": "timeout",
+        "grasp_contact": false,
+        "lifted": false,
+        "success": false,
+        "first_close": {
+          "time_s": 8.3,
+          "state": [
+            -0.7119700312614441,
+            0.24130572378635406,
+            0.8960441946983337,
+            -0.0044965241104364395,
+            0.0010076526086777449,
+            0.3885573744773865,
+            0.011167377233505249,
+            0.13999995589256287
+          ],
+          "command": [
+            -0.7169011235237122,
+            0.11432421207427979,
+            0.9098641872406006,
+            0.0,
+            0.0,
+            -0.00023728655651211739,
+            1.0
+          ],
+          "height_above_grasp_pose_m": 0.06604419469833378,
+          "horizontal_error_from_initial_block_m": 0.18760475784382213
+        },
+        "minimum_aperture_m": 0.03000052273273468,
+        "first_below_training_aperture_s": 8.4,
+        "rows_below_training_aperture": 227
+      }
+    ]
+  },
+  "limitations": [
+    "0/6 learned physical successes; expert/data fixes do not establish learned control.",
+    "2500-step pilot differs from previous 10000-step budgets; not a matched ablation.",
+    "Repeated M5 trials are development evaluation, not an untouched or deliberate OOD test.",
+    "Empty-gripper coverage gap is observed, but its causal contribution is not isolated."
+  ],
+  "next_action": "Validate real closed-empty missed-grasp recovery on training scenarios and collect precise alignment/reopening corrections before another bounded learning pilot. Preserve fixed evaluation; no full run or RTC yet."
+}

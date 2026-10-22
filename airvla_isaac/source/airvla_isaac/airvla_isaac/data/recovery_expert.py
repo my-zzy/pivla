@@ -11,12 +11,17 @@ class RecoveryExpert(ScriptedExpert):
         self.lost_contact_s = 0.
         self.recovery_xy = None
         self.initialized = False
+        self.lift_xy = None
 
     def transition(self, stage, t, obs, reason):
         self.events.append({'stage':self.stage,'next_stage':stage,'end_time_s':t,
                             'duration_s':t-self.entered,'reason':reason})
         self.stage, self.entered, self.dwell = stage, t, 0.
         self.lost_contact_s = 0.
+        if stage == 'lift':
+            # A grasped block moves with the drone. Following its live XY during
+            # lifting removes the position-restoring target and can sustain drift.
+            self.lift_xy = np.array(obs['block_state'][:2]).copy()
         print(f'Recovery expert {t:.2f}s -> {stage}: {reason}',flush=True)
 
     def recover(self, t, obs, reason):
@@ -36,6 +41,10 @@ class RecoveryExpert(ScriptedExpert):
         if t-self.entered>self.task['stage_timeout_s']:
             raise RuntimeError(f'Recovery expert stage {self.stage} timed out')
         slow=np.linalg.norm(drone[7:10])<.035
+        qw,qx,qy,qz=drone[3:7]
+        yaw=np.arctan2(2*(qw*qz+qx*qy),1-2*(qy*qy+qz*qz))
+        yaw_error=abs((yaw-self.cfg['target']['yaw']+np.pi)%(2*np.pi)-np.pi)
+        heading_settled=yaw_error<.03 and np.linalg.norm(drone[10:13])<.05
         contacts=all(obs['contacts'])
         if self.stage in ('lift','transport'):
             self.lost_contact_s=0. if contacts else self.lost_contact_s+dt
@@ -50,6 +59,8 @@ class RecoveryExpert(ScriptedExpert):
         goal=np.array([*block[:2],self.task['flight_height_m']])
         if self.stage in ('descend','grasp'):
             goal[2]=self.task['grasp_height_m']
+        elif self.stage=='lift' and self.lift_xy is not None:
+            goal[:2]=self.lift_xy
         elif self.stage=='recover':
             goal[:2]=self.recovery_xy
         elif self.stage in ('transport','release','retreat'):
@@ -60,10 +71,10 @@ class RecoveryExpert(ScriptedExpert):
         error=np.linalg.norm(drone[:3]-goal)
         next_stage=None
         if self.stage in ('approach','recover'):
-            condition=error<.015 and slow and obs['aperture_m']>.12
+            condition=error<.015 and slow and heading_settled and obs['aperture_m']>.12
             next_stage='descend' if self.stage=='approach' else 'approach'
         elif self.stage=='descend':
-            condition=error<.012 and slow and xy_error<.012 and obs['aperture_m']>.12
+            condition=error<.012 and slow and heading_settled and xy_error<.012 and obs['aperture_m']>.12
             next_stage='grasp'
         elif self.stage=='grasp':
             condition=contacts and .07<obs['aperture_m']<.095 and slow

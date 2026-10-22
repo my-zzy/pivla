@@ -1,13 +1,34 @@
 #!/usr/bin/env python3
 """Check training schedule boundaries and evaluation's isolation from training RNG."""
 import unittest
+import hashlib
+import json
+import tempfile
+from pathlib import Path
 from unittest.mock import patch
 
 import torch
-from m4_train import evaluate, learning_rate_at
+from m4_train import check_dataset_coverage, evaluate, learning_rate_at
 
 
 class ScheduleTests(unittest.TestCase):
+    def test_training_refuses_stale_or_failed_coverage(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            normalization=root/'normalization.json';normalization.write_text('{}')
+            (root/'schema.json').write_text('{"repo_id":"local/coverage_test"}')
+            path=root/'coverage.json'
+            report={'status':'passed','checks':{'coverage':True},'dataset_repo_id':'local/coverage_test',
+                    'normalization_sha256':hashlib.sha256(normalization.read_bytes()).hexdigest()}
+            path.write_text(json.dumps(report))
+            cfg={'dataset':str(root),'dataset_coverage_report':str(path)}
+            check_dataset_coverage(cfg)
+            normalization.write_text('{"changed":true}')
+            with self.assertRaises(ValueError):check_dataset_coverage(cfg)
+            normalization.write_text('{}');report['checks']['coverage']=False
+            path.write_text(json.dumps(report))
+            with self.assertRaises(ValueError):check_dataset_coverage(cfg)
+
     def test_warmup_and_decay_boundaries(self):
         cfg = {'learning_rate': 5e-5, 'steps': 10000, 'warmup_steps': 500,
                'lr_schedule': 'cosine', 'min_lr_ratio': .1}

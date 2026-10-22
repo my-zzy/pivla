@@ -13,6 +13,21 @@ from airvla_isaac.data.chunk_dataset import ChunkDataset
 from airvla_isaac.policy.pi0_adapter import Pi0BatchAdapter, load_policy_strict, policy_config
 
 
+def configure_normalization(dataset, adapter, source='dataset'):
+    """Evaluate fixed recordings with the model's training-time normalization."""
+    if source == 'dataset':
+        assert dataset.schema == adapter.schema and dataset.stats == adapter.stats
+    elif source == 'checkpoint':
+        # Dataset provenance may differ, but observation/action semantics must not.
+        provenance = {'repo_id', 'collection', 'split', 'preview_episodes'}
+        contract = lambda schema: {k: v for k, v in schema.items() if k not in provenance}
+        if contract(dataset.schema) != contract(adapter.schema):
+            raise ValueError('Evaluation dataset and checkpoint have incompatible feature contracts')
+        dataset.stats = adapter.stats
+    else:
+        raise ValueError(f'Unknown offline_normalization: {source}')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('artifacts/M5/offline'))
@@ -33,7 +48,7 @@ def main():
     split_manifest = json.loads(Path('artifacts/M3/split_manifest.json').read_text())
     for split, name, selected in [('train', 'familiar', [0, 4]), ('validation', 'heldout', None)]:
         dataset = ChunkDataset(settings['dataset'], split)
-        assert dataset.schema == adapter.schema and dataset.stats == adapter.stats
+        configure_normalization(dataset, adapter, settings.get('offline_normalization', 'dataset'))
         numeric = dataset.dataset.hf_dataset.select_columns(['episode_index', 'action']).with_format('numpy')[:]
         membership, actions = np.asarray(numeric['episode_index']), np.asarray(numeric['action'])
         group = {}

@@ -6,6 +6,7 @@ No Hub upload or model download occurs here.
 """
 import argparse
 import gc
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -110,8 +111,23 @@ def validate_settings(settings, args):
     learning_rate_at(1, settings)
 
 
+def check_dataset_coverage(settings):
+    """Require a current passed coverage report when a configuration declares one."""
+    if not settings.get('dataset_coverage_report'):
+        return
+    report=json.loads(Path(settings['dataset_coverage_report']).read_text())
+    root=Path(settings['dataset']).resolve()
+    repo_id=json.loads((root/'schema.json').read_text())['repo_id']
+    digest=hashlib.sha256((root/'normalization.json').read_bytes()).hexdigest()
+    if (report.get('status')!='passed' or not report.get('checks') or
+        not all(report['checks'].values()) or report.get('dataset_repo_id')!=repo_id or
+        report.get('normalization_sha256')!=digest):
+        raise ValueError('Dataset coverage report is failed, stale, or belongs to another dataset')
+
+
 def run(args, settings, out, ui):
     ui.phase('Preparing datasets, tokenizer, and CUDA')
+    check_dataset_coverage(settings)
     seed=settings['seed']
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed)
     torch.set_num_threads(8)

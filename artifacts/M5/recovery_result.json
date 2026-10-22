@@ -1632,5 +1632,26 @@
     "server_output": "artifacts/M5/recovery_train_probe_server_20261021",
     "environment_packages_changed": false,
     "full_recovery_training_started": false
+  },
+  "learning_evaluation": {
+    "date": "2026-10-21",
+    "full_recovery_training_complete": true,
+    "training_steps": 10000,
+    "batch_size": 4,
+    "report": "artifacts/M5/recovery_comparison.md",
+    "evidence": "artifacts/M5/recovery_comparison.json",
+    "fixed_successes": {
+      "step_002500": 0,
+      "step_010000": 0
+    },
+    "fixed_trials_per_checkpoint": 6,
+    "diagnostic_yaw_zero_successes": 0,
+    "diagnostic_trials": 2,
+    "next": "Correct initial-state/yaw and grasp/recovery coverage before a small learning pilot."
+  },
+  "follow_up_v2": {
+    "report": "artifacts/M5/recovery_v2_report.md",
+    "evidence": "artifacts/M5/recovery_v2_result.json",
+    "status": "expert_and_data_fixes_verified_policy_pilot_0_of_6"
   }
 }

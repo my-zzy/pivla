@@ -13,6 +13,7 @@ from airvla_isaac.data.chunk_dataset import ChunkDataset
 from airvla_isaac.policy.pi0_adapter import CAMERA_MAP, Pi0BatchAdapter, masked_flow_loss, policy_config, remap_checkpoint_state
 from lerobot.policies.pi0.modeling_pi0 import PI0Policy
 from airvla_isaac.policy.action_codec import episode_chunk
+from m5_offline import configure_normalization
 
 
 class TokenizerStub:
@@ -23,6 +24,32 @@ class TokenizerStub:
 
 
 class AdapterChecks(unittest.TestCase):
+    def test_evaluation_uses_checkpoint_statistics_without_changing_targets(self):
+        dataset = ChunkDataset('datasets/airvla_m3')
+        raw = ChunkDataset('datasets/airvla_m3', normalize_features=False)
+        adapter = Pi0BatchAdapter('datasets/airvla_m5_recovery', 'unused',
+                                 device='cpu', tokenizer=TokenizerStub())
+        with self.assertRaises(AssertionError):
+            configure_normalization(dataset, adapter)
+        configure_normalization(dataset, adapter, 'checkpoint')
+        for index in (0, 516):
+            rows = default_collate([dataset[index]])
+            source = raw[index]
+            images = {name: (source['observation.images.'+name].permute(1, 2, 0).numpy()*255).round().astype(np.uint8)
+                      for name in CAMERA_MAP}
+            live = adapter.from_observation(source['anchor_state'].numpy(), images)
+            recorded = adapter(rows)
+            for key in live:
+                torch.testing.assert_close(live[key], recorded[key], atol=0, rtol=0)
+            decoded = adapter.decode(rows['action'], rows['anchor_state'], rows['action_is_pad'])
+            valid = ~source['action_is_pad'].numpy()
+            absolute = dataset.dataset[index]['action'].numpy()
+            np.testing.assert_allclose(decoded[0, valid], absolute[valid], atol=1e-6)
+            np.testing.assert_array_equal(decoded[0, ~valid], 0.)
+        dataset.schema = {**dataset.schema, 'position_frame': 'body'}
+        with self.assertRaises(ValueError):
+            configure_normalization(dataset, adapter, 'checkpoint')
+
     def test_live_matches_recorded_preprocessing(self):
         dataset = ChunkDataset('datasets/airvla_m3')
         raw_dir = Path('artifacts/M3/episode_000')

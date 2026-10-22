@@ -1,6 +1,6 @@
 # AirVLA simulation project
 
-M0–M4 are complete. M5 found no successful learned pick-and-place trials for either the debug policy or the later all-16-episode baseline. A separate state-driven expert and corrective dataset now pass physical/data checks. Next is a learning pilot on the corrected data; start with [implement_guide.md](implement_guide.md).
+M0–M4 are complete. M5 is still in correction: the latest recovery v2 cycle fixed expert lift drift and restored training reset/yaw coverage, but its 2,500-step policy pilot scored 0/6 physical successes. Next is precise grasp alignment and recovery from an empty, closed gripper. Start with [implement_guide.md](implement_guide.md) and the [current report and videos](artifacts/M5/recovery_v2_report.md).
 
 - [M0 results, environment details, and commands](artifacts/M0/report.md)
 - [M1 results, video, camera preview, and plots](artifacts/M1/report.md)
@@ -12,9 +12,11 @@ M0–M4 are complete. M5 found no successful learned pick-and-place trials for e
 - [Technical reference](AirVLA_IsaacLab_Reproduction_Guide.md)
 - [Generated external project](airvla_isaac/README.md)
 
-The corrective dataset is ready: 18 training episodes (6,534 rows), including two fault-free recovery segments, with the original four validation episodes retained. The new expert passed five physical pilot cases and sixteen collection episodes; the learned policy has not yet been retrained on this data. See [recovery report and videos](artifacts/M5/recovery_report.md).
+The historical v1 corrective dataset has 18 training episodes (6,534 rows) and the original four validation episodes. The user completed 10,000 training steps at batch 4. Steps 2,500 and 10,000 were evaluated on the original six M5 starts, with verified downloads and execution audits. See [comparison, heading-coverage findings, and all videos](artifacts/M5/recovery_comparison.md); the [expert/data report](artifacts/M5/recovery_report.md) is preserved.
 
-Run a disposable batch-4 training probe using the launcher for the machine you are on:
+Recovery v2 is separate: `datasets/airvla_m5_recovery_v2` has 28 training episodes / 10,191 rows and the unchanged validation split. Its expert passed 10/10 pilot cases and 24/24 collection episodes. The local batch-4 pilot completed with exact checkpoint reload, then failed all six fixed policy trials. All reached an empty 3 cm gripper aperture absent from training. See the current report before launching another training run; the commands below refer to historical v1 setup.
+
+For future configurations, run a disposable batch-4 training probe using the launcher for the machine you are on (the recovery probe and full run below are already complete):
 
 ```bash
 # Local RTX 5090 workstation
@@ -70,4 +72,4 @@ The viewport starts inside the room looking at the drone. After the test, the fi
 
 The launcher uses the existing `bwrap` executable to mount host files read-only, except this workspace and the GPU's device/kernel interfaces. Caches and logs go under each milestone's `artifacts/M<number>/runtime/`. `/tmp` and `/var/tmp` are temporary private mounts. No shell profile or global environment variable is changed. In a restricted agent sandbox, this command needs host GPU access. Ordinary Ubuntu terminals may also need the one-time [AppArmor permission for bwrap](docs/launcher-troubleshooting.md); the launcher checks this before starting Sim.
 
-The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert, recorders, exporter, and loader live in `data/`; the action codec and π0 adapter are in `policy/`. The original cartpole task remains as an M0 setup check. Dataset and policy work uses the existing `lerobot` environment. M4 trained the π0 action expert on two demonstrations for 1,600 steps, reaching 8.04 cm position-command RMSE and 98.12% gripper accuracy with 10.708 GiB peak CUDA allocation. The checkpoint at `artifacts/M4/debug_refine/checkpoint/` reloads with identical predictions; see the [M4 report](artifacts/M4/report.md). M5 evaluated this checkpoint in closed loop with 0/6 successes; the later all-16-episode baseline also achieved 0/6 successes, and corrective data is now ready. No environment clone was needed.
+The drone implementation is under `airvla_isaac/source/airvla_isaac/airvla_isaac/sim/`, with baseline settings in [configs/sim.yaml](configs/sim.yaml) and M2 overrides in [configs/manipulation.yaml](configs/manipulation.yaml). The scripted expert, recorders, exporter, and loader live in `data/`; the action codec and π0 adapter are in `policy/`. The original cartpole task remains as an M0 setup check. Dataset and policy work uses the existing `lerobot` environment. M4 trained the π0 action expert on two demonstrations for 1,600 steps, reaching 8.04 cm position-command RMSE and 98.12% gripper accuracy with 10.708 GiB peak CUDA allocation. The checkpoint at `artifacts/M4/debug_refine/checkpoint/` reloads with identical predictions; see the [M4 report](artifacts/M4/report.md). M5 evaluated this checkpoint in closed loop with 0/6 successes; the later all-16-episode baseline also achieved 0/6 successes, and both v1 recovery checkpoints and the v2 pilot also achieved 0/6. V2 expert/data fixes are verified, but learned grasp and recovery remain unresolved. No environment clone was needed.

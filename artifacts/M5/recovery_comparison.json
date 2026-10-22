@@ -1,0 +1,1797 @@
+{
+  "date": "2026-10-21",
+  "status": "measured",
+  "conclusion": "Both recovery checkpoints scored 0/6 fixed-trial successes, no contacts or lifts. The yaw-zero diagnostic scored 0/2 with one contact and no lifts.",
+  "training": {
+    "status": "passed",
+    "checks": {
+      "finite_training": true,
+      "checkpoint_reload": true
+    },
+    "initial": {
+      "position_rmse_m": 0.3071945309638977,
+      "yaw_rmse_rad": 0.0012341906549409032,
+      "gripper_accuracy": 0.41154562383612664,
+      "evaluated_chunks": 172,
+      "valid_future_actions": 7518
+    },
+    "final": {
+      "position_rmse_m": 0.02209373190999031,
+      "yaw_rmse_rad": 5.39983157068491e-05,
+      "gripper_accuracy": 0.9937483373237563,
+      "evaluated_chunks": 172,
+      "valid_future_actions": 7518
+    },
+    "reload_max_abs_error": 0.0,
+    "checkpoint": "artifacts/M5/recovery_train/checkpoint",
+    "validation": {
+      "position_rmse_m": 0.1592802256345749,
+      "yaw_rmse_rad": 0.02372058667242527,
+      "gripper_accuracy": 0.9264454327745467,
+      "evaluated_chunks": 64,
+      "valid_future_actions": 2923
+    },
+    "scope": "Offline training/validation and reload checks; task success requires M5 closed-loop evaluation",
+    "peak_allocated_gib": 10.966264247894287,
+    "training_elapsed_s": 5024.497812300571
+  },
+  "selection": {
+    "selection_rule": "Lowest training-time validation position RMSE among saved trained checkpoints, plus final checkpoint; fixed before closed-loop trials.",
+    "selected_step": 2500,
+    "selected_validation": {
+      "position_rmse_m": 0.14932352304458618,
+      "yaw_rmse_rad": 0.0237739235162735,
+      "gripper_accuracy": 0.9278138898392063,
+      "evaluated_chunks": 64,
+      "valid_future_actions": 2923
+    },
+    "training_result": {
+      "status": "passed",
+      "checks": {
+        "finite_training": true,
+        "checkpoint_reload": true
+      },
+      "initial": {
+        "position_rmse_m": 0.3071945309638977,
+        "yaw_rmse_rad": 0.0012341906549409032,
+        "gripper_accuracy": 0.41154562383612664,
+        "evaluated_chunks": 172,
+        "valid_future_actions": 7518
+      },
+      "final": {
+        "position_rmse_m": 0.02209373190999031,
+        "yaw_rmse_rad": 5.39983157068491e-05,
+        "gripper_accuracy": 0.9937483373237563,
+        "evaluated_chunks": 172,
+        "valid_future_actions": 7518
+      },
+      "reload_max_abs_error": 0.0,
+      "checkpoint": "artifacts/M5/recovery_train/checkpoint",
+      "validation": {
+        "position_rmse_m": 0.1592802256345749,
+        "yaw_rmse_rad": 0.02372058667242527,
+        "gripper_accuracy": 0.9264454327745467,
+        "evaluated_chunks": 64,
+        "valid_future_actions": 2923
+      },
+      "scope": "Offline training/validation and reload checks; task success requires M5 closed-loop evaluation",
+      "peak_allocated_gib": 10.966264247894287,
+      "training_elapsed_s": 5024.497812300571
+    },
+    "input_tests": {
+      "adapter": 6,
+      "rollout": 3,
+      "status": "passed"
+    },
+    "source_sha256": {
+      "scripts/m5_offline.py": "d980f6b70fb19f9e7fbaade85be3f2dbb4484a1af928807686f3f7e9f9b96754",
+      "scripts/m5_run.py": "27ca118c1475fab6b898828b4063c4047a96b587687d6bda2178b96fc38f18d4",
+      "scripts/m5_sim.py": "a7c9ce2b96f5b81072272ca065a2f26367a4f723b5063b74bca4e11e7cf15110",
+      "scripts/m5_worker.py": "afdc4fd4b1a982af1e53ccf769283e7aab1bae1438b9c5d428161fa45af4d67d",
+      "scripts/m5_verify.py": "0e6183d6837369d60f9004feb181f103eda7368e2bd6f9bf9fc2eb6bf04ffcd0",
+      "airvla_isaac/source/airvla_isaac/airvla_isaac/eval/evaluate.py": "4b0e5486a6803555e4fe55647b7af4515de1227219c34ecf89cef5dda300b0d8",
+      "configs/eval.yaml": "fbaa7c60e66b8855168c29c784a59912876d06448076110138c149eb7018a36b"
+    },
+    "fresh_expert_replay": {
+      "episode_id": 16,
+      "scenario_id": 4,
+      "split": "validation",
+      "mode": "replay",
+      "success": true,
+      "grasp_contact": true,
+      "lifted": true,
+      "max_block_z_m": 0.9505228400230408,
+      "success_dwell_s": 7.769999999999857,
+      "termination": "replay_finished",
+      "error": null,
+      "duration_s": 51.7,
+      "wall_elapsed_s": 86.18712917099992,
+      "physics_steps": 10340,
+      "exact_physics_ticks": true,
+      "camera_frames": 259,
+      "executed_actions": 517,
+      "hold_action_ticks": 0,
+      "hold_simulation_s": 0.0,
+      "requests": 0,
+      "completed_requests": 0,
+      "max_replay_command_error": 5.960464477539063e-08,
+      "time_mode": "unpaced_fixed_dt_replay",
+      "replay_action_count_matches": true
+    }
+  },
+  "transfer": {
+    "status": "passed",
+    "files": 16,
+    "bytes": 17853796531,
+    "algorithm": "SHA256"
+  },
+  "transfer_manifest": {
+    "checkpoints/step_002500/model.safetensors": {
+      "bytes": 8892502976,
+      "sha256": "6e9268e01d39577ecfedda7a8c20739c855a31f848ba1c23a12c8c145f73d5bf"
+    },
+    "checkpoints/step_002500/config.json": {
+      "bytes": 2472,
+      "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+    },
+    "checkpoints/step_002500/normalization.json": {
+      "bytes": 2019,
+      "sha256": "f02713eec7f399a131876af2b6dfba8e1d94892a75088e320392676b7b66c01b"
+    },
+    "checkpoints/step_002500/schema.json": {
+      "bytes": 1589,
+      "sha256": "5cda6898f9ee5f6595b1e78c80f68bb27c9a28787824c4e4fc5a62d85029fe7c"
+    },
+    "checkpoints/step_002500/adapter.json": {
+      "bytes": 464,
+      "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+    },
+    "checkpoints/step_002500/training_metadata.json": {
+      "bytes": 861,
+      "sha256": "39bc177dd55cc7bf7043a0bbc529a69e3c0cb20bab3e26d2e52f4a591304f187"
+    },
+    "checkpoints/step_002500/tokenizer/tokenizer_config.json": {
+      "bytes": 502,
+      "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+    },
+    "checkpoints/step_002500/tokenizer/tokenizer.json": {
+      "bytes": 34387382,
+      "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+    },
+    "checkpoint/model.safetensors": {
+      "bytes": 8892502976,
+      "sha256": "8c27191a2ca89fb494fd59a414d6eaa93ae0f507e0593523e51f20799d9f2e08"
+    },
+    "checkpoint/config.json": {
+      "bytes": 2472,
+      "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+    },
+    "checkpoint/normalization.json": {
+      "bytes": 2019,
+      "sha256": "f02713eec7f399a131876af2b6dfba8e1d94892a75088e320392676b7b66c01b"
+    },
+    "checkpoint/schema.json": {
+      "bytes": 1589,
+      "sha256": "5cda6898f9ee5f6595b1e78c80f68bb27c9a28787824c4e4fc5a62d85029fe7c"
+    },
+    "checkpoint/adapter.json": {
+      "bytes": 464,
+      "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+    },
+    "checkpoint/training_metadata.json": {
+      "bytes": 862,
+      "sha256": "1080cdb61a431610225a17e70c8b4fa27762c05d1a1023e211d2c78a752bb061"
+    },
+    "checkpoint/tokenizer/tokenizer_config.json": {
+      "bytes": 502,
+      "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+    },
+    "checkpoint/tokenizer/tokenizer.json": {
+      "bytes": 34387382,
+      "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+    }
+  },
+  "models": {
+    "2500": {
+      "status": "measured",
+      "checkpoint": "artifacts/M5/recovery_train/checkpoints/step_002500",
+      "scope": "Recovery training step 2500; original M5 recordings and six trial starts. Step 2500 selected by training-time validation RMSE; validation is development data, not OOD or an untouched test set.",
+      "settings": {
+        "checkpoint": "artifacts/M5/recovery_train/checkpoints/step_002500",
+        "dataset": "datasets/airvla_m3",
+        "manifest": "artifacts/M3/collection_manifest.json",
+        "seed": 7500,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          16
+        ],
+        "familiar_episode_ids": [
+          0,
+          4
+        ],
+        "heldout_episode_ids": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "action_horizon": 50,
+        "execute_actions": 10,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+        "scope": "Recovery training step 2500; original M5 recordings and six trial starts. Step 2500 selected by training-time validation RMSE; validation is development data, not OOD or an untouched test set.",
+        "offline_normalization": "checkpoint"
+      },
+      "offline": {
+        "familiar": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.1801236867904663,
+              "yaw_rmse_rad": 0.010981538332998753,
+              "gripper_accuracy": 0.954639175257732,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 0,
+              "gripper_open_accuracy": 0.916403785488959,
+              "gripper_closed_accuracy": 0.9841656516443362,
+              "gripper_balanced_accuracy": 0.9502847185666476
+            },
+            "4": {
+              "position_rmse_m": 0.177266463637352,
+              "yaw_rmse_rad": 0.02778201922774315,
+              "gripper_accuracy": 0.952513966480447,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1432,
+              "source_episode_id": 4,
+              "gripper_open_accuracy": 0.9086614173228347,
+              "gripper_closed_accuracy": 0.9874529485570891,
+              "gripper_balanced_accuracy": 0.9480571829399619
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.17871216643698298,
+            "yaw_rmse_rad": 0.021062365261796206,
+            "gripper_accuracy": 0.9535850363699342,
+            "evaluated_chunks": 62,
+            "valid_future_actions": 2887
+          }
+        },
+        "heldout": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.17024768888950348,
+              "yaw_rmse_rad": 0.027321459725499153,
+              "gripper_accuracy": 0.9532646048109966,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 16,
+              "gripper_open_accuracy": 0.919558359621451,
+              "gripper_closed_accuracy": 0.9792935444579781,
+              "gripper_balanced_accuracy": 0.9494259520397146
+            },
+            "1": {
+              "position_rmse_m": 0.16358263790607452,
+              "yaw_rmse_rad": 0.012259179726243019,
+              "gripper_accuracy": 0.9539518900343643,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 17,
+              "gripper_open_accuracy": 0.9211356466876972,
+              "gripper_closed_accuracy": 0.9792935444579781,
+              "gripper_balanced_accuracy": 0.9502145955728376
+            },
+            "2": {
+              "position_rmse_m": 0.16662532091140747,
+              "yaw_rmse_rad": 0.009424901567399502,
+              "gripper_accuracy": 0.9539518900343643,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 18,
+              "gripper_open_accuracy": 0.919558359621451,
+              "gripper_closed_accuracy": 0.9805115712545676,
+              "gripper_balanced_accuracy": 0.9500349654380094
+            },
+            "3": {
+              "position_rmse_m": 0.15611907839775085,
+              "yaw_rmse_rad": 0.012020056135952473,
+              "gripper_accuracy": 0.949828178694158,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 19,
+              "gripper_open_accuracy": 0.919558359621451,
+              "gripper_closed_accuracy": 0.9732034104750305,
+              "gripper_balanced_accuracy": 0.9463808850482407
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.16422600220817626,
+            "yaw_rmse_rad": 0.016808183781710465,
+            "gripper_accuracy": 0.9527491408934707,
+            "evaluated_chunks": 124,
+            "valid_future_actions": 5820
+          }
+        }
+      },
+      "closed_loop_totals": {
+        "familiar": {
+          "trials": 2,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        },
+        "heldout": {
+          "trials": 4,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        }
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.11519857496023178, -0.49945998191833496, 2.5539710521698, 0.0, 0.0, -0.005772422067821026, 0.015000462532043457]",
+          "duration_s": 22.1,
+          "wall_elapsed_s": 26.0213992890001,
+          "physics_steps": 4420,
+          "exact_physics_ticks": true,
+          "camera_frames": 111,
+          "executed_actions": 200,
+          "hold_action_ticks": 21,
+          "hold_simulation_s": 2.1,
+          "requests": 21,
+          "completed_requests": 20,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "22.200000",
+            "nb_frames": "111"
+          },
+          "min_drone_z_m": 1.4081940650939941,
+          "max_tracking_error_m": 0.11952257329283728,
+          "closest_pick_pose": {
+            "error_m": 0.5843796068997761,
+            "time_s": 0.005,
+            "position_w": [
+              -0.7335773706436157,
+              -0.13831904530525208,
+              1.4081940650939941
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8493009831851059,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09135076450002089,
+              "p95": 0.09322970789985448,
+              "max": 0.09330811900008484
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19273798099993655,
+              "p95": 0.26609022210005834,
+              "max": 0.26747188500007724
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 4,
+          "scenario_id": 1,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400001406669617,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.5154480934143066, -0.3391808569431305, 2.5347959995269775, 0.0, 0.0, 0.15536515414714813, 0.9871252775192261]",
+          "duration_s": 33.1,
+          "wall_elapsed_s": 39.28272039700005,
+          "physics_steps": 6620,
+          "exact_physics_ticks": true,
+          "camera_frames": 166,
+          "executed_actions": 300,
+          "hold_action_ticks": 31,
+          "hold_simulation_s": 3.1,
+          "requests": 31,
+          "completed_requests": 30,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_004/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "33.200000",
+            "nb_frames": "166"
+          },
+          "min_drone_z_m": 1.427849292755127,
+          "max_tracking_error_m": 0.11608270168796371,
+          "closest_pick_pose": {
+            "error_m": 0.5989291616082097,
+            "time_s": 0.005,
+            "position_w": [
+              -0.6337469816207886,
+              -0.035183072090148926,
+              1.427849292755127
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.842609668207393,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09154463400000168,
+              "p95": 0.09320363599994153,
+              "max": 0.09469565499989585
+            },
+            "roundtrip_wall_s": {
+              "median": 0.1911407090000239,
+              "p95": 0.2654867143998899,
+              "max": 0.2675486139999066
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 16,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400002002716064,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.2920370399951935, -0.27122053503990173, 2.5024805068969727, 0.0, 0.0, -0.1224813237786293, -0.005549183115363121]",
+          "duration_s": 22.1,
+          "wall_elapsed_s": 26.000503207000065,
+          "physics_steps": 4420,
+          "exact_physics_ticks": true,
+          "camera_frames": 111,
+          "executed_actions": 200,
+          "hold_action_ticks": 21,
+          "hold_simulation_s": 2.1,
+          "requests": 21,
+          "completed_requests": 20,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_016/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "22.200000",
+            "nb_frames": "111"
+          },
+          "min_drone_z_m": 1.3722764253616333,
+          "max_tracking_error_m": 0.11624031277912268,
+          "closest_pick_pose": {
+            "error_m": 0.5424547004743834,
+            "time_s": 0.005,
+            "position_w": [
+              -0.699908971786499,
+              0.06775783747434616,
+              1.3722764253616333
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8499835493203094,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09154126350006209,
+              "p95": 0.09320493920000672,
+              "max": 0.09466152100003455
+            },
+            "roundtrip_wall_s": {
+              "median": 0.189284394000083,
+              "p95": 0.2671068783500118,
+              "max": 0.2683115039999393
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 17,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.01777445338666439, -0.16191694140434265, 2.51127290725708, 0.0, 0.0, 0.07026441395282745, 0.04047855734825134]",
+          "duration_s": 27.6,
+          "wall_elapsed_s": 32.510080403000075,
+          "physics_steps": 5520,
+          "exact_physics_ticks": true,
+          "camera_frames": 139,
+          "executed_actions": 250,
+          "hold_action_ticks": 26,
+          "hold_simulation_s": 2.6,
+          "requests": 26,
+          "completed_requests": 25,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_017/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "27.800000",
+            "nb_frames": "139"
+          },
+          "min_drone_z_m": 1.3703248500823975,
+          "max_tracking_error_m": 0.11173851999159176,
+          "closest_pick_pose": {
+            "error_m": 0.5460592782936143,
+            "time_s": 0.005,
+            "position_w": [
+              -0.7373368144035339,
+              0.12170054018497467,
+              1.3703248500823975
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8489674481842572,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09119318100010787,
+              "p95": 0.09307767219988819,
+              "max": 0.09340875999987475
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13156055600006766,
+              "p95": 0.26310096740007793,
+              "max": 0.26576779599986367
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 18,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.07695198059082031, -0.23173090815544128, 2.5271129608154297, 0.0, 0.0, 0.057454612106084824, -0.02441919967532158]",
+          "duration_s": 33.1,
+          "wall_elapsed_s": 39.19648320399983,
+          "physics_steps": 6620,
+          "exact_physics_ticks": true,
+          "camera_frames": 166,
+          "executed_actions": 300,
+          "hold_action_ticks": 31,
+          "hold_simulation_s": 3.1,
+          "requests": 31,
+          "completed_requests": 30,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_018/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "33.200000",
+            "nb_frames": "166"
+          },
+          "min_drone_z_m": 1.4296637773513794,
+          "max_tracking_error_m": 0.11921405432052064,
+          "closest_pick_pose": {
+            "error_m": 0.6028693637425154,
+            "time_s": 0.005,
+            "position_w": [
+              -0.758172869682312,
+              0.057218123227357864,
+              1.4296637773513794
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8444635154569757,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.0914781234999964,
+              "p95": 0.09311337560003494,
+              "max": 0.09390555200002382
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19406862199991792,
+              "p95": 0.26787590420004787,
+              "max": 0.27199361099997077
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 19,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.020587187260389328, -0.14046244323253632, 2.5001864433288574, 0.0, 0.0, 0.06875395029783249, 0.012651409022510052]",
+          "duration_s": 25.400000000000002,
+          "wall_elapsed_s": 30.1733215700001,
+          "physics_steps": 5080,
+          "exact_physics_ticks": true,
+          "camera_frames": 128,
+          "executed_actions": 230,
+          "hold_action_ticks": 24,
+          "hold_simulation_s": 2.4,
+          "requests": 24,
+          "completed_requests": 23,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_002500/closed_loop/trials/episode_019/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "25.600000",
+            "nb_frames": "128"
+          },
+          "min_drone_z_m": 1.4017791748046875,
+          "max_tracking_error_m": 0.1016932464865095,
+          "closest_pick_pose": {
+            "error_m": 0.5770189543124663,
+            "time_s": 0.005,
+            "position_w": [
+              -0.6547058820724487,
+              0.11995679885149002,
+              1.4017791748046875
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8418032446667727,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09143572900006802,
+              "p95": 0.09282618389993331,
+              "max": 0.0928902090001884
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13271197700009907,
+              "p95": 0.26730407249999644,
+              "max": 0.26813999800015154
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        }
+      ]
+    },
+    "10000": {
+      "status": "measured",
+      "checkpoint": "artifacts/M5/recovery_train/checkpoint",
+      "scope": "Recovery training step 10000; original M5 recordings and six trial starts. Step 2500 selected by training-time validation RMSE; validation is development data, not OOD or an untouched test set.",
+      "settings": {
+        "checkpoint": "artifacts/M5/recovery_train/checkpoint",
+        "dataset": "datasets/airvla_m3",
+        "manifest": "artifacts/M3/collection_manifest.json",
+        "seed": 7500,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          16
+        ],
+        "familiar_episode_ids": [
+          0,
+          4
+        ],
+        "heldout_episode_ids": [
+          16,
+          17,
+          18,
+          19
+        ],
+        "action_horizon": 50,
+        "execute_actions": 10,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+        "scope": "Recovery training step 10000; original M5 recordings and six trial starts. Step 2500 selected by training-time validation RMSE; validation is development data, not OOD or an untouched test set.",
+        "offline_normalization": "checkpoint"
+      },
+      "offline": {
+        "familiar": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.17864824831485748,
+              "yaw_rmse_rad": 0.010962637141346931,
+              "gripper_accuracy": 0.963573883161512,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 0,
+              "gripper_open_accuracy": 0.916403785488959,
+              "gripper_closed_accuracy": 1.0,
+              "gripper_balanced_accuracy": 0.9582018927444795
+            },
+            "4": {
+              "position_rmse_m": 0.18023157119750977,
+              "yaw_rmse_rad": 0.027724912390112877,
+              "gripper_accuracy": 0.960195530726257,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1432,
+              "source_episode_id": 4,
+              "gripper_open_accuracy": 0.9133858267716536,
+              "gripper_closed_accuracy": 0.9974905897114178,
+              "gripper_balanced_accuracy": 0.9554382082415357
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.1794353490760343,
+            "yaw_rmse_rad": 0.021020035838061127,
+            "gripper_accuracy": 0.9618981641842743,
+            "evaluated_chunks": 62,
+            "valid_future_actions": 2887
+          }
+        },
+        "heldout": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.17065349221229553,
+              "yaw_rmse_rad": 0.027325505390763283,
+              "gripper_accuracy": 0.9642611683848797,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 16,
+              "gripper_open_accuracy": 0.917981072555205,
+              "gripper_closed_accuracy": 1.0,
+              "gripper_balanced_accuracy": 0.9589905362776026
+            },
+            "1": {
+              "position_rmse_m": 0.16634584963321686,
+              "yaw_rmse_rad": 0.012220529839396477,
+              "gripper_accuracy": 0.9608247422680413,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 17,
+              "gripper_open_accuracy": 0.9211356466876972,
+              "gripper_closed_accuracy": 0.9914738124238733,
+              "gripper_balanced_accuracy": 0.9563047295557853
+            },
+            "2": {
+              "position_rmse_m": 0.17200247943401337,
+              "yaw_rmse_rad": 0.009394677355885506,
+              "gripper_accuracy": 0.9628865979381444,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 18,
+              "gripper_open_accuracy": 0.9211356466876972,
+              "gripper_closed_accuracy": 0.9951278928136419,
+              "gripper_balanced_accuracy": 0.9581317697506695
+            },
+            "3": {
+              "position_rmse_m": 0.1636296659708023,
+              "yaw_rmse_rad": 0.012007297948002815,
+              "gripper_accuracy": 0.9601374570446736,
+              "evaluated_chunks": 31,
+              "valid_future_actions": 1455,
+              "source_episode_id": 19,
+              "gripper_open_accuracy": 0.917981072555205,
+              "gripper_closed_accuracy": 0.9926918392204629,
+              "gripper_balanced_accuracy": 0.9553364558878339
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.16819116847475477,
+            "yaw_rmse_rad": 0.01679627757160432,
+            "gripper_accuracy": 0.9620274914089347,
+            "evaluated_chunks": 124,
+            "valid_future_actions": 5820
+          }
+        }
+      },
+      "closed_loop_totals": {
+        "familiar": {
+          "trials": 2,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        },
+        "heldout": {
+          "trials": 4,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        }
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.16191497445106506, -0.3995884954929352, 2.5100820064544678, 0.0, 0.0, -0.027058102190494537, 0.920141339302063]",
+          "duration_s": 16.6,
+          "wall_elapsed_s": 19.479438510000136,
+          "physics_steps": 3320,
+          "exact_physics_ticks": true,
+          "camera_frames": 84,
+          "executed_actions": 150,
+          "hold_action_ticks": 16,
+          "hold_simulation_s": 1.6,
+          "requests": 16,
+          "completed_requests": 15,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "16.800000",
+            "nb_frames": "84"
+          },
+          "min_drone_z_m": 1.4081940650939941,
+          "max_tracking_error_m": 0.13059744214258473,
+          "closest_pick_pose": {
+            "error_m": 0.5843796068997761,
+            "time_s": 0.005,
+            "position_w": [
+              -0.7335773706436157,
+              -0.13831904530525208,
+              1.4081940650939941
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8521806206825766,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09134058900008313,
+              "p95": 0.09302401019997432,
+              "max": 0.09446463399990535
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13333814999987226,
+              "p95": 0.2624382219000381,
+              "max": 0.26392174800002977
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.1000000000000008,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 4,
+          "scenario_id": 1,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400001406669617,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.10655207931995392, -0.21623508632183075, 2.5006115436553955, 0.0, 0.0, 0.14960065484046936, 0.9977892637252808]",
+          "duration_s": 19.900000000000002,
+          "wall_elapsed_s": 23.58294943099986,
+          "physics_steps": 3980,
+          "exact_physics_ticks": true,
+          "camera_frames": 100,
+          "executed_actions": 180,
+          "hold_action_ticks": 19,
+          "hold_simulation_s": 1.9,
+          "requests": 19,
+          "completed_requests": 18,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_004/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "20.000000",
+            "nb_frames": "100"
+          },
+          "min_drone_z_m": 1.427849292755127,
+          "max_tracking_error_m": 0.12496324059773882,
+          "closest_pick_pose": {
+            "error_m": 0.5989291616082097,
+            "time_s": 0.005,
+            "position_w": [
+              -0.6337469816207886,
+              -0.035183072090148926,
+              1.427849292755127
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8438299907407422,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09141487849990426,
+              "p95": 0.09287043070007713,
+              "max": 0.09300539199989544
+            },
+            "roundtrip_wall_s": {
+              "median": 0.1905468385000404,
+              "p95": 0.2667515028999105,
+              "max": 0.2677769140000237
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 16,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400002002716064,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [0.29923638701438904, -0.2378106266260147, 2.531817674636841, 0.0, 0.0, -0.12791205942630768, 0.9930272102355957]",
+          "duration_s": 18.8,
+          "wall_elapsed_s": 21.997587190000104,
+          "physics_steps": 3760,
+          "exact_physics_ticks": true,
+          "camera_frames": 95,
+          "executed_actions": 170,
+          "hold_action_ticks": 18,
+          "hold_simulation_s": 1.8,
+          "requests": 18,
+          "completed_requests": 17,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_016/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "19.000000",
+            "nb_frames": "95"
+          },
+          "min_drone_z_m": 1.3722764253616333,
+          "max_tracking_error_m": 0.11839573538646218,
+          "closest_pick_pose": {
+            "error_m": 0.5424547004743834,
+            "time_s": 0.005,
+            "position_w": [
+              -0.699908971786499,
+              0.06775783747434616,
+              1.3722764253616333
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8546391855442357,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09084612899982858,
+              "p95": 0.09238190440000835,
+              "max": 0.09320514599994567
+            },
+            "roundtrip_wall_s": {
+              "median": 0.13157293500012202,
+              "p95": 0.2605785038000704,
+              "max": 0.26077822699994613
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 17,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.036955948919057846, -0.07108576595783234, 2.5404980182647705, 0.0, 0.0, 0.06725838780403137, 0.9806337356567383]",
+          "duration_s": 19.900000000000002,
+          "wall_elapsed_s": 23.304424405999953,
+          "physics_steps": 3980,
+          "exact_physics_ticks": true,
+          "camera_frames": 100,
+          "executed_actions": 180,
+          "hold_action_ticks": 19,
+          "hold_simulation_s": 1.9,
+          "requests": 19,
+          "completed_requests": 18,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_017/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "20.000000",
+            "nb_frames": "100"
+          },
+          "min_drone_z_m": 1.3703248500823975,
+          "max_tracking_error_m": 0.10372835498464522,
+          "closest_pick_pose": {
+            "error_m": 0.5460592782936143,
+            "time_s": 0.005,
+            "position_w": [
+              -0.7373368144035339,
+              0.12170054018497467,
+              1.3703248500823975
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8539151044158186,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09082019600009517,
+              "p95": 0.0917337528500525,
+              "max": 0.09237099699998907
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19032232649988146,
+              "p95": 0.26168254525009615,
+              "max": 0.2701975180000318
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 18,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.2720976173877716, -0.12002535909414291, 2.5068271160125732, 0.0, 0.0, 0.05250164121389389, 0.060042500495910645]",
+          "duration_s": 19.900000000000002,
+          "wall_elapsed_s": 23.461332312999957,
+          "physics_steps": 3980,
+          "exact_physics_ticks": true,
+          "camera_frames": 100,
+          "executed_actions": 180,
+          "hold_action_ticks": 19,
+          "hold_simulation_s": 1.9,
+          "requests": 19,
+          "completed_requests": 18,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_018/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "20.000000",
+            "nb_frames": "100"
+          },
+          "min_drone_z_m": 1.4296637773513794,
+          "max_tracking_error_m": 0.1145078440430676,
+          "closest_pick_pose": {
+            "error_m": 0.6028693637425154,
+            "time_s": 0.005,
+            "position_w": [
+              -0.758172869682312,
+              0.057218123227357864,
+              1.4296637773513794
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.848204174192332,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09088547999999719,
+              "p95": 0.09246136050001041,
+              "max": 0.09470519899991814
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19448799199994937,
+              "p95": 0.2662440238500949,
+              "max": 0.2679707810000309
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        },
+        {
+          "episode_id": 19,
+          "scenario_id": 4,
+          "split": "validation",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": false,
+          "lifted": false,
+          "max_block_z_m": 0.5400000214576721,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_command",
+          "error": "ValueError: Predicted target outside test volume: [-0.1326044350862503, -0.02662968449294567, 2.50527286529541, 0.0, 0.0, 0.06606080383062363, 0.9820865988731384]",
+          "duration_s": 17.7,
+          "wall_elapsed_s": 20.786877161999882,
+          "physics_steps": 3540,
+          "exact_physics_ticks": true,
+          "camera_frames": 89,
+          "executed_actions": 160,
+          "hold_action_ticks": 17,
+          "hold_simulation_s": 1.7,
+          "requests": 17,
+          "completed_requests": 16,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/recovery_step_010000/closed_loop/trials/episode_019/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "17.800000",
+            "nb_frames": "89"
+          },
+          "min_drone_z_m": 1.4017791748046875,
+          "max_tracking_error_m": 0.1038753450844978,
+          "closest_pick_pose": {
+            "error_m": 0.5770189543124663,
+            "time_s": 0.005,
+            "position_w": [
+              -0.6547058820724487,
+              0.11995679885149002,
+              1.4017791748046875
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.8514987538559688,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.0909098614999948,
+              "p95": 0.09185205800008589,
+              "max": 0.09278308999978435
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19030558499991912,
+              "p95": 0.26130955825004776,
+              "max": 0.2696668570001748
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999964,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        }
+      ]
+    }
+  },
+  "execution_audits": {
+    "2500": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 200,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 4,
+          "executed_commands_audited": 300,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 16,
+          "executed_commands_audited": 200,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 17,
+          "executed_commands_audited": 250,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 18,
+          "executed_commands_audited": 300,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 19,
+          "executed_commands_audited": 230,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    },
+    "10000": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 150,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 4,
+          "executed_commands_audited": 180,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 16,
+          "executed_commands_audited": 170,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 17,
+          "executed_commands_audited": 180,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 18,
+          "executed_commands_audited": 180,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        },
+        {
+          "episode_id": 19,
+          "executed_commands_audited": 160,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    }
+  },
+  "state_coverage": {
+    "scope": "Descriptive initial-state coverage; this does not establish causation.",
+    "state_names": [
+      "x",
+      "y",
+      "z",
+      "yaw",
+      "vx",
+      "vy",
+      "vz",
+      "aperture"
+    ],
+    "recovery_training_state_statistics": {
+      "mean": [
+        -0.13569618177493198,
+        -0.056865956219160116,
+        1.2082597283566074,
+        -0.00029177701991190265,
+        0.03562433046070336,
+        -0.013480511746553916,
+        0.003943400542520506,
+        0.10870376283563457
+      ],
+      "std": [
+        0.553550172960752,
+        0.1270616811222292,
+        0.17907043379102985,
+        0.0012136061993787343,
+        0.05469352024618772,
+        0.037474237969977044,
+        0.060123950845681146,
+        0.029972830718274095
+      ],
+      "min": [
+        -0.8232054710388184,
+        -0.575985848903656,
+        0.8332237005233765,
+        -0.005151461344212294,
+        -0.10542728751897812,
+        -0.12430499494075775,
+        -0.11945260316133499,
+        0.07999134063720703
+      ],
+      "max": [
+        0.7201932668685913,
+        0.1431180089712143,
+        1.404558777809143,
+        0.00386976869776845,
+        0.13754577934741974,
+        0.07626659423112869,
+        0.15040577948093414,
+        0.14000001549720764
+      ],
+      "count": 6534
+    },
+    "trials": [
+      {
+        "episode_id": 0,
+        "initial_state": [
+          -0.7335773706436157,
+          -0.13831904530525208,
+          1.4081940650939941,
+          -0.060914572328329086,
+          0.0,
+          0.0,
+          0.0,
+          0.14000001549720764
+        ],
+        "normalized_state": [
+          -1.0800849102274146,
+          -0.6410515614675106,
+          1.1165122712033213,
+          -49.95260846512734,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441540525730892
+        ],
+        "outside_training_min_max": [
+          "z",
+          "yaw"
+        ]
+      },
+      {
+        "episode_id": 4,
+        "initial_state": [
+          -0.6337469816207886,
+          -0.035183072090148926,
+          1.427849292755127,
+          0.14826208353042603,
+          0.0,
+          0.0,
+          0.0,
+          0.14000000059604645
+        ],
+        "normalized_state": [
+          -0.8997392181849603,
+          0.1706484908550278,
+          1.2262748224241995,
+          122.40697239877744,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441535554174706
+        ],
+        "outside_training_min_max": [
+          "z",
+          "yaw"
+        ]
+      },
+      {
+        "episode_id": 16,
+        "initial_state": [
+          -0.699908971786499,
+          0.06775783747434616,
+          1.3722764253616333,
+          -0.14865434169769287,
+          0.0,
+          0.0,
+          0.0,
+          0.13999998569488525
+        ],
+        "normalized_state": [
+          -1.019262241385969,
+          0.9808133545283588,
+          0.9159339905125193,
+          -122.24934641379575,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441530582618521
+        ],
+        "outside_training_min_max": [
+          "yaw"
+        ]
+      },
+      {
+        "episode_id": 17,
+        "initial_state": [
+          -0.7373368144035339,
+          0.12170054018497467,
+          1.3703248500823975,
+          0.06579077988862991,
+          0.0,
+          0.0,
+          0.0,
+          0.13999998569488525
+        ],
+        "normalized_state": [
+          -1.0868764242464786,
+          1.4053528556131698,
+          0.9050356236636777,
+          54.45140025023817,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441530582618521
+        ],
+        "outside_training_min_max": [
+          "yaw"
+        ]
+      },
+      {
+        "episode_id": 18,
+        "initial_state": [
+          -0.758172869682312,
+          0.057218123227357864,
+          1.4296637773513794,
+          0.05051929131150246,
+          0.0,
+          0.0,
+          0.0,
+          0.14000000059604645
+        ],
+        "normalized_state": [
+          -1.1245171952127906,
+          0.8978637653689848,
+          1.2364076207753214,
+          41.86783847793907,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441535554174706
+        ],
+        "outside_training_min_max": [
+          "z",
+          "yaw"
+        ]
+      },
+      {
+        "episode_id": 19,
+        "initial_state": [
+          -0.6547058820724487,
+          0.11995679885149002,
+          1.4017791748046875,
+          0.06471434235572815,
+          0.0,
+          0.0,
+          0.0,
+          0.14000000059604645
+        ],
+        "normalized_state": [
+          -0.9376019115331676,
+          1.3916292741361764,
+          1.0806889912039404,
+          53.56442593068311,
+          -0.6513446254757477,
+          0.3597274414853745,
+          -0.06558784788847205,
+          1.0441535554174706
+        ],
+        "outside_training_min_max": [
+          "yaw"
+        ]
+      }
+    ]
+  },
+  "yaw_zero_diagnostic": {
+    "status": "measured",
+    "settings": {
+      "checkpoint": "artifacts/M5/recovery_train/checkpoint",
+      "dataset": "datasets/airvla_m3",
+      "manifest": "artifacts/M5/recovery_yaw_zero_diagnostic/manifest.json",
+      "seed": 7500,
+      "offline_stride": 20,
+      "replay_episode_ids": [
+        16
+      ],
+      "familiar_episode_ids": [
+        0,
+        4
+      ],
+      "heldout_episode_ids": [],
+      "action_horizon": 50,
+      "execute_actions": 10,
+      "action_hz": 10,
+      "inference_steps": 10,
+      "timeout_s": 80.0,
+      "success_dwell_s": 2.0,
+      "lift_above_table_m": 0.3,
+      "bin_z_tolerance_m": 0.025,
+      "settled_speed_m_s": 0.04,
+      "safe_z_m": [
+        0.45,
+        2.5
+      ],
+      "safe_xy_radius_m": 2.5,
+      "worker_timeout_wall_s": 60.0,
+      "simulation_time_mode": "realtime_paced_best_effort",
+      "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+      "chunk_schedule": "request_when_queue_empty_then_execute_first_10_on_arrival",
+      "scope": "Post-evaluation diagnostic only: final recovery checkpoint, original familiar episodes 0 and 4 with initial yaw set to zero. Not a fixed M5 benchmark result.",
+      "offline_normalization": "checkpoint"
+    },
+    "trials": [
+      {
+        "episode_id": 0,
+        "scenario_id": 0,
+        "split": "train",
+        "mode": "policy",
+        "success": false,
+        "grasp_contact": false,
+        "lifted": false,
+        "max_block_z_m": 0.5403531789779663,
+        "success_dwell_s": 0.0,
+        "termination": "timeout",
+        "error": null,
+        "duration_s": 80.0,
+        "wall_elapsed_s": 95.397419937,
+        "physics_steps": 16000,
+        "exact_physics_ticks": true,
+        "camera_frames": 400,
+        "executed_actions": 727,
+        "hold_action_ticks": 73,
+        "hold_simulation_s": 7.3,
+        "requests": 73,
+        "completed_requests": 73,
+        "max_replay_command_error": null,
+        "time_mode": "realtime_paced_best_effort",
+        "video": "artifacts/M5/recovery_yaw_zero_diagnostic/closed_loop/trials/episode_000/rollout.mp4",
+        "video_integrity": {
+          "width": 768,
+          "height": 296,
+          "duration": "80.000000",
+          "nb_frames": "400"
+        },
+        "min_drone_z_m": 0.8231292366981506,
+        "closest_initial_pick_pose_error_m": 0.09601527928568707
+      },
+      {
+        "episode_id": 4,
+        "scenario_id": 1,
+        "split": "train",
+        "mode": "policy",
+        "success": false,
+        "grasp_contact": true,
+        "lifted": false,
+        "max_block_z_m": 0.5584465265274048,
+        "success_dwell_s": 0.0,
+        "termination": "unsafe_state",
+        "error": null,
+        "duration_s": 9.040000000000001,
+        "wall_elapsed_s": 11.397953545999826,
+        "physics_steps": 1808,
+        "exact_physics_ticks": true,
+        "camera_frames": 46,
+        "executed_actions": 82,
+        "hold_action_ticks": 9,
+        "hold_simulation_s": 0.9,
+        "requests": 9,
+        "completed_requests": 9,
+        "max_replay_command_error": null,
+        "time_mode": "realtime_paced_best_effort",
+        "video": "artifacts/M5/recovery_yaw_zero_diagnostic/closed_loop/trials/episode_004/rollout.mp4",
+        "video_integrity": {
+          "width": 768,
+          "height": 296,
+          "duration": "9.200000",
+          "nb_frames": "46"
+        },
+        "min_drone_z_m": 0.4454073905944824,
+        "closest_initial_pick_pose_error_m": 0.007335262914105249
+      }
+    ],
+    "verification": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 727,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000853
+        },
+        {
+          "episode_id": 4,
+          "executed_commands_audited": 82,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    },
+    "scope": "Post-evaluation diagnostic only: initial yaw set to zero in the final checkpoint familiar trials. Excluded from benchmark totals."
+  },
+  "comparison_checks": {
+    "fixed_benchmark_settings_unchanged_except_checkpoint_scope_and_offline_normalization": true,
+    "diagnostic_manifest_changes_only_familiar_initial_yaw": true,
+    "adapter_tests": 6,
+    "rollout_tests": 3,
+    "video_frame_counts_verified": true
+  },
+  "next_task": "Use the state-driven expert on the original training start distribution, including yaw variation, and retain recovery examples. Validate feature coverage and grasp/recovery cases, then run a small learning pilot before another full run. Preserve fixed validation trials; do not change the saved checkpoint normalization."
+}

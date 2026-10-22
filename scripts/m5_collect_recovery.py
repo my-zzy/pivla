@@ -7,6 +7,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--mode',choices=['pilot','collect'],required=True)
 parser.add_argument('--output',type=Path,required=True)
 parser.add_argument('--pilot-result',type=Path)
+parser.add_argument('--protocol',choices=['v1','v2'],default='v2')
 AppLauncher.add_app_launcher_args(parser)
 args=parser.parse_args()
 if not args.enable_cameras:parser.error('--enable_cameras required')
@@ -16,6 +17,7 @@ import torch
 import yaml
 from airvla_isaac.sim.scenario_env import ScenarioEnv
 from airvla_isaac.data.recovery_expert import RecoveryExpert
+from airvla_isaac.data.recovery_plan import recovery_plan
 from airvla_isaac.data.collect_demos import EpisodeRecorder
 from airvla_isaac.policy.action_codec import state_from_raw
 from airvla_isaac.eval.metrics import Outcome
@@ -31,25 +33,13 @@ def main():
     if args.mode=='collect':
         if args.pilot_result is None:raise ValueError('Passing pilot required')
         pilot=json.loads(args.pilot_result.read_text())
-        assert pilot['status']=='passed' and len(pilot['trials'])==5
-    cases=[('aligned',None),('lateral',None),('low_approach',None),('missed_closure','missed_closure'),('lost_contact','lost_contact')]
-    if args.mode=='collect':cases=[('aligned',None),('lateral',None),('low_approach',None),('shifted_block',None)]
-    selected=[0] if args.mode=='pilot' else [0,4,8,12]
-    plan=[]
-    for source in selected:
-        item=manifest['episodes'][source];assert item['split']=='train'
-        for name,fault in cases:
-            cfg=copy.deepcopy(item['config']);cfg['seed']=7900+len(plan)
-            block=np.array(cfg['task']['block_position']);initial=np.array([*block[:2],1.4])
-            if name=='lateral':initial[:2]+=[.16,-.12]
-            if name=='low_approach':initial=np.array([block[0]-.13,block[1]+.1,1.04])
-            if name=='shifted_block':cfg['task']['block_position'][0]+=.07;initial[:2]+=[-.08,.06]
-            cfg['drone']['initial_position']=initial.tolist();cfg['target']['position']=initial.tolist()
-            cfg['drone']['initial_yaw']=0.
-            plan.append({'episode_id':len(plan),'source_episode_id':source,'scenario_id':item['scenario_id'],'split':'train',
-                         'case':name,'fault':fault,'seed':cfg['seed'],'config':cfg})
-    save(args.output/'collection_manifest.json',{'protocol':'state_driven_recovery_v1','schema':manifest['schema'],'episodes':plan,
-        'scope':'Pilot faults are not training data. Collection contains natural approach corrections; forced-fault recovery data is not exported.'})
+        expected=recovery_plan(manifest,'pilot',args.protocol)
+        pilot_manifest=json.loads((args.pilot_result.parent/'collection_manifest.json').read_text())
+        assert pilot['status']=='passed' and len(pilot['trials'])==len(expected)
+        assert pilot_manifest['episodes']==expected, 'Pilot must match this collection protocol'
+    plan=recovery_plan(manifest,args.mode,args.protocol)
+    save(args.output/'collection_manifest.json',{'protocol':'state_driven_recovery_'+args.protocol,'schema':manifest['schema'],'episodes':plan,
+        'scope':'Original training resets plus approach corrections. Forced-fault prefixes are excluded; successful post-fault suffixes may be exported.'})
     env=ScenarioEnv(plan[0]['config'],args.device,True);results=[]
     for item in plan:
         env.configure(item['config']);env.target_yaw[:]=0.;env.warmup_rendering()
@@ -84,7 +74,7 @@ def main():
                     'status':'passed' if all(checks.values()) else 'failed','checks':checks,'duration_s':env.time,
                     'samples':count,'camera_frames':recorder.frame_count,'retries':expert.retries,'events':expert.events,**outcome.result()}
                 save(out/'result.json',result);results.append(result);print(result,flush=True)
-                save(args.output/'result.json',{'status':'passed' if len(results)==len(plan) and all(r['status']=='passed' for r in results) else 'partial','trials':results,'planned_episodes':len(plan)})
+                save(args.output/'result.json',{'protocol':'state_driven_recovery_'+args.protocol,'status':'passed' if len(results)==len(plan) and all(r['status']=='passed' for r in results) else 'partial','trials':results,'planned_episodes':len(plan)})
                 if not all(checks.values()):raise RuntimeError('Pilot/collection checks failed')
         except BaseException as e:
             save(out/'failure.json',{'error':str(e),'time_s':env.time,'stage':expert.stage,'events':expert.events});raise
