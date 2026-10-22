@@ -1,0 +1,3231 @@
+{
+  "date": "2026-10-22",
+  "status": "single_scene_learned_success",
+  "scope": "Single fixed layout, blue block, zero yaw. First-attempt demo, no recovery collection and no scene-generalization claim.",
+  "planned_training_steps": 2000,
+  "batch_size": 4,
+  "planned_evaluation": "Final pilot checkpoint, familiar exact start episode 0, inference seed 8700, execute 5 actions per response.",
+  "pretraining_source_sha256": {
+    "configs/train_single_scene.yaml": "72ae5fcd0727d96c097154535072455b778ffae5de216437879e50a3dfa05b25",
+    "configs/eval_single_scene.yaml": "2507c0c484dc58e3e7065c627a87d2bc82115c3a230fd9b4751bfd0c195374a2",
+    "scripts/m5_prepare_single_scene.py": "39b7264b2811cbe7e4e41d8298410862ee86acd779e77f543c568e72694b006c",
+    "scripts/m5_collect_single_scene.py": "66d32a5f58832e9b520b26ac89010ca7a9a9d6dc492e997a7cfce3f46e3f4625",
+    "scripts/m5_single_scene_weights.py": "8c967d55b8be3a57829816bfdf1587c2f762b88a3f50b1e6d4d043b4f81916b8",
+    "scripts/m4_train.py": "6f0f608929b3b59c6d8a7b4c1b2bba566ffc256050a394c8678d2cf2c3c399cb",
+    "scripts/m5_offline.py": "dba218f284a02acf313ddfc71a57295178f635e31ac9d845733f8e6cd99e519b",
+    "scripts/m5_sim.py": "4dac40f2988da3cb6b95b14b6fa7f990935b23137b58f6e56c1334625fed8fd2",
+    "airvla_isaac/source/airvla_isaac/airvla_isaac/eval/evaluate.py": "f701041f50ba5d2cd7246b2e3a38c2c71ddf520bf61150cba2f9c079198fe604",
+    "airvla_isaac/source/airvla_isaac/airvla_isaac/sim/manipulation_env.py": "33d1add844285040847b06152b3b622ef6166aad2763e5f27c4aefce33ea74b9"
+  },
+  "plan": {
+    "protocol": "single_scene_first_attempt_v1",
+    "schema": {
+      "schema_version": 1,
+      "repo_id": "local/airvla_single_scene_v1",
+      "task": "Pick up the block from the table and place it in the bin.",
+      "fps": 10,
+      "camera_hz": 5,
+      "chunk_size": 50,
+      "state_names": [
+        "x",
+        "y",
+        "z",
+        "yaw",
+        "vx",
+        "vy",
+        "vz",
+        "aperture"
+      ],
+      "action_names": [
+        "x_des",
+        "y_des",
+        "z_des",
+        "roll_unused",
+        "pitch_unused",
+        "yaw_des",
+        "gripper_closed"
+      ],
+      "image_names": [
+        "front",
+        "down",
+        "external"
+      ],
+      "image_shape_hwc": [
+        256,
+        256,
+        3
+      ],
+      "image_storage": "image",
+      "position_frame": "world",
+      "pose_reference": "drone_body_origin",
+      "quaternion_order": "wxyz",
+      "yaw_range": "[-pi, pi)",
+      "gripper": {
+        "open": 0,
+        "closed": 1
+      },
+      "action_storage": "absolute_desired_setpoints",
+      "chunk_anchor": "observed_body_position_and_yaw_at_first_row",
+      "padding": "zero_after_relative_conversion_and_normalization_with_boolean_mask",
+      "normalization": "training_only_relative_chunk_mean_std_valid_steps",
+      "normalization_std_floor": 1e-06,
+      "timing": "observation_and_available_camera_then_expert_command_then_physics",
+      "collection": {
+        "protocol": "single_scene_first_attempt_v1",
+        "scope": "One blue-block layout, zero yaw; validation differs only in initial position. No recovery faults or scene/OOD generalization."
+      },
+      "split": {
+        "train_scenarios": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "validation_scenarios": [
+          6,
+          7
+        ],
+        "scope": "Distinct reset configurations of the same physical layout"
+      },
+      "preview_episodes": [
+        0,
+        5,
+        6
+      ]
+    },
+    "episodes": [
+      {
+        "episode_id": 0,
+        "source_episode_id": 0,
+        "scenario_id": 0,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8500,
+        "config": {
+          "seed": 8500,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 1,
+        "source_episode_id": 0,
+        "scenario_id": 1,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8501,
+        "config": {
+          "seed": 8501,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6702700867439326,
+              -0.06266390634795502,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6702700867439326,
+              -0.06266390634795502,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 2,
+        "source_episode_id": 0,
+        "scenario_id": 2,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8502,
+        "config": {
+          "seed": 8502,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.7202700867439327,
+              -0.06266390634795502,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.7202700867439327,
+              -0.06266390634795502,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 3,
+        "source_episode_id": 0,
+        "scenario_id": 3,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8503,
+        "config": {
+          "seed": 8503,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6952700867439326,
+              -0.037663906347955016,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6952700867439326,
+              -0.037663906347955016,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 4,
+        "source_episode_id": 0,
+        "scenario_id": 4,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8504,
+        "config": {
+          "seed": 8504,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6952700867439326,
+              -0.08766390634795501,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6952700867439326,
+              -0.08766390634795501,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 5,
+        "source_episode_id": 0,
+        "scenario_id": 5,
+        "layout_id": 0,
+        "split": "train",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8505,
+        "config": {
+          "seed": 8505,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.95
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.95
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 6,
+        "source_episode_id": 0,
+        "scenario_id": 6,
+        "layout_id": 0,
+        "split": "validation",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8506,
+        "config": {
+          "seed": 8506,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.6832700867439326,
+              -0.07466390634795501,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.6832700867439326,
+              -0.07466390634795501,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      },
+      {
+        "episode_id": 7,
+        "source_episode_id": 0,
+        "scenario_id": 7,
+        "layout_id": 0,
+        "split": "validation",
+        "case": "single_scene_first_attempt",
+        "fault": null,
+        "seed": 8507,
+        "config": {
+          "seed": 8507,
+          "physics_hz": 200,
+          "controller_hz": 100,
+          "camera_hz": 5,
+          "settle_s": 5.0,
+          "hover_s": 20.0,
+          "position_tolerance_m": 0.1,
+          "yaw_tolerance_rad": 0.05,
+          "gravity": 9.81,
+          "room_size": [
+            6.0,
+            6.0,
+            3.0
+          ],
+          "drone": {
+            "mass_kg": 1.0,
+            "inertia_kg_m2": [
+              0.012,
+              0.015,
+              0.025
+            ],
+            "body_size_m": [
+              0.32,
+              0.24,
+              0.1
+            ],
+            "initial_position": [
+              -0.7072700867439327,
+              -0.05066390634795502,
+              1.4
+            ],
+            "initial_yaw": 0.0,
+            "reset_position_jitter_m": 0.0
+          },
+          "controller": {
+            "position_kp": [
+              4.0,
+              4.0,
+              6.0
+            ],
+            "velocity_kd": [
+              3.5,
+              3.5,
+              4.5
+            ],
+            "attitude_kp": [
+              0.6,
+              0.6,
+              0.4
+            ],
+            "angular_velocity_kd": [
+              0.16,
+              0.18,
+              0.16
+            ],
+            "max_tilt_rad": 0.52,
+            "max_thrust_n": 22.0,
+            "max_torque_nm": [
+              1.0,
+              1.0,
+              0.5
+            ]
+          },
+          "target": {
+            "position": [
+              -0.7072700867439327,
+              -0.05066390634795502,
+              1.4
+            ],
+            "yaw": 0.0
+          },
+          "cameras": {
+            "width": 256,
+            "height": 256,
+            "focal_length_mm": 18.0,
+            "horizontal_aperture_mm": 24.0,
+            "clipping_range_m": [
+              0.03,
+              30.0
+            ],
+            "front": {
+              "position": [
+                0.43,
+                0.0,
+                -0.02
+              ],
+              "quaternion": [
+                1.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "down": {
+              "position": [
+                0.18,
+                0.0,
+                -0.09
+              ],
+              "quaternion": [
+                0.406838584931143,
+                0.0,
+                0.913500063388736,
+                0.0
+              ]
+            },
+            "external": {
+              "position": [
+                1.4,
+                1.8,
+                1.6
+              ],
+              "look_at": [
+                0.0,
+                0.0,
+                0.85
+              ]
+            }
+          },
+          "action_hz": 10,
+          "gripper": {
+            "finger_mass_kg": 0.025,
+            "finger_size_m": [
+              0.1,
+              0.02,
+              0.1
+            ],
+            "center_z_m": -0.27,
+            "closed_center_y_m": 0.025,
+            "travel_m": 0.055,
+            "stiffness_n_m": 600.0,
+            "damping_ns_m": 8.0,
+            "max_force_n": 8.0,
+            "friction": 1.0,
+            "contact_threshold_n": 0.25
+          },
+          "task": {
+            "block_mass_kg": 0.1,
+            "block_size_m": [
+              0.08,
+              0.08,
+              0.08
+            ],
+            "block_position": [
+              -0.6952700867439326,
+              -0.06266390634795502,
+              0.54
+            ],
+            "table_top_m": 0.5,
+            "bin_position": [
+              0.6453472632236682,
+              -0.08221369868142592,
+              0.5
+            ],
+            "bin_inner_size_m": [
+              0.44,
+              0.44
+            ],
+            "bin_wall_height_m": 0.22,
+            "flight_height_m": 1.4,
+            "grasp_height_m": 0.83,
+            "setpoint_speed_m_s": 0.12,
+            "stage_timeout_s": 30.0,
+            "hover_measure_s": 4.0,
+            "expected_load_thrust_tolerance_n": 0.2,
+            "loaded_position_tolerance_m": 0.2,
+            "release_footprint_margin_m": 0.05,
+            "block_color": [
+              0.025,
+              0.12,
+              0.95
+            ]
+          }
+        }
+      }
+    ],
+    "scope": "One blue-block layout, zero yaw; validation differs only in initial position. No recovery faults or scene/OOD generalization."
+  },
+  "collection": {
+    "protocol": "single_scene_first_attempt_v1",
+    "status": "passed",
+    "trials": [
+      {
+        "episode_id": 0,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 34.2,
+        "samples": 342,
+        "camera_frames": 172,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 0.5,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 6.8,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 7.3,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 13.5,
+            "duration_s": 6.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.2,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 28.5,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9506402015686035,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 1,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 35.2,
+        "samples": 352,
+        "camera_frames": 177,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.4000000000000001,
+            "duration_s": 1.4000000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.7,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.3,
+            "duration_s": 0.6000000000000005,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.5,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.2,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.5,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.950613260269165,
+        "success_dwell_s": 7.674999999999859
+      },
+      {
+        "episode_id": 2,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 35.2,
+        "samples": 352,
+        "camera_frames": 177,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.4000000000000001,
+            "duration_s": 1.4000000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.7,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.3,
+            "duration_s": 0.6000000000000005,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.5,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.2,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.5,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9506866335868835,
+        "success_dwell_s": 7.6799999999998585
+      },
+      {
+        "episode_id": 3,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 35.1,
+        "samples": 351,
+        "camera_frames": 176,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.3,
+            "duration_s": 1.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.6000000000000005,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.2,
+            "duration_s": 0.5999999999999988,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.4,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.1,
+            "duration_s": 12.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.400000000000002,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9504408240318298,
+        "success_dwell_s": 7.659999999999859
+      },
+      {
+        "episode_id": 4,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 35.1,
+        "samples": 351,
+        "camera_frames": 176,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.3,
+            "duration_s": 1.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.6000000000000005,
+            "duration_s": 6.300000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 8.2,
+            "duration_s": 0.5999999999999988,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.4,
+            "duration_s": 6.200000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 27.1,
+            "duration_s": 12.700000000000001,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.400000000000002,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511266946792603,
+        "success_dwell_s": 7.699999999999858
+      },
+      {
+        "episode_id": 5,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 38.9,
+        "samples": 389,
+        "camera_frames": 195,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 5.2,
+            "duration_s": 5.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 11.5,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 12.0,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 18.2,
+            "duration_s": 6.199999999999999,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 30.900000000000002,
+            "duration_s": 12.700000000000003,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 33.2,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.950698733329773,
+        "success_dwell_s": 7.684999999999858
+      },
+      {
+        "episode_id": 6,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 34.7,
+        "samples": 347,
+        "camera_frames": 174,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.0,
+            "duration_s": 1.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.3,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 7.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.0,
+            "duration_s": 6.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.7,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.0,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9511494040489197,
+        "success_dwell_s": 7.699999999999858
+      },
+      {
+        "episode_id": 7,
+        "case": "single_scene_first_attempt",
+        "source_episode_id": 0,
+        "status": "passed",
+        "checks": {
+          "expert_finished": true,
+          "physical_pick_place": true,
+          "physics_ticks": true,
+          "action_rate": true,
+          "first_attempt": true
+        },
+        "duration_s": 34.7,
+        "samples": 347,
+        "camera_frames": 174,
+        "retries": 0,
+        "events": [
+          {
+            "stage": "approach",
+            "next_stage": "descend",
+            "end_time_s": 1.0,
+            "duration_s": 1.0,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "descend",
+            "next_stage": "grasp",
+            "end_time_s": 7.3,
+            "duration_s": 6.3,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "grasp",
+            "next_stage": "lift",
+            "end_time_s": 7.8,
+            "duration_s": 0.5,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "lift",
+            "next_stage": "transport",
+            "end_time_s": 14.0,
+            "duration_s": 6.2,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "transport",
+            "next_stage": "release",
+            "end_time_s": 26.7,
+            "duration_s": 12.7,
+            "reason": "physical condition settled"
+          },
+          {
+            "stage": "release",
+            "next_stage": "retreat",
+            "end_time_s": 29.0,
+            "duration_s": 2.3000000000000007,
+            "reason": "physical condition settled"
+          }
+        ],
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9503320455551147,
+        "success_dwell_s": 7.674999999999859
+      }
+    ],
+    "planned_episodes": 8
+  },
+  "tests": {
+    "single_scene_plan": 1,
+    "training_schedule_and_sampling": 4,
+    "adapter": 6,
+    "rollout": 3
+  },
+  "test_note": "Adapter checks passed through the protected launcher; the initial direct invocation could not write its external Hugging Face cache.",
+  "export": {
+    "status": "passed",
+    "splits": {
+      "train": {
+        "root": "/home/user/pivla/datasets/airvla_single_scene_v1/train",
+        "repo_id": "local/airvla_single_scene_v1_train",
+        "episodes": 6,
+        "frames": 2137
+      },
+      "validation": {
+        "root": "/home/user/pivla/datasets/airvla_single_scene_v1/validation",
+        "repo_id": "local/airvla_single_scene_v1_validation",
+        "episodes": 2,
+        "frames": 694
+      }
+    },
+    "source_hashes": {
+      "episode_000/samples.jsonl": "36d81b1847abe42317d94330b24d71623963390e5977b50e9adbe2080f65bbd0",
+      "episode_001/samples.jsonl": "3e13e3b3547c72e6c3a25c7bc60b7b3b49d32c3890fc7ee31982976b12362ff0",
+      "episode_002/samples.jsonl": "1fc370f6e48b76f29fffcee5bc2a73e0a504d4228bbece3ee96a25174f0428cc",
+      "episode_003/samples.jsonl": "9e14de1f9a6b6d3ddcde5412511db8e423dee746665baac9df4ebc717a1e4644",
+      "episode_004/samples.jsonl": "45c1a6cf0c6bc0c8ffe31e2bb46dcee6f5eea94cc5f723987e87260502e4180a",
+      "episode_005/samples.jsonl": "5bdfc91da953af0ca3d68c58663d75e2caff7ff90061e76702a7f484ab4615c2",
+      "episode_006/samples.jsonl": "68cd76ce4f567bec08574406bbfb77d42cdb7f47cbc59b606c260c633ce2d85e",
+      "episode_007/samples.jsonl": "0232f55ba2c6cd6e5b493984081199b16f657585cc4b6d2e909da493f41c2585"
+    },
+    "normalization": "Use normalization.json through ChunkDataset. Native meta/stats.json describes absolute stored actions and is not the chunk normalizer."
+  },
+  "dataset_validation": {
+    "status": "passed",
+    "checks": {
+      "scenario_disjoint_splits": true,
+      "training_only_relative_statistics": true,
+      "absolute_disk_actions_match_raw": true,
+      "observations_precede_commands": true,
+      "no_future_images": true,
+      "state_order_and_yaw": true,
+      "gripper_absolute": true,
+      "single_anchor_roundtrip": true,
+      "no_episode_crossing": true,
+      "zero_masked_padding": true,
+      "loader_batch_shapes": true,
+      "lossless_image_roundtrip": true,
+      "privileged_state_excluded": true
+    },
+    "splits": {
+      "train": {
+        "episodes": 6,
+        "frames": 2137,
+        "batch_action_shape": [
+          4,
+          50,
+          7
+        ],
+        "batch_image_shape": [
+          4,
+          3,
+          256,
+          256
+        ]
+      },
+      "validation": {
+        "episodes": 2,
+        "frames": 694,
+        "batch_action_shape": [
+          4,
+          50,
+          7
+        ],
+        "batch_image_shape": [
+          4,
+          3,
+          256,
+          256
+        ]
+      }
+    },
+    "max_roundtrip_error": 5.960464477539063e-08,
+    "max_image_age_s": 0.10000000000000142,
+    "image_pixel_comparisons": 90,
+    "native_loader_chunks_checked": 80,
+    "raw_chunks_checked": 2831,
+    "normalization_sha256": "17d473bdba595328c0dc406506552b214e9f00d241833c358d978d2690429df6"
+  },
+  "sampling": {
+    "repo_id": "local/airvla_single_scene_v1",
+    "normalization_sha256": "17d473bdba595328c0dc406506552b214e9f00d241833c358d978d2690429df6",
+    "scope": "3x sampling for descent, grasp and lift; other rows 1x. All target actions and training-only normalization unchanged.",
+    "stage_rows": {
+      "approach": 111,
+      "descend": 378,
+      "grasp": 34,
+      "lift": 372,
+      "transport": 762,
+      "release": 138,
+      "retreat": 342
+    },
+    "expected_stage_probability": {
+      "approach": 0.029959514170040485,
+      "descend": 0.3060728744939271,
+      "grasp": 0.027530364372469637,
+      "lift": 0.30121457489878545,
+      "transport": 0.20566801619433198,
+      "release": 0.03724696356275304,
+      "retreat": 0.09230769230769231
+    }
+  },
+  "training": {
+    "status": "passed",
+    "checks": {
+      "finite_training": true,
+      "checkpoint_reload": true
+    },
+    "initial": {
+      "position_rmse_m": 0.2863999605178833,
+      "yaw_rmse_rad": 0.0012664945097640157,
+      "gripper_accuracy": 0.43137254901960786,
+      "evaluated_chunks": 78,
+      "valid_future_actions": 3570
+    },
+    "final": {
+      "position_rmse_m": 0.03936075046658516,
+      "yaw_rmse_rad": 9.68121676123701e-05,
+      "gripper_accuracy": 0.9840336134453781,
+      "evaluated_chunks": 78,
+      "valid_future_actions": 3570
+    },
+    "reload_max_abs_error": 0.0,
+    "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+    "validation": {
+      "position_rmse_m": 0.03957052901387215,
+      "yaw_rmse_rad": 0.00012275026529096067,
+      "gripper_accuracy": 0.9912510936132983,
+      "evaluated_chunks": 25,
+      "valid_future_actions": 1143
+    },
+    "scope": "Offline training/validation and reload checks; task success requires M5 closed-loop evaluation",
+    "peak_allocated_gib": 10.966808795928955,
+    "training_elapsed_s": 913.6158902405441
+  },
+  "expert_precision": {
+    "scope": "Expert precision at the first close command, measured against live block state. Privileged fields are evaluation only.",
+    "max_absolute_height_error_m": 0.003370685577392618,
+    "max_xy_error_m": 0.0006486478891302355,
+    "episodes": [
+      {
+        "episode_id": 0,
+        "split": "train",
+        "first_close_s": 6.8,
+        "height_error_m": 0.003370685577392618,
+        "xy_error_m": 1.3328003749250113e-07,
+        "speed_m_s": 0.009977445041871437
+      },
+      {
+        "episode_id": 1,
+        "split": "train",
+        "first_close_s": 7.7,
+        "height_error_m": 0.0033701491355896396,
+        "xy_error_m": 0.0006486478891302355,
+        "speed_m_s": 0.00997700909211398
+      },
+      {
+        "episode_id": 2,
+        "split": "train",
+        "first_close_s": 7.7,
+        "height_error_m": 0.0033702683448791904,
+        "xy_error_m": 0.0006481018906433137,
+        "speed_m_s": 0.009976573775748973
+      },
+      {
+        "episode_id": 3,
+        "split": "train",
+        "first_close_s": 7.6000000000000005,
+        "height_error_m": 0.003370029926300089,
+        "xy_error_m": 0.00035104156046490963,
+        "speed_m_s": 0.009978059590903122
+      },
+      {
+        "episode_id": 4,
+        "split": "train",
+        "first_close_s": 7.6000000000000005,
+        "height_error_m": 0.003370506763458292,
+        "xy_error_m": 0.0003306381458124975,
+        "speed_m_s": 0.009978450055402674
+      },
+      {
+        "episode_id": 5,
+        "split": "train",
+        "first_close_s": 11.5,
+        "height_error_m": 0.003370685577392618,
+        "xy_error_m": 1.399837004248495e-07,
+        "speed_m_s": 0.009977388230385591
+      },
+      {
+        "episode_id": 6,
+        "split": "validation",
+        "first_close_s": 7.3,
+        "height_error_m": 0.0033699703216553134,
+        "xy_error_m": 0.000318334530195968,
+        "speed_m_s": 0.010023914463595886
+      },
+      {
+        "episode_id": 7,
+        "split": "validation",
+        "first_close_s": 7.3,
+        "height_error_m": 0.0033701491355896396,
+        "xy_error_m": 0.000294677159671691,
+        "speed_m_s": 0.010022553914005198
+      }
+    ]
+  },
+  "first_action_monitoring": [
+    {
+      "step": 1000,
+      "scope": "Unweighted reset-only monitoring; first predicted action, not closed-loop success.",
+      "groups": {
+        "all": {
+          "chunks": 25,
+          "position_error_mean_m": 0.026607871055603027,
+          "position_error_max_m": 0.10032375901937485,
+          "gripper_accuracy": 0.84
+        },
+        "near_grasp": {
+          "chunks": 5,
+          "position_error_mean_m": 0.00825078971683979,
+          "position_error_max_m": 0.012072856537997723,
+          "gripper_accuracy": 0.6
+        },
+        "lift": {
+          "chunks": 2,
+          "position_error_mean_m": 0.012912316247820854,
+          "position_error_max_m": 0.014735248871147633,
+          "gripper_accuracy": 1.0
+        }
+      }
+    },
+    {
+      "step": 2000,
+      "scope": "Unweighted reset-only monitoring; first predicted action, not closed-loop success.",
+      "groups": {
+        "all": {
+          "chunks": 25,
+          "position_error_mean_m": 0.01810441166162491,
+          "position_error_max_m": 0.06596986949443817,
+          "gripper_accuracy": 0.8
+        },
+        "near_grasp": {
+          "chunks": 5,
+          "position_error_mean_m": 0.008198300376534462,
+          "position_error_max_m": 0.010227656923234463,
+          "gripper_accuracy": 0.6
+        },
+        "lift": {
+          "chunks": 2,
+          "position_error_mean_m": 0.014187256805598736,
+          "position_error_max_m": 0.014817059971392155,
+          "gripper_accuracy": 1.0
+        }
+      }
+    }
+  ],
+  "evaluations": {
+    "execute5": {
+      "status": "measured",
+      "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+      "scope": "Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt demonstration only; separate from unchanged M5 benchmark.",
+      "settings": {
+        "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+        "dataset": "datasets/airvla_single_scene_v1",
+        "manifest": "artifacts/M5/single_scene_collection/collection_manifest.json",
+        "seed": 8700,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          0
+        ],
+        "familiar_episode_ids": [
+          0
+        ],
+        "heldout_episode_ids": [],
+        "action_horizon": 50,
+        "execute_actions": 5,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_5_on_arrival",
+        "scope": "Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt demonstration only; separate from unchanged M5 benchmark.",
+        "replay_raw": "artifacts/M5/single_scene_collection",
+        "split_manifest": "artifacts/M5/single_scene_collection/split_manifest.json",
+        "scene_from_manifest": true,
+        "offline_train_episode_ids": [
+          0
+        ]
+      },
+      "offline": {
+        "familiar": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.024786213412880898,
+              "yaw_rmse_rad": 8.987385081127286e-05,
+              "gripper_accuracy": 0.9901671583087512,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1017,
+              "source_episode_id": 0,
+              "gripper_open_accuracy": 0.9977011494252873,
+              "gripper_closed_accuracy": 0.9845360824742269,
+              "gripper_balanced_accuracy": 0.9911186159497571
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.024786213412880898,
+            "yaw_rmse_rad": 8.987385081127286e-05,
+            "gripper_accuracy": 0.9901671583087512,
+            "evaluated_chunks": 23,
+            "valid_future_actions": 1017
+          }
+        },
+        "heldout": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.026831327006220818,
+              "yaw_rmse_rad": 8.336206519743428e-05,
+              "gripper_accuracy": 0.9941860465116279,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1032,
+              "source_episode_id": 6,
+              "gripper_open_accuracy": 0.9955257270693513,
+              "gripper_closed_accuracy": 0.9931623931623932,
+              "gripper_balanced_accuracy": 0.9943440601158722
+            },
+            "1": {
+              "position_rmse_m": 0.03449508920311928,
+              "yaw_rmse_rad": 0.0001004070436465554,
+              "gripper_accuracy": 0.9912790697674418,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1032,
+              "source_episode_id": 7,
+              "gripper_open_accuracy": 0.9977628635346756,
+              "gripper_closed_accuracy": 0.9863247863247864,
+              "gripper_balanced_accuracy": 0.992043824929731
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.030901709402927136,
+            "yaw_rmse_rad": 9.227894756612302e-05,
+            "gripper_accuracy": 0.9927325581395349,
+            "evaluated_chunks": 46,
+            "valid_future_actions": 2064
+          }
+        }
+      },
+      "closed_loop_totals": {
+        "familiar": {
+          "trials": 1,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 1
+        },
+        "heldout": {
+          "trials": 0,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        }
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "replay",
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9506492018699646,
+          "success_dwell_s": 7.674999999999859,
+          "termination": "replay_finished",
+          "error": null,
+          "duration_s": 34.2,
+          "wall_elapsed_s": 39.066698222988634,
+          "physics_steps": 6840,
+          "exact_physics_ticks": true,
+          "camera_frames": 172,
+          "executed_actions": 342,
+          "hold_action_ticks": 0,
+          "hold_simulation_s": 0.0,
+          "requests": 0,
+          "completed_requests": 0,
+          "max_replay_command_error": 5.960464477539063e-08,
+          "time_mode": "unpaced_fixed_dt_replay",
+          "replay_action_count_matches": true,
+          "video": "artifacts/M5/single_scene_eval/replay/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "34.400000",
+            "nb_frames": "172"
+          },
+          "min_drone_z_m": 0.8332182168960571,
+          "max_tracking_error_m": 0.25197031612197623,
+          "closest_pick_pose": {
+            "error_m": 0.0032182479042192494,
+            "time_s": 6.82,
+            "position_w": [
+              -0.6952723860740662,
+              -0.06267784535884857,
+              0.8332182168960571
+            ],
+            "gripper_open": false,
+            "contacts": [
+              true,
+              true
+            ]
+          },
+          "sim_to_wall_ratio": 0.8754259140301536
+        },
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "policy",
+          "success": false,
+          "grasp_contact": true,
+          "lifted": false,
+          "max_block_z_m": 0.6121853590011597,
+          "success_dwell_s": 0.0,
+          "termination": "unsafe_state",
+          "error": null,
+          "duration_s": 14.3,
+          "wall_elapsed_s": 18.268738369995845,
+          "physics_steps": 2860,
+          "exact_physics_ticks": true,
+          "camera_frames": 72,
+          "executed_actions": 119,
+          "hold_action_ticks": 24,
+          "hold_simulation_s": 2.4,
+          "requests": 24,
+          "completed_requests": 24,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/single_scene_eval/closed_loop/trials/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "14.400000",
+            "nb_frames": "72"
+          },
+          "min_drone_z_m": 0.44886094331741333,
+          "max_tracking_error_m": 0.29468009029776293,
+          "closest_pick_pose": {
+            "error_m": 0.013429802908747662,
+            "time_s": 6.795,
+            "position_w": [
+              -0.6820911169052124,
+              -0.06498707830905914,
+              0.8311301469802856
+            ],
+            "gripper_open": true,
+            "contacts": [
+              false,
+              false
+            ]
+          },
+          "sim_to_wall_ratio": 0.7827579392940451,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.0918930050029303,
+              "p95": 0.093046667798626,
+              "max": 0.0940129619993968
+            },
+            "roundtrip_wall_s": {
+              "median": 0.12942668399773538,
+              "p95": 0.1324170053972921,
+              "max": 0.13707264099502936
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999983,
+              "p95": 0.10000000000000128,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        }
+      ]
+    },
+    "execute20": {
+      "status": "measured",
+      "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+      "scope": "Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt demonstration only; separate from unchanged M5 benchmark. Follow-up: execute 20 learned actions per chunk to test whether short-prefix replanning prevents lift buildup.",
+      "settings": {
+        "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+        "dataset": "datasets/airvla_single_scene_v1",
+        "manifest": "artifacts/M5/single_scene_collection/collection_manifest.json",
+        "seed": 8700,
+        "offline_stride": 20,
+        "replay_episode_ids": [
+          0
+        ],
+        "familiar_episode_ids": [
+          0
+        ],
+        "heldout_episode_ids": [],
+        "action_horizon": 50,
+        "execute_actions": 20,
+        "action_hz": 10,
+        "inference_steps": 10,
+        "timeout_s": 80.0,
+        "success_dwell_s": 2.0,
+        "lift_above_table_m": 0.3,
+        "bin_z_tolerance_m": 0.025,
+        "settled_speed_m_s": 0.04,
+        "safe_z_m": [
+          0.45,
+          2.5
+        ],
+        "safe_xy_radius_m": 2.5,
+        "worker_timeout_wall_s": 60.0,
+        "simulation_time_mode": "realtime_paced_best_effort",
+        "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+        "chunk_schedule": "request_when_queue_empty_then_execute_first_20_on_arrival",
+        "scope": "Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt demonstration only; separate from unchanged M5 benchmark. Follow-up: execute 20 learned actions per chunk to test whether short-prefix replanning prevents lift buildup.",
+        "replay_raw": "artifacts/M5/single_scene_collection",
+        "split_manifest": "artifacts/M5/single_scene_collection/split_manifest.json",
+        "scene_from_manifest": true,
+        "offline_train_episode_ids": [
+          0
+        ]
+      },
+      "offline": {
+        "familiar": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.024786213412880898,
+              "yaw_rmse_rad": 8.987385081127286e-05,
+              "gripper_accuracy": 0.9901671583087512,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1017,
+              "source_episode_id": 0,
+              "gripper_open_accuracy": 0.9977011494252873,
+              "gripper_closed_accuracy": 0.9845360824742269,
+              "gripper_balanced_accuracy": 0.9911186159497571
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.024786213412880898,
+            "yaw_rmse_rad": 8.987385081127286e-05,
+            "gripper_accuracy": 0.9901671583087512,
+            "evaluated_chunks": 23,
+            "valid_future_actions": 1017
+          }
+        },
+        "heldout": {
+          "episodes": {
+            "0": {
+              "position_rmse_m": 0.026831327006220818,
+              "yaw_rmse_rad": 8.336206519743428e-05,
+              "gripper_accuracy": 0.9941860465116279,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1032,
+              "source_episode_id": 6,
+              "gripper_open_accuracy": 0.9955257270693513,
+              "gripper_closed_accuracy": 0.9931623931623932,
+              "gripper_balanced_accuracy": 0.9943440601158722
+            },
+            "1": {
+              "position_rmse_m": 0.03449508920311928,
+              "yaw_rmse_rad": 0.0001004070436465554,
+              "gripper_accuracy": 0.9912790697674418,
+              "evaluated_chunks": 23,
+              "valid_future_actions": 1032,
+              "source_episode_id": 7,
+              "gripper_open_accuracy": 0.9977628635346756,
+              "gripper_closed_accuracy": 0.9863247863247864,
+              "gripper_balanced_accuracy": 0.992043824929731
+            }
+          },
+          "aggregate": {
+            "position_rmse_m": 0.030901709402927136,
+            "yaw_rmse_rad": 9.227894756612302e-05,
+            "gripper_accuracy": 0.9927325581395349,
+            "evaluated_chunks": 46,
+            "valid_future_actions": 2064
+          }
+        }
+      },
+      "closed_loop_totals": {
+        "familiar": {
+          "trials": 1,
+          "successes": 1,
+          "lifts": 1,
+          "grasps": 1
+        },
+        "heldout": {
+          "trials": 0,
+          "successes": 0,
+          "lifts": 0,
+          "grasps": 0
+        }
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "scenario_id": 0,
+          "split": "train",
+          "mode": "policy",
+          "success": true,
+          "grasp_contact": true,
+          "lifted": true,
+          "max_block_z_m": 0.9493539333343506,
+          "success_dwell_s": 2.0049999999999795,
+          "termination": "success",
+          "error": null,
+          "duration_s": 29.005,
+          "wall_elapsed_s": 34.09582172399678,
+          "physics_steps": 5801,
+          "exact_physics_ticks": true,
+          "camera_frames": 146,
+          "executed_actions": 277,
+          "hold_action_ticks": 14,
+          "hold_simulation_s": 1.4,
+          "requests": 14,
+          "completed_requests": 14,
+          "max_replay_command_error": null,
+          "time_mode": "realtime_paced_best_effort",
+          "video": "artifacts/M5/single_scene_execute20_eval/closed_loop/trials/episode_000/rollout.mp4",
+          "video_integrity": {
+            "width": 768,
+            "height": 296,
+            "duration": "29.200000",
+            "nb_frames": "146"
+          },
+          "min_drone_z_m": 0.8366138935089111,
+          "max_tracking_error_m": 0.2638255799585152,
+          "closest_pick_pose": {
+            "error_m": 0.0068130351472014405,
+            "time_s": 7.63,
+            "position_w": [
+              -0.693859338760376,
+              -0.0626397579908371,
+              0.8366653323173523
+            ],
+            "gripper_open": false,
+            "contacts": [
+              true,
+              true
+            ]
+          },
+          "sim_to_wall_ratio": 0.850690745475894,
+          "timing": {
+            "inference_wall_s": {
+              "median": 0.09108904699678533,
+              "p95": 0.09324750229206984,
+              "max": 0.09369631299341563
+            },
+            "roundtrip_wall_s": {
+              "median": 0.19713672700163443,
+              "p95": 0.2716403553444252,
+              "max": 0.27534444599587005
+            },
+            "simulation_delay_s": {
+              "median": 0.09999999999999983,
+              "p95": 0.10000000000000142,
+              "max": 0.10000000000000142
+            }
+          },
+          "all_responses_had_physics_progress": true
+        }
+      ]
+    }
+  },
+  "prefix_diagnosis": {
+    "scope": "Saved model predictions in the failed 5-action trial; longer-prefix success must be tested physically.",
+    "records": [
+      {
+        "request_id": "000_00013",
+        "observation_time_s": 7.8,
+        "drone_z_m": 0.8200876712799072,
+        "aperture_m": 0.07999497652053833,
+        "predicted_target_z_m": [
+          0.8426701395932201,
+          0.850530378094488,
+          0.854836445402901,
+          0.8622226517471047,
+          0.8676694892879848,
+          0.8739261075427933,
+          0.8823093707439933,
+          0.8925461979263069,
+          0.9022880723468373,
+          0.9125758643580362,
+          0.9229276718226826,
+          0.9327936198021315,
+          0.9439709271801147,
+          0.9565860614076478,
+          0.9687734634912477,
+          0.9813553068084013,
+          0.9926053156832723,
+          1.0071234999055396,
+          1.016367002402859,
+          1.0280633962967105,
+          1.039163888324542,
+          1.051702632001989,
+          1.0641637746088628,
+          1.0760894391665223,
+          1.0859526451094594,
+          1.0979692743728284,
+          1.1091644361294954,
+          1.122051158134107,
+          1.1302000371007885,
+          1.1432141863490446,
+          1.1522309350430933,
+          1.1629202589355523,
+          1.1757221870143502,
+          1.18573070651947,
+          1.1995111184298533,
+          1.211937740441948,
+          1.220924107946365,
+          1.231403599770485,
+          1.2388078712964123,
+          1.2498876790744484,
+          1.261208619978266,
+          1.2677383016314323,
+          1.2770343835172837,
+          1.2879788429677514,
+          1.2974904549919906,
+          1.3044165741196192,
+          1.3107739849733768,
+          1.320725396018592,
+          1.3250205910005222,
+          1.3316541155087458
+        ]
+      },
+      {
+        "request_id": "000_00014",
+        "observation_time_s": 8.4,
+        "drone_z_m": 0.8200903534889221,
+        "aperture_m": 0.07999488711357117,
+        "predicted_target_z_m": [
+          0.8371417077611844,
+          0.8382191540380546,
+          0.8528159039145019,
+          0.85107560344854,
+          0.8586867046964806,
+          0.8653097146045919,
+          0.872652575372209,
+          0.8801450104786035,
+          0.8877950240513214,
+          0.8987507039726864,
+          0.9076433256085603,
+          0.9152697891280348,
+          0.925596242736153,
+          0.9374818275673518,
+          0.9483624392486082,
+          0.9620086941879972,
+          0.9769280078493574,
+          0.9882453970413508,
+          1.0005731524277246,
+          1.0132577015411142,
+          1.0268515719250837,
+          1.036742246142919,
+          1.0496896155433177,
+          1.0616287331677063,
+          1.0722863727244687,
+          1.0842293231314013,
+          1.0957495431756203,
+          1.1063197058587881,
+          1.1171201165653124,
+          1.1295676527941554,
+          1.1389683824193981,
+          1.150979479699962,
+          1.1623157261820718,
+          1.1749197293703002,
+          1.1867584791958048,
+          1.1986097238924025,
+          1.21063944849613,
+          1.2203469412602483,
+          1.2333396908059675,
+          1.2445596762175775,
+          1.258362241611065,
+          1.2688117610756908,
+          1.2825165649624242,
+          1.2955010101459647,
+          1.3066787582939403,
+          1.320667954645434,
+          1.3308364544939384,
+          1.3394165981524644,
+          1.3475757234244798,
+          1.3538195817074026
+        ]
+      },
+      {
+        "request_id": "000_00015",
+        "observation_time_s": 9.0,
+        "drone_z_m": 0.8200911283493042,
+        "aperture_m": 0.07999655604362488,
+        "predicted_target_z_m": [
+          0.8247814459067695,
+          0.8318433860718135,
+          0.8404819157844258,
+          0.8427325767979975,
+          0.8517259838463536,
+          0.8583299895410179,
+          0.8653833634370762,
+          0.8776568498166132,
+          0.8882436946858034,
+          0.8990700293752594,
+          0.9112226904790839,
+          0.923967833489004,
+          0.9379475253382853,
+          0.9528855749183146,
+          0.9639153808540795,
+          0.9778054358971033,
+          0.9932251736173283,
+          1.0030876960473785,
+          1.0155836275438095,
+          1.029083703350958,
+          1.040056972550214,
+          1.0487457628179193,
+          1.0620998543259397,
+          1.0715610908116096,
+          1.0837671106364166,
+          1.095619262424883,
+          1.1086065694193898,
+          1.1202671715122516,
+          1.1344553403815436,
+          1.147537572623722,
+          1.1617602365359092,
+          1.1732258011010517,
+          1.1874379120853014,
+          1.2003546192253487,
+          1.2124528995328454,
+          1.2236341482888777,
+          1.2346894262586328,
+          1.2493116449750845,
+          1.2611618675963374,
+          1.2754655565315036,
+          1.2874281052331775,
+          1.3007304414009129,
+          1.3109886283609453,
+          1.3216304001979757,
+          1.3341507209673282,
+          1.34326599772464,
+          1.3517536180125551,
+          1.3570021282206988,
+          1.3607072535540468,
+          1.3663345448850668
+        ]
+      }
+    ]
+  },
+  "execution_audits": {
+    "execute5": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 119,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    },
+    "execute20": {
+      "status": "passed",
+      "checks": {
+        "all_predeclared_trials_recorded": true,
+        "action_timestamps_10hz": true,
+        "physics_ticks_200hz": true,
+        "physics_advances_during_inference": true,
+        "request_time_anchor_decoding": true,
+        "executed_commands_match_predictions": true,
+        "empty_queue_holds_last_command": true,
+        "no_privileged_policy_inputs": true,
+        "no_future_camera_frames": true,
+        "expert_physical_replay": true,
+        "shared_source_checkouts_clean": true,
+        "entry_points_parse": true
+      },
+      "trials": [
+        {
+          "episode_id": 0,
+          "executed_commands_audited": 277,
+          "max_command_decode_error": 0.0,
+          "max_camera_age_s": 0.10000000000000142
+        }
+      ],
+      "shared_source_status": {
+        "isaaclab": "",
+        "lerobot": "",
+        "isaaclab_shared_editable": ""
+      },
+      "environment_protection": "Both runtime processes use read-only host mounts; no packages installed."
+    }
+  },
+  "first_attempt": {
+    "closure_count": 3,
+    "closure_times_s": [
+      6.7,
+      26.5,
+      26.900000000000002
+    ],
+    "first_close": {
+      "time_s": 6.7,
+      "height_error_m": 0.007066411972045938,
+      "xy_error_from_initial_block_m": 0.0021013932734375257
+    },
+    "first_both_contacts_s": 6.72,
+    "first_lift_s": 11.64,
+    "release_after_grasp_s": 26.400000000000002,
+    "closures_before_lift": 1,
+    "release_chatter_note": "Two extra close transitions occur during release after 26.4 s; there is one grasp closure before lift and no retry before transport."
+  },
+  "expert_replay": {
+    "status": "measured",
+    "settings": {
+      "checkpoint": "artifacts/M5/single_scene_train/checkpoint",
+      "dataset": "datasets/airvla_single_scene_v1",
+      "manifest": "artifacts/M5/single_scene_collection/collection_manifest.json",
+      "seed": 8700,
+      "offline_stride": 20,
+      "replay_episode_ids": [
+        0
+      ],
+      "familiar_episode_ids": [
+        0
+      ],
+      "heldout_episode_ids": [],
+      "action_horizon": 50,
+      "execute_actions": 5,
+      "action_hz": 10,
+      "inference_steps": 10,
+      "timeout_s": 80.0,
+      "success_dwell_s": 2.0,
+      "lift_above_table_m": 0.3,
+      "bin_z_tolerance_m": 0.025,
+      "settled_speed_m_s": 0.04,
+      "safe_z_m": [
+        0.45,
+        2.5
+      ],
+      "safe_xy_radius_m": 2.5,
+      "worker_timeout_wall_s": 60.0,
+      "simulation_time_mode": "realtime_paced_best_effort",
+      "queue_empty": "hold_last_absolute_target_and_gripper_while_physics_continues",
+      "chunk_schedule": "request_when_queue_empty_then_execute_first_5_on_arrival",
+      "scope": "Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt demonstration only; separate from unchanged M5 benchmark.",
+      "replay_raw": "artifacts/M5/single_scene_collection",
+      "split_manifest": "artifacts/M5/single_scene_collection/split_manifest.json",
+      "scene_from_manifest": true,
+      "offline_train_episode_ids": [
+        0
+      ]
+    },
+    "trials": [
+      {
+        "episode_id": 0,
+        "scenario_id": 0,
+        "split": "train",
+        "mode": "replay",
+        "success": true,
+        "grasp_contact": true,
+        "lifted": true,
+        "max_block_z_m": 0.9506492018699646,
+        "success_dwell_s": 7.674999999999859,
+        "termination": "replay_finished",
+        "error": null,
+        "duration_s": 34.2,
+        "wall_elapsed_s": 39.066698222988634,
+        "physics_steps": 6840,
+        "exact_physics_ticks": true,
+        "camera_frames": 172,
+        "executed_actions": 342,
+        "hold_action_ticks": 0,
+        "hold_simulation_s": 0.0,
+        "requests": 0,
+        "completed_requests": 0,
+        "delays": [],
+        "max_replay_command_error": 5.960464477539063e-08,
+        "final_observation": {
+          "drone_state": [
+            0.64531409740448,
+            -0.5745131969451904,
+            1.3999569416046143,
+            0.9999998211860657,
+            -0.0004678093537222594,
+            4.5621272874996066e-05,
+            1.6307878070165316e-07,
+            -0.0005034224013797939,
+            0.0036400845274329185,
+            -7.337813440244645e-05,
+            0.025717658922076225,
+            0.0005052085034549236,
+            -2.631464440128184e-06
+          ],
+          "block_state": [
+            0.6324023008346558,
+            -0.0665455237030983,
+            0.5400000214576721,
+            0.9999513626098633,
+            8.425694772995485e-07,
+            -1.9128249562072597e-07,
+            -0.009853029623627663,
+            0.00016323788440786302,
+            0.00016085460083559155,
+            -6.40973448753357e-05,
+            -0.0004750927328132093,
+            0.0013109341962262988,
+            -5.418692671810277e-05
+          ],
+          "aperture_m": 0.13999896824359895,
+          "contact_force_w_n": [
+            [
+              0.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              0.0
+            ]
+          ],
+          "contacts": [
+            false,
+            false
+          ],
+          "command_open": true
+        },
+        "time_mode": "unpaced_fixed_dt_replay",
+        "replay_action_count_matches": true
+      }
+    ]
+  },
+  "successful_eval_config": "configs/eval_single_scene_execute20.yaml",
+  "limitations": [
+    "One successful learned trial in one fixed familiar scene; no reliability or generalization estimate.",
+    "The first 5-action-prefix trial failed; the same checkpoint succeeded with a 20-action prefix.",
+    "Blue color, reset simplification and training sampling changed together; this is not a color ablation.",
+    "Two short close-command pulses occurred during release; placement still met the unchanged 2 s settle criterion.",
+    "Recovery work is deferred at user request; original M5 benchmark remains unchanged and unsuccessful."
+  ],
+  "checkpoint_files": {
+    "adapter.json": {
+      "bytes": 464,
+      "sha256": "c1cf8d3c67a9514844c8f916506017035a68b60b8f708d63682300a0a7e00eeb"
+    },
+    "config.json": {
+      "bytes": 2472,
+      "sha256": "7b2662b0f3d200ebb8a43f5f58dc80384d0f31273e423624eeff262a3dbcd8ac"
+    },
+    "model.safetensors": {
+      "bytes": 8892502976,
+      "sha256": "54f51ef264394aa5abcb7c44e683b4133fcf822f023e4a9a82ace0753322ce14"
+    },
+    "normalization.json": {
+      "bytes": 1929,
+      "sha256": "17d473bdba595328c0dc406506552b214e9f00d241833c358d978d2690429df6"
+    },
+    "schema.json": {
+      "bytes": 1641,
+      "sha256": "f21d0a67b2d62a7f390b8f54877d73cb89d0d4d0c7853d40a2eccaa7e85ce2ad"
+    },
+    "tokenizer/tokenizer.json": {
+      "bytes": 34387382,
+      "sha256": "ee726ea83cc9cfac4c3bae873d1f885a0e81b5832fabd413d425b778b2141b50"
+    },
+    "tokenizer/tokenizer_config.json": {
+      "bytes": 502,
+      "sha256": "d36fcc5eed92f7b30976de93450dcb6229663e13c41be1f59ae54f2f20c9cc24"
+    },
+    "training_metadata.json": {
+      "bytes": 953,
+      "sha256": "db4f8cb5cfd32b03d932915e95eea5e9a77dd0e1a3b83f46004e7f70825d09f8"
+    }
+  },
+  "successful_eval_config_sha256": "5cf77d5e234b5bc1029305c8af6c6d6a86439af657f7b8f9051eda75661a097c",
+  "sampling_weights_sha256": "3c88af6d62527efb443f2d9d0866e8ddbecd91db7634f9a1d10c1ebdb57ae98f"
+}

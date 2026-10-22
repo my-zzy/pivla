@@ -42,7 +42,8 @@ def main():
     save(args.output/'settings.json', settings)
     selected = settings['replay_episode_ids'] if args.mode == 'replay' else settings['familiar_episode_ids']+settings['heldout_episode_ids']
     base = merge(yaml.safe_load(Path('configs/sim.yaml').read_text()), yaml.safe_load(Path('configs/manipulation.yaml').read_text()))
-    env = ScenarioEnv(base, args.device, True)
+    # Appearance is authored at scene creation; honor a separate experiment's config.
+    env = ScenarioEnv(manifest['episodes'][selected[0]]['config'] if settings.get('scene_from_manifest') else base, args.device, True)
     results = []
     for ep in selected:
         result = run_trial(env, manifest['episodes'][ep], settings, args.output/f'episode_{ep:03d}', args.mode, args.ipc)

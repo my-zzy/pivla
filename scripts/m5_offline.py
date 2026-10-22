@@ -45,8 +45,8 @@ def main():
     policy.config.device = 'cuda'
     report = {'checkpoint': str(checkpoint), 'settings': settings, 'groups': {},
               'scope': 'Offline command prediction only. ' + settings['scope']}
-    split_manifest = json.loads(Path('artifacts/M3/split_manifest.json').read_text())
-    for split, name, selected in [('train', 'familiar', [0, 4]), ('validation', 'heldout', None)]:
+    split_manifest = json.loads(Path(settings.get('split_manifest', 'artifacts/M3/split_manifest.json')).read_text())
+    for split, name, selected in [('train', 'familiar', settings.get('offline_train_episode_ids', [0, 4])), ('validation', 'heldout', None)]:
         dataset = ChunkDataset(settings['dataset'], split)
         configure_normalization(dataset, adapter, settings.get('offline_normalization', 'dataset'))
         numeric = dataset.dataset.hf_dataset.select_columns(['episode_index', 'action']).with_format('numpy')[:]

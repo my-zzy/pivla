@@ -120,3 +120,9 @@ checkpoints/
 !/artifacts/M5/recovery_v2_result.json
 !/artifacts/M5/recovery_v2_lift_fix.png
 !/artifacts/M5/recovery_v2_yaw_coverage.png
+
+# Narrow single-scene experiment: compact evidence only.
+!/artifacts/M5/single_scene_report.md
+!/artifacts/M5/single_scene_result.json
+!/artifacts/M5/single_scene_preview.png
+!/artifacts/M5/single_scene_prefix_diagnosis.png

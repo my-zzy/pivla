@@ -1,0 +1,36 @@
+checkpoint: artifacts/M5/single_scene_train/checkpoint
+dataset: datasets/airvla_single_scene_v1
+manifest: artifacts/M5/single_scene_collection/collection_manifest.json
+seed: 8700
+offline_stride: 20
+replay_episode_ids:
+- 0
+familiar_episode_ids:
+- 0
+heldout_episode_ids: []
+action_horizon: 50
+execute_actions: 20
+action_hz: 10
+inference_steps: 10
+timeout_s: 80.0
+success_dwell_s: 2.0
+lift_above_table_m: 0.3
+bin_z_tolerance_m: 0.025
+settled_speed_m_s: 0.04
+safe_z_m:
+- 0.45
+- 2.5
+safe_xy_radius_m: 2.5
+worker_timeout_wall_s: 60.0
+simulation_time_mode: realtime_paced_best_effort
+queue_empty: hold_last_absolute_target_and_gripper_while_physics_continues
+chunk_schedule: request_when_queue_empty_then_execute_first_20_on_arrival
+scope: 'Single fixed blue-block layout, zero yaw, exact familiar reset. First-attempt
+  demonstration only; separate from unchanged M5 benchmark. Follow-up: execute 20
+  learned actions per chunk to test whether short-prefix replanning prevents lift
+  buildup.'
+replay_raw: artifacts/M5/single_scene_collection
+split_manifest: artifacts/M5/single_scene_collection/split_manifest.json
+scene_from_manifest: true
+offline_train_episode_ids:
+- 0

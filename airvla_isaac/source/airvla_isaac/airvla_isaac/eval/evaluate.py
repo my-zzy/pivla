@@ -38,7 +38,7 @@ def run_trial(env, item, settings, output, mode, ipc=None):
     delays, pending = [], None
     source_rows = []
     if mode == 'replay':
-        source = Path('artifacts/M3')/f'episode_{item["episode_id"]:03d}'/'samples.jsonl'
+        source = Path(settings.get('replay_raw', 'artifacts/M3'))/f'episode_{item["episode_id"]:03d}'/'samples.jsonl'
         source_rows = [json.loads(line) for line in source.read_text().splitlines()]
         absolute = np.asarray([r['action'] for r in source_rows], dtype=np.float32)
     start_wall = time.monotonic()

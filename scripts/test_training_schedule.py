@@ -8,10 +8,29 @@ from pathlib import Path
 from unittest.mock import patch
 
 import torch
-from m4_train import check_dataset_coverage, evaluate, learning_rate_at
+from m4_train import check_dataset_coverage, evaluate, learning_rate_at, sampling_weights
 
 
 class ScheduleTests(unittest.TestCase):
+    def test_sampling_weights_subset_and_rejection(self):
+        class Dataset:
+            schema={'repo_id':'local/weights_test'}
+            def __len__(self):return 3
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);(root/'normalization.json').write_text('{}')
+            record={'repo_id':Dataset.schema['repo_id'],'weights':[1.,3.,2.],
+                    'normalization_sha256':hashlib.sha256(b'{}').hexdigest()}
+            path=root/'weights.json';path.write_text(json.dumps(record))
+            cfg={'dataset':str(root),'sampling_weights':str(path)}
+            self.assertEqual(sampling_weights(cfg,Dataset(),[2,0]).tolist(),[2.,1.])
+            for invalid in ([1.,0.,2.],[1.,float('nan'),2.],[1.,2.]):
+                record['weights']=invalid;path.write_text(json.dumps(record))
+                with self.assertRaises(ValueError):sampling_weights(cfg,Dataset(),[0])
+            record['weights']=[1.,3.,2.];record['repo_id']='wrong'
+            path.write_text(json.dumps(record))
+            with self.assertRaises(ValueError):sampling_weights(cfg,Dataset(),[0])
+            self.assertIsNone(sampling_weights({},Dataset(),[0]))
+
     def test_training_refuses_stale_or_failed_coverage(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

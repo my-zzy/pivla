@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
 import numpy as np
 import torch
-from torch.utils.data import DataLoader, Subset, default_collate
+from torch.utils.data import DataLoader, Subset, WeightedRandomSampler, default_collate
 import yaml
 from training_ui import TrainingDisplay
 
@@ -125,6 +125,19 @@ def check_dataset_coverage(settings):
         raise ValueError('Dataset coverage report is failed, stale, or belongs to another dataset')
 
 
+def sampling_weights(settings, dataset, indices):
+    """Optional audited row sampling; no changes to action targets or normalization."""
+    if not settings.get('sampling_weights'):
+        return None
+    record=json.loads(Path(settings['sampling_weights']).read_text())
+    digest=hashlib.sha256((Path(settings['dataset'])/'normalization.json').read_bytes()).hexdigest()
+    weights=np.asarray(record['weights'],dtype=np.float64)
+    if (record['repo_id']!=dataset.schema['repo_id'] or record['normalization_sha256']!=digest
+        or weights.shape!=(len(dataset),) or not np.isfinite(weights).all() or (weights<=0).any()):
+        raise ValueError('Invalid or mismatched sampling weights')
+    return torch.as_tensor(weights[indices],dtype=torch.double)
+
+
 def run(args, settings, out, ui):
     ui.phase('Preparing datasets, tokenizer, and CUDA')
     check_dataset_coverage(settings)
@@ -164,8 +177,11 @@ def run(args, settings, out, ui):
         'parameters':sum(p.numel() for p in policy.parameters()),'trainable_parameters':sum(p.numel() for p in trainable),
         'pretrained_weights_loaded_strictly':True,
         'probe_steps':args.probe_steps if args.probe else None})
-    loader=DataLoader(Subset(dataset,indices),batch_size=settings['batch_size'],shuffle=True,num_workers=0,
-                      generator=torch.Generator().manual_seed(seed))
+    weights=sampling_weights(settings,dataset,indices)
+    sampler=None if weights is None else WeightedRandomSampler(weights,len(indices),replacement=True,
+                                                              generator=torch.Generator().manual_seed(seed))
+    loader=DataLoader(Subset(dataset,indices),batch_size=settings['batch_size'],shuffle=sampler is None,
+                      sampler=sampler,num_workers=0,generator=torch.Generator().manual_seed(seed))
     optimizer=torch.optim.AdamW(trainable,lr=settings['learning_rate'],betas=(.9,.95),
                                eps=1e-8,weight_decay=settings['weight_decay'])
     def monitor(step):

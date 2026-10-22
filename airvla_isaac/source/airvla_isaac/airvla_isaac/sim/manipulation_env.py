@@ -47,7 +47,7 @@ class ManipulationEnv(HoverEnv):
                 mass_props=sim_utils.MassPropertiesCfg(mass=task['block_mass_kg']),
                 collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=.002, rest_offset=0.),
                 physics_material=sim_utils.RigidBodyMaterialCfg(static_friction=1., dynamic_friction=1., restitution=0.),
-                visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=(.95, .30, .03))),
+                visual_material=sim_utils.PreviewSurfaceCfg(diffuse_color=tuple(task.get('block_color', (.95, .30, .03))))),
             init_state=RigidObjectCfg.InitialStateCfg(pos=tuple(task['block_position']))))
 
     def create_drone(self, config):

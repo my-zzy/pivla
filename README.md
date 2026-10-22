@@ -1,6 +1,6 @@
 # AirVLA simulation project
 
-M0–M4 are complete. M5 is still in correction: the latest recovery v2 cycle fixed expert lift drift and restored training reset/yaw coverage, but its 2,500-step policy pilot scored 0/6 physical successes. Next is precise grasp alignment and recovery from an empty, closed gripper. Start with [implement_guide.md](implement_guide.md) and the [current report and videos](artifacts/M5/recovery_v2_report.md).
+**One complete learned pick-and-place has succeeded** in a fixed scene with a blue block. [Watch the policy video](artifacts/M5/single_scene_execute20_eval/closed_loop/trials/episode_000/rollout.mp4) or read the [report and reproduction commands](artifacts/M5/single_scene_report.md). The successful configuration executes 20 learned actions per chunk; the initial five-action trial failed. This is one familiar-scene success, not a generalization claim. The original six-trial M5 benchmark is unchanged; recovery work remains deferred. See [implement_guide.md](implement_guide.md).
 
 - [M0 results, environment details, and commands](artifacts/M0/report.md)
 - [M1 results, video, camera preview, and plots](artifacts/M1/report.md)

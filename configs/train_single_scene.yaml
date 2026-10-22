@@ -1,0 +1,25 @@
+# Narrow first-attempt demo; no scene-generalization claim.
+base_checkpoint: checkpoints/pi0_base
+tokenizer: checkpoints/paligemma_tokenizer
+dataset: datasets/airvla_single_scene_v1
+sampling_weights: artifacts/M5/single_scene_collection/sampling_weights.json
+output: artifacts/M5/single_scene_train
+seed: 8601
+train_episode_ids: null
+batch_size: 4
+steps: 2000
+learning_rate: 0.00005
+lr_schedule: cosine
+warmup_steps: 200
+min_lr_ratio: 0.1
+weight_decay: 0.01
+grad_clip_norm: 1.0
+expert_only: true
+gradient_checkpointing: true
+dtype: bfloat16
+evaluation_stride: 50
+validation_split: validation
+validation_stride: 50
+eval_every: 1000
+checkpoint_every: 1000
+inference_steps: 10
